@@ -53,6 +53,10 @@ import {
   CategoryList,
   CategoryShow,
 } from "./pages/categories";
+import {
+  ActinobacteriaList,
+  ActinobacteriaShow
+} from "./pages/actinobacteria";
 import { Login } from "./pages/login";
 import { parseJwt } from "./utils/parse-jwt";
 import { MuiInferencer } from '@refinedev/inferencer/mui';
@@ -351,8 +355,8 @@ function App() {
                     <Route path="show/:id" element={<CategoryShow />} />
                   </Route>
                   <Route path="/actinobacteria">
-                    <Route index element={<MuiInferencer />} />
-                    <Route path="show/:id" element={<MuiInferencer />} />
+                    <Route index element={<ActinobacteriaList />} />
+                    <Route path="show/:id" element={<ActinobacteriaShow />} />
                   </Route>
                   <Route path="*" element={<ErrorComponent />} />
                   <Route path="/myactinobacteria">
