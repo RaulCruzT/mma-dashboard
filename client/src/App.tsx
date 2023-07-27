@@ -57,6 +57,48 @@ import {
   ActinobacteriaList,
   ActinobacteriaShow
 } from "./pages/actinobacteria";
+import {
+  MyActinobacteriaList,
+  MyActinobacteriaShow,
+  MyActinobacteriaCreate,
+  MyActinobacteriaEdit
+} from "./pages/myactinobacteria";
+import {
+  AssemblyList,
+  AssemblyShow,
+  AssemblyCreate,
+  AssemblyEdit
+} from "./pages/assembly";
+import {
+  ProcessedDataList,
+  ProcessedDataShow,
+  ProcessedDataCreate,
+  ProcessedDataEdit
+} from "./pages/processeddata";
+import {
+  UsersList,
+  UsersEdit
+} from "./pages/users";
+import {
+  GeneraList,
+  GeneraCreate,
+  GeneraEdit
+} from "./pages/genera";
+import {
+  CultureMediumList,
+  CultureMediumCreate,
+  CultureMediumEdit
+} from "./pages/culturemedium";
+import {
+  TypeStrainList,
+  TypeStrainCreate,
+  TypeStrainEdit
+} from "./pages/typestrain";
+import {
+  EnzymeList,
+  EnzymeCreate,
+  EnzymeEdit
+} from "./pages/enzyme";
 import { Login } from "./pages/login";
 import { parseJwt } from "./utils/parse-jwt";
 import { MuiInferencer } from '@refinedev/inferencer/mui';
@@ -360,46 +402,46 @@ function App() {
                   </Route>
                   <Route path="*" element={<ErrorComponent />} />
                   <Route path="/myactinobacteria">
-                    <Route index element={<MuiInferencer />} />
-                    <Route path="create" element={<MuiInferencer />} />
-                    <Route path="edit/:id" element={<MuiInferencer />} />
-                    <Route path="show/:id" element={<MuiInferencer />} />
+                    <Route index element={<MyActinobacteriaList />} />
+                    <Route path="create" element={<MyActinobacteriaCreate />} />
+                    <Route path="edit/:id" element={<MyActinobacteriaEdit />} />
+                    <Route path="show/:id" element={<MyActinobacteriaShow />} />
                   </Route>
                   <Route path="/assembly">
-                    <Route index element={<MuiInferencer />} />
-                    <Route path="create" element={<MuiInferencer />} />
-                    <Route path="edit/:id" element={<MuiInferencer />} />
-                    <Route path="show/:id" element={<MuiInferencer />} />
+                    <Route index element={<AssemblyList />} />
+                    <Route path="create" element={<AssemblyCreate />} />
+                    <Route path="edit/:id" element={<AssemblyEdit />} />
+                    <Route path="show/:id" element={<AssemblyShow />} />
                   </Route>
                   <Route path="/processeddata">
-                    <Route index element={<MuiInferencer />} />
-                    <Route path="create" element={<MuiInferencer />} />
-                    <Route path="edit/:id" element={<MuiInferencer />} />
-                    <Route path="show/:id" element={<MuiInferencer />} />
+                    <Route index element={<ProcessedDataList />} />
+                    <Route path="create" element={<ProcessedDataCreate />} />
+                    <Route path="edit/:id" element={<ProcessedDataEdit />} />
+                    <Route path="show/:id" element={<ProcessedDataShow />} />
                   </Route>
                   <Route path="/users">
-                    <Route index element={<MuiInferencer />} />
-                    <Route path="edit/:id" element={<MuiInferencer />} />
+                    <Route index element={<UsersList />} />
+                    <Route path="edit/:id" element={<UsersEdit />} />
                   </Route>
                   <Route path="/genera">
-                    <Route index element={<MuiInferencer />} />
-                    <Route path="create" element={<MuiInferencer />} />
-                    <Route path="edit/:id" element={<MuiInferencer />} />
+                    <Route index element={<GeneraList />} />
+                    <Route path="create" element={<GeneraCreate />} />
+                    <Route path="edit/:id" element={<GeneraEdit />} />
                   </Route>
                   <Route path="/culturemedium">
-                    <Route index element={<MuiInferencer />} />
-                    <Route path="create" element={<MuiInferencer />} />
-                    <Route path="edit/:id" element={<MuiInferencer />} />
+                    <Route index element={<CultureMediumList />} />
+                    <Route path="create" element={<CultureMediumCreate />} />
+                    <Route path="edit/:id" element={<CultureMediumEdit />} />
                   </Route>
                   <Route path="/typestrain">
-                    <Route index element={<MuiInferencer />} />
-                    <Route path="create" element={<MuiInferencer />} />
-                    <Route path="edit/:id" element={<MuiInferencer />} />
+                    <Route index element={<TypeStrainList />} />
+                    <Route path="create" element={<TypeStrainCreate />} />
+                    <Route path="edit/:id" element={<TypeStrainEdit />} />
                   </Route>
                   <Route path="/enzyme">
-                    <Route index element={<MuiInferencer />} />
-                    <Route path="create" element={<MuiInferencer />} />
-                    <Route path="edit/:id" element={<MuiInferencer />} />
+                    <Route index element={<EnzymeList />} />
+                    <Route path="create" element={<EnzymeCreate />} />
+                    <Route path="edit/:id" element={<EnzymeEdit />} />
                   </Route>
                 </Route>
                 <Route
