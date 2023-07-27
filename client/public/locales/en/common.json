@@ -140,21 +140,21 @@
     }
   },
   "documentTitle": {
-    "default": "refine",
-    "suffix": " | refine",
+    "default": "MyMicrobeApp",
+    "suffix": " | MyMicrobeApp",
     "blog_posts": {
-      "list": "Blog Posts | refine",
-      "show": "#{{id}} Show Blog Post | refine",
-      "edit": "#{{id}} Edit Blog Post | refine",
-      "create": "Create new Blog Post | refine",
-      "clone": "#{{id}} Clone Blog Post | refine"
+      "list": "Blog Posts | MyMicrobeApp",
+      "show": "#{{id}} Show Blog Post | MyMicrobeApp",
+      "edit": "#{{id}} Edit Blog Post | MyMicrobeApp",
+      "create": "Create new Blog Post | MyMicrobeApp",
+      "clone": "#{{id}} Clone Blog Post | MyMicrobeApp"
     },
     "categories": {
-      "list": "Categories | refine",
-      "show": "#{{id}} Show Category | refine",
-      "edit": "#{{id}} Edit Category | refine",
-      "create": "Create new Category | refine",
-      "clone": "#{{id}} Clone Category | refine"
+      "list": "Categories | MyMicrobeApp",
+      "show": "#{{id}} Show Category | MyMicrobeApp",
+      "edit": "#{{id}} Edit Category | MyMicrobeApp",
+      "create": "Create new Category | MyMicrobeApp",
+      "clone": "#{{id}} Clone Category | MyMicrobeApp"
     }
   },
   "table": {

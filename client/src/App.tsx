@@ -101,7 +101,6 @@ import {
 } from "./pages/enzyme";
 import { Login } from "./pages/login";
 import { parseJwt } from "./utils/parse-jwt";
-import { MuiInferencer } from '@refinedev/inferencer/mui';
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
