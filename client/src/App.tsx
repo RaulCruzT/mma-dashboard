@@ -124,13 +124,35 @@ function App() {
       const profileObj = credential ? parseJwt(credential) : null;
 
       if (profileObj) {
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            ...profileObj,
-            avatar: profileObj.picture,
-          })
+        const response = await fetch(
+          import.meta.env.VITE_SERVER_USER_CREATE_USER,
+          {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                  name: profileObj.name,
+                  email: profileObj.email,
+                  avatar: profileObj.picture,
+              }),
+          },
         );
+
+        const data = await response.json();
+
+
+        if (response.ok) {
+            localStorage.setItem(
+                "user",
+                JSON.stringify({
+                    ...profileObj,
+                    avatar: profileObj.picture,
+                    userid: data._id,
+                    role: data.role
+                }),
+            );
+        } else {
+            return Promise.reject();
+        }
 
         localStorage.setItem("token", `${credential}`);
 
