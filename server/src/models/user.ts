@@ -5,7 +5,7 @@ const userSchema = new Schema({
     email: { type: String, required: true, unique: true },
     avatar: { type: String, required: true },
     allProperties: [{ type: Schema.Types.ObjectId, ref: "Property" }],
-    role: { type: Number, required: true, default: 0, enum: [0, 1, 2]},
+    role: { type: String, required: true, default: 'user', enum: ['user', 'manager', 'admin']},
 }, { timestamps: true });
 
 type User = InferSchemaType<typeof userSchema>;
