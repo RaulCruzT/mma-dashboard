@@ -40,7 +40,6 @@ import routerBindings, {
 } from "@refinedev/react-router-v6";
 import dataProvider from "@refinedev/simple-rest";
 import axios, { AxiosRequestConfig } from "axios";
-import { useTranslation } from "react-i18next";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { AppIcon } from "./components/app-icon";
 import { Header } from "./components/header";
@@ -110,8 +109,6 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
 });
 
 function App() {
-  const { t, i18n } = useTranslation();
-
   const authProvider: AuthBindings = {
     login: async ({ credential }: CredentialResponse) => {
       const profileObj = credential ? parseJwt(credential) : null;
@@ -210,12 +207,6 @@ function App() {
     },
   };
 
-  const i18nProvider = {
-    translate: (key: string, params: object) => t(key, params),
-    changeLocale: (lang: string) => i18n.changeLanguage(lang),
-    getLocale: () => i18n.language,
-  };
-
   // const role = "user";
 
   // const accessControlProvider: AccessControlProvider = {
@@ -264,7 +255,6 @@ function App() {
               dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
               notificationProvider={notificationProvider}
               authProvider={authProvider}
-              i18nProvider={i18nProvider}
               routerProvider={routerBindings}
               // accessControlProvider={accessControlProvider}
               resources={[
