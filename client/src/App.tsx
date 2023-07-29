@@ -109,6 +109,8 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
 });
 
 function App() {
+  const role = localStorage.getItem("role") ?? "user";
+
   const authProvider: AuthBindings = {
     login: async ({ credential }: CredentialResponse) => {
       const profileObj = credential ? parseJwt(credential) : null;
@@ -136,10 +138,10 @@ function App() {
                 JSON.stringify({
                     ...profileObj,
                     avatar: profileObj.picture,
-                    userid: data._id,
-                    role: data.role
+                    userid: data._id
                 }),
             );
+            localStorage.setItem("role", data.role);
         } else {
             return Promise.reject();
         }
@@ -162,6 +164,7 @@ function App() {
       if (token && typeof window !== "undefined") {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
+        localStorage.removeItem("role");
         axios.defaults.headers.common = {};
         window.google?.accounts.id.revoke(token, () => {
           return {};
@@ -206,8 +209,6 @@ function App() {
       return null;
     },
   };
-
-  // const role = "user";
 
   // const accessControlProvider: AccessControlProvider = {
   //   can: async ({ action, params, resource }) => {
