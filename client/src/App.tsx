@@ -1,9 +1,14 @@
 import {
+  AccessControlProvider,
   AuthBindings,
   Authenticated,
   Refine,
+  CanAccess,
 } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
+
+import { newEnforcer } from "casbin";
+import { model, adapter } from "./accessControl";
 
 import {
   ErrorComponent,
@@ -41,18 +46,6 @@ import { AppIcon } from "./components/app-icon";
 import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 import { CredentialResponse } from "./interfaces/google";
-import {
-  BlogPostCreate,
-  BlogPostEdit,
-  BlogPostList,
-  BlogPostShow,
-} from "./pages/blog-posts";
-import {
-  CategoryCreate,
-  CategoryEdit,
-  CategoryList,
-  CategoryShow,
-} from "./pages/categories";
 import {
   ActinobacteriaList,
   ActinobacteriaShow
@@ -223,6 +216,43 @@ function App() {
     getLocale: () => i18n.language,
   };
 
+  // const role = "user";
+
+  // const accessControlProvider: AccessControlProvider = {
+  //   can: async ({ action, params, resource }) => {
+  //       const enforcer = await newEnforcer(model, adapter);
+  //       if (
+  //           action === "delete" ||
+  //           action === "edit" ||
+  //           action === "show"
+  //       ) {
+  //           return Promise.resolve({
+  //               can: await enforcer.enforce(
+  //                   role,
+  //                   `${resource}/${params?.id}`,
+  //                   action,
+  //               ),
+  //           });
+  //       }
+  //       if (action === "field") {
+  //           return Promise.resolve({
+  //               can: await enforcer.enforce(
+  //                   role,
+  //                   `${resource}/${params?.field}`,
+  //                   action,
+  //               ),
+  //           });
+  //       }
+  //       return {
+  //           can: await enforcer.enforce(
+  //               role,
+  //               resource,
+  //               action,
+  //           ),
+  //       };
+  //   },
+  // }
+
   return (
     <BrowserRouter>
       <RefineKbarProvider>
@@ -236,27 +266,8 @@ function App() {
               authProvider={authProvider}
               i18nProvider={i18nProvider}
               routerProvider={routerBindings}
+              // accessControlProvider={accessControlProvider}
               resources={[
-                {
-                  name: "blog_posts",
-                  list: "/blog-posts",
-                  create: "/blog-posts/create",
-                  edit: "/blog-posts/edit/:id",
-                  show: "/blog-posts/show/:id",
-                  meta: {
-                    canDelete: true,
-                  },
-                },
-                {
-                  name: "categories",
-                  list: "/categories",
-                  create: "/categories/create",
-                  edit: "/categories/edit/:id",
-                  show: "/categories/show/:id",
-                  meta: {
-                    canDelete: true,
-                  },
-                },
                 {
                   name: "actinobacteria",
                   options: {
@@ -396,27 +407,17 @@ function App() {
                           />
                         )}
                       >
-                        <Outlet />
+                        {/* <CanAccess> */}
+                          <Outlet />
+                        {/* </CanAccess> */}
                       </ThemedLayoutV2>
                     </Authenticated>
                   }
                 >
                   <Route
                     index
-                    element={<NavigateToResource resource="blog_posts" />}
+                    element={<NavigateToResource resource="actinobacteria" />}
                   />
-                  <Route path="/blog-posts">
-                    <Route index element={<BlogPostList />} />
-                    <Route path="create" element={<BlogPostCreate />} />
-                    <Route path="edit/:id" element={<BlogPostEdit />} />
-                    <Route path="show/:id" element={<BlogPostShow />} />
-                  </Route>
-                  <Route path="/categories">
-                    <Route index element={<CategoryList />} />
-                    <Route path="create" element={<CategoryCreate />} />
-                    <Route path="edit/:id" element={<CategoryEdit />} />
-                    <Route path="show/:id" element={<CategoryShow />} />
-                  </Route>
                   <Route path="/actinobacteria">
                     <Route index element={<ActinobacteriaList />} />
                     <Route path="show/:id" element={<ActinobacteriaShow />} />
