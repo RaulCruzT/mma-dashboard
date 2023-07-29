@@ -22,13 +22,9 @@
     "@refinedev/simple-rest": "^4.0.0",
     "axios": "^0.26.1",
     "casbin": "^5.26.1",
-    "i18next": "^20.1.0",
-    "i18next-browser-languagedetector": "^6.1.1",
-    "i18next-xhr-backend": "^3.2.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.30.0",
-    "react-i18next": "^11.8.11",
     "react-router-dom": "^6.8.1"
   },
   "devDependencies": {
