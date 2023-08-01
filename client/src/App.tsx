@@ -210,40 +210,40 @@ function App() {
     },
   };
 
-  // const accessControlProvider: AccessControlProvider = {
-  //   can: async ({ action, params, resource }) => {
-  //       const enforcer = await newEnforcer(model, adapter);
-  //       if (
-  //           action === "delete" ||
-  //           action === "edit" ||
-  //           action === "show"
-  //       ) {
-  //           return Promise.resolve({
-  //               can: await enforcer.enforce(
-  //                   role,
-  //                   `${resource}/${params?.id}`,
-  //                   action,
-  //               ),
-  //           });
-  //       }
-  //       if (action === "field") {
-  //           return Promise.resolve({
-  //               can: await enforcer.enforce(
-  //                   role,
-  //                   `${resource}/${params?.field}`,
-  //                   action,
-  //               ),
-  //           });
-  //       }
-  //       return {
-  //           can: await enforcer.enforce(
-  //               role,
-  //               resource,
-  //               action,
-  //           ),
-  //       };
-  //   },
-  // }
+  const accessControlProvider: AccessControlProvider = {
+    can: async ({ action, params, resource }) => {
+        const enforcer = await newEnforcer(model, adapter);
+        if (
+            action === "delete" ||
+            action === "edit" ||
+            action === "show"
+        ) {
+            return Promise.resolve({
+                can: await enforcer.enforce(
+                    role,
+                    `${resource}/${params?.id}`,
+                    action,
+                ),
+            });
+        }
+        if (action === "field") {
+            return Promise.resolve({
+                can: await enforcer.enforce(
+                    role,
+                    `${resource}/${params?.field}`,
+                    action,
+                ),
+            });
+        }
+        return {
+            can: await enforcer.enforce(
+                role,
+                resource,
+                action,
+            ),
+        };
+    },
+  }
 
   return (
     <BrowserRouter>
@@ -257,7 +257,7 @@ function App() {
               notificationProvider={notificationProvider}
               authProvider={authProvider}
               routerProvider={routerBindings}
-              // accessControlProvider={accessControlProvider}
+              accessControlProvider={accessControlProvider}
               resources={[
                 {
                   name: "actinobacteria",
@@ -398,9 +398,9 @@ function App() {
                           />
                         )}
                       >
-                        {/* <CanAccess> */}
+                        <CanAccess>
                           <Outlet />
-                        {/* </CanAccess> */}
+                        </CanAccess>
                       </ThemedLayoutV2>
                     </Authenticated>
                   }
