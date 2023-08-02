@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IdConfiguration {
   client_id: string;
   auto_select?: boolean;

@@ -16,7 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "vite.config.ts"],
+  "include": ["src", "vite.config.ts", "src/utils/parse-jwt.ts", "../server/src/middleware/auth.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"
