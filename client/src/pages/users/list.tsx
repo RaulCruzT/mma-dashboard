@@ -1,7 +1,7 @@
-import { List, useDataGrid } from "@refinedev/mui";
+import { List, ShowButton, useDataGrid } from "@refinedev/mui";
 import { IUser } from "../../interfaces/user";
 import { IResourceComponentsProps } from "@refinedev/core";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import React from "react";
 import { Avatar, Grid } from "@mui/material";
 
@@ -23,7 +23,7 @@ export const UsersList: React.FC<IResourceComponentsProps> = () => {
                 field: "avatar",
                 headerName: "Avatar",
                 renderCell: function render({ row }) {
-                    return <Avatar src={row.avatar[0].url} />;
+                    return <Avatar src={row.avatar} />;
                 },
                 minWidth: 100,
                 flex: 1,
@@ -34,6 +34,23 @@ export const UsersList: React.FC<IResourceComponentsProps> = () => {
                 headerName: "Role",
                 minWidth: 150,
                 flex: 1,
+            },
+            {
+                field: "actions",
+                headerName: "Actions",
+                renderCell: function render({ row }) {
+                    return (
+                        <ShowButton
+                            size="small"
+                            hideText
+                            recordItemId={row._id}
+                        />
+                    );
+                },
+                align: "center",
+                headerAlign: "center",
+                flex: 1,
+                minWidth: 80,
             },
         ],
         [],
@@ -50,6 +67,9 @@ export const UsersList: React.FC<IResourceComponentsProps> = () => {
                         filterModel={undefined}
                         autoHeight
                         pageSizeOptions={[10, 20, 50, 100]}
+                        slots={{
+                            toolbar: GridToolbar,
+                        }}
                     />
                 </List>
             </Grid>
