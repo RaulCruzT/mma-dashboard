@@ -42,3 +42,13 @@ export const GetUserById: RequestHandler<GetUserByIdParamsInterface, unknown, un
         next(error);
     }
 };
+
+export const GetUserList: RequestHandler<unknown, unknown, unknown, unknown> = async (req, res, next) => {
+    try {
+        const users = await UserModel.find().exec();
+
+        res.status(200).json(users);
+    } catch (error) {
+        next(error);
+    }
+}
