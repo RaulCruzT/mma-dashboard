@@ -93,6 +93,7 @@ import {
 } from "./pages/enzyme";
 import { Login } from "./pages/login";
 import { parseJwt } from "./utils/parse-jwt";
+import { useState } from "react";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -109,7 +110,7 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
 });
 
 function App() {
-  const role = localStorage.getItem("role") ?? "user";
+  const [role, setRole] = useState<string>();
 
   const authProvider: AuthBindings = {
     login: async ({ credential }: CredentialResponse) => {
@@ -142,6 +143,7 @@ function App() {
                 }),
             );
             localStorage.setItem("role", data.role);
+            setRole(data.role);
         } else {
             return Promise.reject();
         }
@@ -182,8 +184,10 @@ function App() {
     },
     check: async () => {
       const token = localStorage.getItem("token");
+      const role = localStorage.getItem("role") ?? "user";
 
       if (token) {
+        setRole(role);
         return {
           authenticated: true,
         };
