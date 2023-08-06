@@ -1,10 +1,19 @@
 import { List, useDataGrid, EditButton } from "@refinedev/mui";
 import { IUser } from "../../interfaces/user";
 import { IResourceComponentsProps } from "@refinedev/core";
-import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton, getGridStringOperators } from "@mui/x-data-grid";
 import React from "react";
 import { Avatar } from "@mui/material";
 
+const CustomToolbar: React.JSXElementConstructor<unknown> = () => {
+    return (
+        <GridToolbarContainer>
+            <GridToolbarColumnsButton />
+            <GridToolbarFilterButton />
+            <GridToolbarDensitySelector />
+        </GridToolbarContainer>
+    );
+}
 
 export const UsersList: React.FC<IResourceComponentsProps> = () => {
     const { dataGridProps } = useDataGrid<IUser>({
@@ -18,12 +27,18 @@ export const UsersList: React.FC<IResourceComponentsProps> = () => {
                 headerName: "Name",
                 minWidth: 150,
                 flex: 1,
+                filterOperators: getGridStringOperators().filter(
+                    (operator) => operator.value === 'contains'
+                )
             },
             {
                 field: "email",
                 headerName: "Email",
                 minWidth: 150,
                 flex: 1,
+                filterOperators: getGridStringOperators().filter(
+                    (operator) => operator.value === 'contains'
+                )
             },
             {
                 field: "avatar",
@@ -75,7 +90,7 @@ export const UsersList: React.FC<IResourceComponentsProps> = () => {
                 autoHeight
                 pageSizeOptions={[10, 20, 50, 100]}
                 slots={{
-                    toolbar: GridToolbar,
+                    toolbar: CustomToolbar,
                 }}
             />
         </List>

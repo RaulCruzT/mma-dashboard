@@ -1,9 +1,8 @@
 import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
 import { UserModel } from '../models';
-import { UserParamsInterface, UserBodyInterface } from '../data/interfaces/user';
+import { UserParamsInterface, UserBodyInterface, UserPaginationQueryInterface } from '../data/interfaces/user';
 import mongoose from 'mongoose';
-import { PaginationQueryInterface } from '../data/interfaces/global';
 
 export const CreateUser: RequestHandler<unknown, unknown, UserBodyInterface, unknown> = async (req, res, next) => {
     try {
@@ -45,26 +44,39 @@ export const GetUserById: RequestHandler<UserParamsInterface, unknown, unknown, 
     }
 };
 
-export const GetUserList: RequestHandler<unknown, unknown, unknown, PaginationQueryInterface> = async (req, res, next) => {
+export const GetUserList: RequestHandler<unknown, unknown, unknown, UserPaginationQueryInterface> = async (req, res, next) => {
     const {
         _end,
         _order,
         _start,
-        _sort
+        _sort,
+        name_like = "",
+        email_like = ""
+
     } = req.query;
 
-    let users;
-
     try {
+        let users;
+
+        let query = {};
+
+        if(name_like) {
+            query = {...query, name: { $regex: name_like}}
+        }
+
+        if(email_like) {
+            query = {...query, email: { $regex: email_like}}
+        }
+
         if (_order && _sort) {
-            users = await UserModel.find()
+            users = await UserModel.find(query)
             .select("+email")
             .limit(_end)
             .skip(_start)
             .sort({[_sort]: _order})
             .exec();
         } else{
-            users = await UserModel.find()
+            users = await UserModel.find(query)
             .select("+email")
             .limit(_end)
             .skip(_start)
