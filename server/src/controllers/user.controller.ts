@@ -45,7 +45,6 @@ export const GetUserById: RequestHandler<UserParamsInterface, unknown, unknown, 
 };
 
 export const GetUserList: RequestHandler<unknown, unknown, unknown, unknown> = async (req, res, next) => {
-    console.log("Authorization", req.headers.Authorization);
     try {
         const users = await UserModel.find().exec();
 
