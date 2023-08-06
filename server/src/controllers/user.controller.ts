@@ -3,6 +3,7 @@ import createHttpError from 'http-errors';
 import { UserModel } from '../models';
 import { UserParamsInterface, UserBodyInterface } from '../data/interfaces/user';
 import mongoose from 'mongoose';
+import { PaginationQueryInterface } from '../data/interfaces/global';
 
 export const CreateUser: RequestHandler<unknown, unknown, UserBodyInterface, unknown> = async (req, res, next) => {
     try {
@@ -44,9 +45,31 @@ export const GetUserById: RequestHandler<UserParamsInterface, unknown, unknown, 
     }
 };
 
-export const GetUserList: RequestHandler<unknown, unknown, unknown, unknown> = async (req, res, next) => {
+export const GetUserList: RequestHandler<unknown, unknown, unknown, PaginationQueryInterface> = async (req, res, next) => {
+    const {
+        _end,
+        _order,
+        _start,
+        _sort
+    } = req.query;
+
+    let users;
+
     try {
-        const users = await UserModel.find().exec();
+        if (_order && _sort) {
+            users = await UserModel.find()
+            .select("+email")
+            .limit(_end)
+            .skip(_start)
+            .sort({[_sort]: _order})
+            .exec();
+        } else{
+            users = await UserModel.find()
+            .select("+email")
+            .limit(_end)
+            .skip(_start)
+            .exec();
+        }
 
         res.status(200).json(users);
     } catch (error) {

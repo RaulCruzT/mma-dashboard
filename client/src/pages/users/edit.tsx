@@ -3,7 +3,7 @@ import { useForm } from "@refinedev/react-hook-form";
 import { IUser } from "../../interfaces/user";
 import { HttpError } from "@refinedev/core";
 import { Edit } from "@refinedev/mui";
-import { Autocomplete, Avatar, FormControl, FormHelperText, FormLabel, Grid, Stack, TextField } from "@mui/material";
+import { Autocomplete, FormControl, FormHelperText, FormLabel, Grid, Stack, TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
 
 

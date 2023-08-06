@@ -20,20 +20,27 @@ export const UsersList: React.FC<IResourceComponentsProps> = () => {
                 flex: 1,
             },
             {
+                field: "email",
+                headerName: "Email",
+                minWidth: 150,
+                flex: 1,
+            },
+            {
                 field: "avatar",
                 headerName: "Avatar",
                 renderCell: function render({ row }) {
                     return <Avatar src={row.avatar} />;
                 },
                 minWidth: 100,
-                flex: 1,
                 sortable: false,
+                filterable: false,
             },
             {
                 field: "role",
                 headerName: "Role",
                 minWidth: 150,
                 flex: 1,
+                filterable: false,
             },
             {
                 field: "actions",
@@ -51,6 +58,8 @@ export const UsersList: React.FC<IResourceComponentsProps> = () => {
                 headerAlign: "center",
                 flex: 1,
                 minWidth: 80,
+                sortable: false,
+                filterable: false,
             },
         ],
         [],
