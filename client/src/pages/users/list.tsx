@@ -1,9 +1,9 @@
-import { List, ShowButton, useDataGrid } from "@refinedev/mui";
+import { List, useDataGrid, EditButton } from "@refinedev/mui";
 import { IUser } from "../../interfaces/user";
 import { IResourceComponentsProps } from "@refinedev/core";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import React from "react";
-import { Avatar, Grid } from "@mui/material";
+import { Avatar } from "@mui/material";
 
 
 export const UsersList: React.FC<IResourceComponentsProps> = () => {
@@ -40,7 +40,7 @@ export const UsersList: React.FC<IResourceComponentsProps> = () => {
                 headerName: "Actions",
                 renderCell: function render({ row }) {
                     return (
-                        <ShowButton
+                        <EditButton
                             size="small"
                             hideText
                             recordItemId={row._id}
@@ -57,23 +57,19 @@ export const UsersList: React.FC<IResourceComponentsProps> = () => {
     );
 
     return (
-        <Grid container>
-            <Grid item xs={24} lg={12}>
-                <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }}>
-                    <DataGrid
-                        {...dataGridProps}
-                        columns={columns}
-                        getRowId={(row: IUser) =>  row._id}
-                        filterModel={undefined}
-                        autoHeight
-                        pageSizeOptions={[10, 20, 50, 100]}
-                        slots={{
-                            toolbar: GridToolbar,
-                        }}
-                    />
-                </List>
-            </Grid>
-        </Grid>
+        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }}>
+            <DataGrid
+                {...dataGridProps}
+                columns={columns}
+                getRowId={(row: IUser) =>  row._id}
+                filterModel={undefined}
+                autoHeight
+                pageSizeOptions={[10, 20, 50, 100]}
+                slots={{
+                    toolbar: GridToolbar,
+                }}
+            />
+        </List>
     );
 
 }

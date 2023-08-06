@@ -1,9 +1,10 @@
-export interface CreateUserBodyInterface {
+export interface UserParamsInterface {
+    id: string;
+}
+
+export interface UserBodyInterface {
     name: string;
     email: string;
     avatar: string;
-}
-
-export interface GetUserByIdParamsInterface {
-    id: string;
+    role: string;
 }
