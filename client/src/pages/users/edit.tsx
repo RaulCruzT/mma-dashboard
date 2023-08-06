@@ -3,7 +3,7 @@ import { useForm } from "@refinedev/react-hook-form";
 import { IUser } from "../../interfaces/user";
 import { HttpError } from "@refinedev/core";
 import { Edit } from "@refinedev/mui";
-import { Autocomplete, Avatar, FormControl, FormHelperText, FormLabel, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Autocomplete, Avatar, FormControl, FormHelperText, FormLabel, Grid, Stack, TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
 
 
@@ -11,7 +11,7 @@ export const UsersEdit: React.FC<IResourceComponentsProps> = () => {
     const {
         register,
         control,
-        refineCore: { formLoading, queryResult },
+        refineCore: { formLoading },
         formState: { errors },
         saveButtonProps,
     } = useForm<IUser, HttpError, IUser>();
@@ -27,28 +27,7 @@ export const UsersEdit: React.FC<IResourceComponentsProps> = () => {
                         paddingX: { xs: 1, md: 4 },
                     }}
                 >
-                    <Grid mb={1} item xs={12} md={4}>
-                        <Stack
-                            justifyContent="center"
-                            alignItems="center"
-                        >
-                            <Avatar
-                                src={queryResult?.data?.data.avatar}
-                                alt={queryResult?.data?.data.name}
-                                sx={{
-                                    width: {
-                                        xs: 180,
-                                        lg: 256,
-                                    },
-                                    height: {
-                                        xs: 180,
-                                        lg: 256,
-                                    },
-                                }}
-                            />
-                        </Stack>
-                    </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         <Stack gap="24px">
                             <FormControl>
                                 <FormLabel
