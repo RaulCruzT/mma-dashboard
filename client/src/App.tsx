@@ -257,7 +257,7 @@ function App() {
           <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
           <RefineSnackbarProvider>
             <Refine
-              dataProvider={dataProvider(import.meta.env.VITE_SERVER)}
+              dataProvider={dataProvider(import.meta.env.VITE_SERVER, axiosInstance)}
               notificationProvider={notificationProvider}
               authProvider={authProvider}
               routerProvider={routerBindings}
