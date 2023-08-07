@@ -1,8 +1,9 @@
 import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
 import { UserModel } from '../models';
-import { UserParamsInterface, UserBodyInterface, UserPaginationQueryInterface } from '../data/interfaces/user';
+import { UserParamsInterface, UserBodyInterface, UserPaginationQueryInterface, UserRoles } from '../data/interfaces/user';
 import mongoose from 'mongoose';
+import { parseJwt } from '../utils';
 
 export const CreateUser: RequestHandler<unknown, unknown, UserBodyInterface, unknown> = async (req, res, next) => {
     try {
@@ -29,8 +30,22 @@ export const CreateUser: RequestHandler<unknown, unknown, UserBodyInterface, unk
 };
 
 export const GetUserById: RequestHandler<UserParamsInterface, unknown, unknown, unknown> = async (req, res, next) => {
+    const token = req.headers.authorization;
+
+    const { id } = req.params;
+
+    const authenticatedUserEmail = parseJwt(token as string).email;
+
     try {
-        const { id } = req.params;
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+
+        if (!authenticatedUser) {
+            throw createHttpError(404, "User not found");
+        }
+
+        if (authenticatedUser.role !== UserRoles.Admin) {
+            throw createHttpError(401, "You cannot access the user data");
+        }
 
         const user = await UserModel.findOne({ _id: id });
 
@@ -45,7 +60,8 @@ export const GetUserById: RequestHandler<UserParamsInterface, unknown, unknown, 
 };
 
 export const GetUserPagination: RequestHandler<unknown, unknown, unknown, UserPaginationQueryInterface> = async (req, res, next) => {
-    
+    const token = req.headers.authorization;
+
     const {
         _end,
         _order,
@@ -53,10 +69,21 @@ export const GetUserPagination: RequestHandler<unknown, unknown, unknown, UserPa
         _sort,
         name_like = "",
         email_like = ""
-
     } = req.query;
 
+    const authenticatedUserEmail = parseJwt(token as string).email;
+
     try {
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+
+        if (!authenticatedUser) {
+            throw createHttpError(404, "User not found");
+        }
+
+        if (authenticatedUser.role !== UserRoles.Admin) {
+            throw createHttpError(401, "You cannot access the user list");
+        }
+
         let users;
 
         let query = {};
@@ -91,11 +118,14 @@ export const GetUserPagination: RequestHandler<unknown, unknown, unknown, UserPa
 }
 
 export const EditUser: RequestHandler<UserParamsInterface, unknown, UserBodyInterface, unknown> = async (req, res, next) => {
+    const token = req.headers.authorization;
     const userId = req.params.id;
 
     const {
         role
     } = req.body;
+
+    const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
         if (!mongoose.isValidObjectId(userId)) {
@@ -106,6 +136,16 @@ export const EditUser: RequestHandler<UserParamsInterface, unknown, UserBodyInte
 
         if (!user) {
             throw createHttpError(404, "User not found");
+        }
+
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+
+        if (!authenticatedUser) {
+            throw createHttpError(404, "User not found");
+        }
+
+        if (authenticatedUser.role !== UserRoles.Admin) {
+            throw createHttpError(401, "You cannot edit this user");
         }
 
         if (role !== undefined) {
