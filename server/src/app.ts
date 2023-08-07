@@ -3,7 +3,8 @@ import express, { NextFunction, Request, Response } from "express";
 import morgan from "morgan";
 import cors from "cors";
 import createHttpError, { isHttpError } from "http-errors";
-import { usersRoutes } from "./routes";
+import { authRoutes, usersRoutes } from "./routes";
+import { requiresAuth } from "./middleware/auth";
 
 const app = express();
 
@@ -18,7 +19,8 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 // Routes
-app.use("/api/v1/users", usersRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/users", requiresAuth, usersRoutes);
 
 app.use((req, res, next) => {
     next(createHttpError(404, "Endpoint not found"));

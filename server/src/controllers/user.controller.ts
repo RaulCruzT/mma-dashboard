@@ -44,8 +44,8 @@ export const GetUserById: RequestHandler<UserParamsInterface, unknown, unknown, 
     }
 };
 
-export const GetUserList: RequestHandler<unknown, unknown, unknown, UserPaginationQueryInterface> = async (req, res, next) => {
-    console.log("Headers", req.headers);
+export const GetUserPagination: RequestHandler<unknown, unknown, unknown, UserPaginationQueryInterface> = async (req, res, next) => {
+    
     const {
         _end,
         _order,
