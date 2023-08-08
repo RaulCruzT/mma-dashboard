@@ -71,7 +71,7 @@ export const UsersList: React.FC<IResourceComponentsProps> = () => {
                 },
                 align: "center",
                 headerAlign: "center",
-                flex: 1,
+                flex: 0.5,
                 minWidth: 80,
                 sortable: false,
                 filterable: false,
