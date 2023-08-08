@@ -7,5 +7,6 @@ router.post("/", GeneraController.CreateGenera);
 router.get("/:id", GeneraController.GetGeneraById);
 router.get("/",  GeneraController.GetGeneraPagination);
 router.patch("/:id", GeneraController.EditGenera);
+router.delete("/:id", GeneraController.DeleteGenera);
 
 export default router;

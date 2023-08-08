@@ -165,3 +165,39 @@ export const EditGenera: RequestHandler<GeneraParamsInterface, unknown, GeneraBo
         next(error);
     }
 }
+
+export const DeleteGenera: RequestHandler<GeneraParamsInterface, unknown, unknown, unknown>  = async (req, res, next) => {
+    const token = req.headers.authorization;
+    const { id } = req.params;
+    const authenticatedUserEmail = parseJwt(token as string).email;
+
+    try {
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+
+        if (!authenticatedUser) {
+            throw createHttpError(404, "User not found");
+        }
+
+        const authenticatedUserRole = authenticatedUser.role as string;
+
+        if (![UserRoles.Manager as string, UserRoles.Admin as string].includes(authenticatedUserRole)) {
+            throw createHttpError(401, "You cannot delete this genera");
+        }
+
+        if (!mongoose.isValidObjectId(id)) {
+            throw createHttpError(400, "Invalid genera id");
+        }
+
+        const genera = await GeneraModel.findById(id).exec();
+
+        if (!genera) {
+            throw createHttpError(404, "Genera not found");
+        }
+
+        await GeneraModel.deleteOne({_id: id});
+
+        res.sendStatus(204);
+    } catch (error) {
+        next(error);
+    }
+}
