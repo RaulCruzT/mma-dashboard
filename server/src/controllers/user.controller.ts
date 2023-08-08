@@ -6,13 +6,13 @@ import mongoose from 'mongoose';
 import { parseJwt } from '../utils';
 
 export const CreateUser: RequestHandler<unknown, unknown, UserBodyInterface, unknown> = async (req, res, next) => {
+    const {
+        name,
+        email,
+        avatar
+    } = req.body;
+    
     try {
-        const {
-            name,
-            email,
-            avatar
-        } = req.body;
-
         const userExists = await UserModel.findOne({ email });
 
         if (userExists) return res.status(200).json(userExists);
@@ -31,9 +31,7 @@ export const CreateUser: RequestHandler<unknown, unknown, UserBodyInterface, unk
 
 export const GetUserById: RequestHandler<UserParamsInterface, unknown, unknown, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
-
     const { id } = req.params;
-
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
@@ -49,11 +47,11 @@ export const GetUserById: RequestHandler<UserParamsInterface, unknown, unknown, 
 
         const user = await UserModel.findOne({ _id: id });
 
-        if (user) {
-            res.status(200).json(user);
-        } else {
+        if (!user) {
             throw createHttpError(404, "User not found");
         }
+
+        res.status(200).json(user);
     } catch (error) {
         next(error);
     }
@@ -61,7 +59,6 @@ export const GetUserById: RequestHandler<UserParamsInterface, unknown, unknown, 
 
 export const GetUserPagination: RequestHandler<unknown, unknown, unknown, UserPaginationQueryInterface> = async (req, res, next) => {
     const token = req.headers.authorization;
-
     const {
         _end,
         _order,
@@ -70,7 +67,6 @@ export const GetUserPagination: RequestHandler<unknown, unknown, unknown, UserPa
         name_like = "",
         email_like = ""
     } = req.query;
-
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
@@ -119,25 +115,13 @@ export const GetUserPagination: RequestHandler<unknown, unknown, unknown, UserPa
 
 export const EditUser: RequestHandler<UserParamsInterface, unknown, UserBodyInterface, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
-    const userId = req.params.id;
-
+    const { id } = req.params;
     const {
         role
     } = req.body;
-
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        if (!mongoose.isValidObjectId(userId)) {
-            throw createHttpError(400, "Invalid User Id");
-        }
-
-        const user = await UserModel.findById(userId).select("+email").exec();
-
-        if (!user) {
-            throw createHttpError(404, "User not found");
-        }
-
         const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
 
         if (!authenticatedUser) {
@@ -146,6 +130,16 @@ export const EditUser: RequestHandler<UserParamsInterface, unknown, UserBodyInte
 
         if (authenticatedUser.role !== UserRoles.Admin) {
             throw createHttpError(401, "You cannot edit this user");
+        }
+        
+        if (!mongoose.isValidObjectId(id)) {
+            throw createHttpError(400, "Invalid User Id");
+        }
+
+        const user = await UserModel.findById(id).select("+email").exec();
+
+        if (!user) {
+            throw createHttpError(404, "User not found");
         }
 
         if (role !== undefined) {
