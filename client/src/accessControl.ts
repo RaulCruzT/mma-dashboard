@@ -66,7 +66,7 @@ p, admin, assembly/*, (edit)|(show)|(delete)
 p, admin, processeddata, (list)|(create)
 p, admin, processeddata/*, (edit)|(show)|(delete)
 
-p, admin, genera, (list)
+p, admin, genera, (list)|(create)
 p, admin, genera/*, (edit)
 
 p, admin, users, (list)|(create)

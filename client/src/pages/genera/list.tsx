@@ -1,4 +1,4 @@
-import { List, useDataGrid, ShowButton, EditButton, DeleteButton } from "@refinedev/mui";
+import { List, useDataGrid, EditButton, DeleteButton } from "@refinedev/mui";
 import { IGenera } from "../../interfaces/genera";
 import { IResourceComponentsProps } from "@refinedev/core";
 import { DataGrid, GridColDef, GridToolbar, getGridStringOperators } from "@mui/x-data-grid";

@@ -155,6 +155,12 @@ export const EditGenera: RequestHandler<GeneraParamsInterface, unknown, GeneraBo
         }
 
         if (name !== undefined) {
+            const generaExists = await GeneraModel.findOne({name, _id : {$ne: genera._id}});
+
+            if (generaExists && generaExists._id !== generaExists._id) {
+                throw createHttpError(404, "A genera with that name already exists");
+            }
+
             genera.name = name;
         }
 
