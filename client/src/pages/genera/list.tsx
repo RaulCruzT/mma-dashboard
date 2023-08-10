@@ -34,7 +34,10 @@ export const GeneraList: React.FC<IResourceComponentsProps> = () => {
                             <DeleteButton
                                 size="small"
                                 hideText
+                                resource="genera"
                                 recordItemId={row._id}
+                                mutationMode="undoable"
+                                confirmTitle={`Are you sure to delete ${row.name} genera?`}
                             />
                         </>
                     );

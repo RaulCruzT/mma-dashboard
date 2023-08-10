@@ -67,7 +67,7 @@ p, admin, processeddata, (list)|(create)
 p, admin, processeddata/*, (edit)|(show)|(delete)
 
 p, admin, genera, (list)|(create)
-p, admin, genera/*, (edit)
+p, admin, genera/*, (edit)|(delete)
 
 p, admin, users, (list)|(create)
 p, admin, users/*, (edit)|(delete)
