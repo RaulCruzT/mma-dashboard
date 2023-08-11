@@ -1,7 +1,8 @@
 import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
 import { UserModel } from '../models';
-import { UserParamsInterface, UserBodyInterface, UserPaginationQueryInterface, UserRoles } from '../data/interfaces/user';
+import { UserParamsInterface, UserBodyInterface, UserPaginationQueryInterface } from '../data/interfaces/user';
+import { UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
 import { parseJwt } from '../utils';
 

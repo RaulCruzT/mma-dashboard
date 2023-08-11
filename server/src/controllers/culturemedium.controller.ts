@@ -1,12 +1,12 @@
 import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
-import { UserModel, GeneraModel } from '../models';
-import { GeneraParamsInterface, GeneraBodyInterface, GeneraPaginationQueryInterface } from '../data/interfaces/genera';
+import { UserModel, CultureMediumModel } from '../models';
+import { CultureMediumParamsInterface, CultureMediumBodyInterface, CultureMediumPaginationQueryInterface } from '../data/interfaces/culturemedium';
 import { UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
 import { parseJwt } from '../utils';
 
-export const CreateGenera: RequestHandler<unknown, unknown, GeneraBodyInterface, unknown> = async (req, res, next) => {
+export const CreateCultureMedium: RequestHandler<unknown, unknown, CultureMediumBodyInterface, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
     const {
         name
@@ -23,26 +23,26 @@ export const CreateGenera: RequestHandler<unknown, unknown, GeneraBodyInterface,
         const authenticatedUserRole = authenticatedUser.role as string;
 
         if (![UserRoles.Manager as string, UserRoles.Admin as string].includes(authenticatedUserRole)) {
-            throw createHttpError(401, "You cannot create a genera");
+            throw createHttpError(401, "You cannot create a culture medium");
         }
 
-        const generaExists = await GeneraModel.findOne({ name });
+        const cultureMediumExists = await CultureMediumModel.findOne({ name });
 
-        if (generaExists) {
-            throw createHttpError(404, "A genera with that name already exists");
+        if (cultureMediumExists) {
+            throw createHttpError(404, "A culture medium with that name already exists");
         }
 
-        const newGenera = await GeneraModel.create({
+        const newCultureMedium = await CultureMediumModel.create({
             name,
         });
 
-        res.status(200).json(newGenera);
+        res.status(200).json(newCultureMedium);
     } catch (error) {
         next(error);
     }
 };
 
-export const GetGeneraById: RequestHandler<GeneraParamsInterface, unknown, unknown, unknown> = async (req, res, next) => {
+export const GetCultureMediumById: RequestHandler<CultureMediumParamsInterface, unknown, unknown, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
     const { id } = req.params;
     const authenticatedUserEmail = parseJwt(token as string).email;
@@ -57,22 +57,22 @@ export const GetGeneraById: RequestHandler<GeneraParamsInterface, unknown, unkno
         const authenticatedUserRole = authenticatedUser.role as string;
 
         if (![UserRoles.Manager as string, UserRoles.Admin as string].includes(authenticatedUserRole)) {
-            throw createHttpError(401, "You cannot access the genera data");
+            throw createHttpError(401, "You cannot access the culture medium data");
         }
 
-        const genera = await GeneraModel.findOne({ _id: id });
+        const cultureMedium = await CultureMediumModel.findOne({ _id: id });
 
-        if (!genera) {
-            throw createHttpError(404, "Genera not found");
+        if (!cultureMedium) {
+            throw createHttpError(404, "Culture medium not found");
         }
 
-        res.status(200).json(genera);
+        res.status(200).json(cultureMedium);
     } catch (error) {
         next(error);
     }
 };
 
-export const GetGeneraPagination: RequestHandler<unknown, unknown, unknown, GeneraPaginationQueryInterface> = async (req, res, next) => {
+export const GetCultureMediumPagination: RequestHandler<unknown, unknown, unknown, CultureMediumPaginationQueryInterface> = async (req, res, next) => {
     console.log(req.query);
     const token = req.headers.authorization;
     const {
@@ -94,10 +94,10 @@ export const GetGeneraPagination: RequestHandler<unknown, unknown, unknown, Gene
         const authenticatedUserRole = authenticatedUser.role as string;
 
         if (![UserRoles.Manager as string, UserRoles.Admin as string].includes(authenticatedUserRole)) {
-            throw createHttpError(401, "You cannot access the genera data");
+            throw createHttpError(401, "You cannot access the culture medium data");
         }
 
-        let genera;
+        let cultureMedium;
 
         let query = {};
 
@@ -106,25 +106,25 @@ export const GetGeneraPagination: RequestHandler<unknown, unknown, unknown, Gene
         }
 
         if (_order && _sort) {
-            genera = await GeneraModel.find(query)
+            cultureMedium = await CultureMediumModel.find(query)
             .limit(_end)
             .skip(_start)
             .sort({[_sort]: _order})
             .exec();
         } else{
-            genera = await GeneraModel.find(query)
+            cultureMedium = await CultureMediumModel.find(query)
             .limit(_end)
             .skip(_start)
             .exec();
         }
 
-        res.status(200).json(genera);
+        res.status(200).json(cultureMedium);
     } catch (error) {
         next(error);
     }
 }
 
-export const EditGenera: RequestHandler<GeneraParamsInterface, unknown, GeneraBodyInterface, unknown> = async (req, res, next) => {
+export const EditCultureMedium: RequestHandler<CultureMediumParamsInterface, unknown, CultureMediumBodyInterface, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
     const { id } = req.params;
     const {
@@ -142,38 +142,38 @@ export const EditGenera: RequestHandler<GeneraParamsInterface, unknown, GeneraBo
         const authenticatedUserRole = authenticatedUser.role as string;
 
         if (![UserRoles.Manager as string, UserRoles.Admin as string].includes(authenticatedUserRole)) {
-            throw createHttpError(401, "You cannot edit this genera");
+            throw createHttpError(401, "You cannot edit this culture medium");
         }
 
         if (!mongoose.isValidObjectId(id)) {
-            throw createHttpError(400, "Invalid genera Id");
+            throw createHttpError(400, "Invalid culture medium Id");
         }
 
-        const genera = await GeneraModel.findById(id).exec();
+        const cultureMedium = await CultureMediumModel.findById(id).exec();
 
-        if (!genera) {
-            throw createHttpError(404, "Genera not found");
+        if (!cultureMedium) {
+            throw createHttpError(404, "Culture medium not found");
         }
 
         if (name !== undefined) {
-            const generaExists = await GeneraModel.findOne({name, _id : {$ne: genera._id}});
+            const cultureMediumExists = await CultureMediumModel.findOne({name, _id : {$ne: cultureMedium._id}});
 
-            if (generaExists && generaExists._id !== generaExists._id) {
-                throw createHttpError(404, "A genera with that name already exists");
+            if (cultureMediumExists && cultureMediumExists._id !== cultureMediumExists._id) {
+                throw createHttpError(404, "A culture medium with that name already exists");
             }
 
-            genera.name = name;
+            cultureMedium.name = name;
         }
 
-        const updatedGenera = await genera.save();
+        const updatedCultureMedium = await cultureMedium.save();
 
-        res.status(200).json(updatedGenera);
+        res.status(200).json(updatedCultureMedium);
     } catch (error) {
         next(error);
     }
 }
 
-export const DeleteGenera: RequestHandler<GeneraParamsInterface, unknown, unknown, unknown>  = async (req, res, next) => {
+export const DeleteCultureMedium: RequestHandler<CultureMediumParamsInterface, unknown, unknown, unknown>  = async (req, res, next) => {
     const token = req.headers.authorization;
     const { id } = req.params;
     const authenticatedUserEmail = parseJwt(token as string).email;
@@ -188,20 +188,20 @@ export const DeleteGenera: RequestHandler<GeneraParamsInterface, unknown, unknow
         const authenticatedUserRole = authenticatedUser.role as string;
 
         if (![UserRoles.Manager as string, UserRoles.Admin as string].includes(authenticatedUserRole)) {
-            throw createHttpError(401, "You cannot delete this genera");
+            throw createHttpError(401, "You cannot delete this culture medium");
         }
 
         if (!mongoose.isValidObjectId(id)) {
-            throw createHttpError(400, "Invalid genera id");
+            throw createHttpError(400, "Invalid culture medium id");
         }
 
-        const genera = await GeneraModel.findById(id).exec();
+        const cultureMedium = await CultureMediumModel.findById(id).exec();
 
-        if (!genera) {
-            throw createHttpError(404, "Genera not found");
+        if (!cultureMedium) {
+            throw createHttpError(404, "Culture medium not found");
         }
 
-        await GeneraModel.deleteOne({_id: id});
+        await CultureMediumModel.deleteOne({_id: id});
 
         res.sendStatus(204);
     } catch (error) {

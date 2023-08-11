@@ -1,12 +1,12 @@
 import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
-import { UserModel, GeneraModel } from '../models';
-import { GeneraParamsInterface, GeneraBodyInterface, GeneraPaginationQueryInterface } from '../data/interfaces/genera';
+import { UserModel, TypeStrainModel } from '../models';
+import { TypeStrainParamsInterface, TypeStrainBodyInterface, TypeStrainPaginationQueryInterface } from '../data/interfaces/typestrain';
 import { UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
 import { parseJwt } from '../utils';
 
-export const CreateGenera: RequestHandler<unknown, unknown, GeneraBodyInterface, unknown> = async (req, res, next) => {
+export const CreateTypeStrain: RequestHandler<unknown, unknown, TypeStrainBodyInterface, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
     const {
         name
@@ -23,26 +23,26 @@ export const CreateGenera: RequestHandler<unknown, unknown, GeneraBodyInterface,
         const authenticatedUserRole = authenticatedUser.role as string;
 
         if (![UserRoles.Manager as string, UserRoles.Admin as string].includes(authenticatedUserRole)) {
-            throw createHttpError(401, "You cannot create a genera");
+            throw createHttpError(401, "You cannot create a type strain");
         }
 
-        const generaExists = await GeneraModel.findOne({ name });
+        const typeStrainExists = await TypeStrainModel.findOne({ name });
 
-        if (generaExists) {
-            throw createHttpError(404, "A genera with that name already exists");
+        if (typeStrainExists) {
+            throw createHttpError(404, "A type strain with that name already exists");
         }
 
-        const newGenera = await GeneraModel.create({
+        const newTypeStrain = await TypeStrainModel.create({
             name,
         });
 
-        res.status(200).json(newGenera);
+        res.status(200).json(newTypeStrain);
     } catch (error) {
         next(error);
     }
 };
 
-export const GetGeneraById: RequestHandler<GeneraParamsInterface, unknown, unknown, unknown> = async (req, res, next) => {
+export const GetTypeStrainById: RequestHandler<TypeStrainParamsInterface, unknown, unknown, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
     const { id } = req.params;
     const authenticatedUserEmail = parseJwt(token as string).email;
@@ -57,22 +57,22 @@ export const GetGeneraById: RequestHandler<GeneraParamsInterface, unknown, unkno
         const authenticatedUserRole = authenticatedUser.role as string;
 
         if (![UserRoles.Manager as string, UserRoles.Admin as string].includes(authenticatedUserRole)) {
-            throw createHttpError(401, "You cannot access the genera data");
+            throw createHttpError(401, "You cannot access the type strain data");
         }
 
-        const genera = await GeneraModel.findOne({ _id: id });
+        const typeStrain = await TypeStrainModel.findOne({ _id: id });
 
-        if (!genera) {
-            throw createHttpError(404, "Genera not found");
+        if (!typeStrain) {
+            throw createHttpError(404, "Type strain not found");
         }
 
-        res.status(200).json(genera);
+        res.status(200).json(typeStrain);
     } catch (error) {
         next(error);
     }
 };
 
-export const GetGeneraPagination: RequestHandler<unknown, unknown, unknown, GeneraPaginationQueryInterface> = async (req, res, next) => {
+export const GetTypeStrainPagination: RequestHandler<unknown, unknown, unknown, TypeStrainPaginationQueryInterface> = async (req, res, next) => {
     console.log(req.query);
     const token = req.headers.authorization;
     const {
@@ -94,10 +94,10 @@ export const GetGeneraPagination: RequestHandler<unknown, unknown, unknown, Gene
         const authenticatedUserRole = authenticatedUser.role as string;
 
         if (![UserRoles.Manager as string, UserRoles.Admin as string].includes(authenticatedUserRole)) {
-            throw createHttpError(401, "You cannot access the genera data");
+            throw createHttpError(401, "You cannot access the type strain data");
         }
 
-        let genera;
+        let typeStrain;
 
         let query = {};
 
@@ -106,25 +106,25 @@ export const GetGeneraPagination: RequestHandler<unknown, unknown, unknown, Gene
         }
 
         if (_order && _sort) {
-            genera = await GeneraModel.find(query)
+            typeStrain = await TypeStrainModel.find(query)
             .limit(_end)
             .skip(_start)
             .sort({[_sort]: _order})
             .exec();
         } else{
-            genera = await GeneraModel.find(query)
+            typeStrain = await TypeStrainModel.find(query)
             .limit(_end)
             .skip(_start)
             .exec();
         }
 
-        res.status(200).json(genera);
+        res.status(200).json(typeStrain);
     } catch (error) {
         next(error);
     }
 }
 
-export const EditGenera: RequestHandler<GeneraParamsInterface, unknown, GeneraBodyInterface, unknown> = async (req, res, next) => {
+export const EditTypeStrain: RequestHandler<TypeStrainParamsInterface, unknown, TypeStrainBodyInterface, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
     const { id } = req.params;
     const {
@@ -142,38 +142,38 @@ export const EditGenera: RequestHandler<GeneraParamsInterface, unknown, GeneraBo
         const authenticatedUserRole = authenticatedUser.role as string;
 
         if (![UserRoles.Manager as string, UserRoles.Admin as string].includes(authenticatedUserRole)) {
-            throw createHttpError(401, "You cannot edit this genera");
+            throw createHttpError(401, "You cannot edit this type strain");
         }
 
         if (!mongoose.isValidObjectId(id)) {
-            throw createHttpError(400, "Invalid genera Id");
+            throw createHttpError(400, "Invalid type strain Id");
         }
 
-        const genera = await GeneraModel.findById(id).exec();
+        const typeStrain = await TypeStrainModel.findById(id).exec();
 
-        if (!genera) {
-            throw createHttpError(404, "Genera not found");
+        if (!typeStrain) {
+            throw createHttpError(404, "Types strain not found");
         }
 
         if (name !== undefined) {
-            const generaExists = await GeneraModel.findOne({name, _id : {$ne: genera._id}});
+            const typeStrainExists = await TypeStrainModel.findOne({name, _id : {$ne: typeStrain._id}});
 
-            if (generaExists && generaExists._id !== generaExists._id) {
-                throw createHttpError(404, "A genera with that name already exists");
+            if (typeStrainExists && typeStrainExists._id !== typeStrainExists._id) {
+                throw createHttpError(404, "A type strain with that name already exists");
             }
 
-            genera.name = name;
+            typeStrain.name = name;
         }
 
-        const updatedGenera = await genera.save();
+        const updatedTypeStrain = await typeStrain.save();
 
-        res.status(200).json(updatedGenera);
+        res.status(200).json(updatedTypeStrain);
     } catch (error) {
         next(error);
     }
 }
 
-export const DeleteGenera: RequestHandler<GeneraParamsInterface, unknown, unknown, unknown>  = async (req, res, next) => {
+export const DeleteTypeStrain: RequestHandler<TypeStrainParamsInterface, unknown, unknown, unknown>  = async (req, res, next) => {
     const token = req.headers.authorization;
     const { id } = req.params;
     const authenticatedUserEmail = parseJwt(token as string).email;
@@ -188,20 +188,20 @@ export const DeleteGenera: RequestHandler<GeneraParamsInterface, unknown, unknow
         const authenticatedUserRole = authenticatedUser.role as string;
 
         if (![UserRoles.Manager as string, UserRoles.Admin as string].includes(authenticatedUserRole)) {
-            throw createHttpError(401, "You cannot delete this genera");
+            throw createHttpError(401, "You cannot delete this type strain");
         }
 
         if (!mongoose.isValidObjectId(id)) {
-            throw createHttpError(400, "Invalid genera id");
+            throw createHttpError(400, "Invalid type strain id");
         }
 
-        const genera = await GeneraModel.findById(id).exec();
+        const typeStrain = await TypeStrainModel.findById(id).exec();
 
-        if (!genera) {
-            throw createHttpError(404, "Genera not found");
+        if (!typeStrain) {
+            throw createHttpError(404, "Type strain not found");
         }
 
-        await GeneraModel.deleteOne({_id: id});
+        await TypeStrainModel.deleteOne({_id: id});
 
         res.sendStatus(204);
     } catch (error) {
