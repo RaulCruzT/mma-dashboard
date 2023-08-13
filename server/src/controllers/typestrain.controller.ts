@@ -118,6 +118,11 @@ export const GetTypeStrainPagination: RequestHandler<unknown, unknown, unknown, 
             .exec();
         }
 
+        const totalCount = await TypeStrainModel.find(query).countDocuments();
+
+        res.append('X-Total-Count', totalCount.toString());
+        res.append('Access-Control-Expose-Headers', 'X-Total-Count');
+
         res.status(200).json(typeStrain);
     } catch (error) {
         next(error);

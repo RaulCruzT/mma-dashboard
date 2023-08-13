@@ -107,16 +107,21 @@ export const GetGeneraPagination: RequestHandler<unknown, unknown, unknown, Gene
 
         if (_order && _sort) {
             genera = await GeneraModel.find(query)
-            .limit(_end)
             .skip(_start)
+            .limit(_end)
             .sort({[_sort]: _order})
             .exec();
         } else{
             genera = await GeneraModel.find(query)
-            .limit(_end)
             .skip(_start)
+            .limit(_end)
             .exec();
         }
+
+        const totalCount = await GeneraModel.find(query).countDocuments();
+
+        res.append('X-Total-Count', totalCount.toString());
+        res.append('Access-Control-Expose-Headers', 'X-Total-Count');
 
         res.status(200).json(genera);
     } catch (error) {

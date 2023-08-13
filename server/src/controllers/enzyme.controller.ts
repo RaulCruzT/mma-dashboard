@@ -118,6 +118,11 @@ export const GetEnzymePagination: RequestHandler<unknown, unknown, unknown, Enzy
             .exec();
         }
 
+        const totalCount = await EnzymeModel.find(query).countDocuments();
+
+        res.append('X-Total-Count', totalCount.toString());
+        res.append('Access-Control-Expose-Headers', 'X-Total-Count');
+
         res.status(200).json(enzyme);
     } catch (error) {
         next(error);

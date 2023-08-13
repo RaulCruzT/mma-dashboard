@@ -118,6 +118,11 @@ export const GetCultureMediumPagination: RequestHandler<unknown, unknown, unknow
             .exec();
         }
 
+        const totalCount = await CultureMediumModel.find(query).countDocuments();
+
+        res.append('X-Total-Count', totalCount.toString());
+        res.append('Access-Control-Expose-Headers', 'X-Total-Count');
+
         res.status(200).json(cultureMedium);
     } catch (error) {
         next(error);
