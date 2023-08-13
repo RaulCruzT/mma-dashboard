@@ -40,7 +40,7 @@ export const TypeStrainEdit: React.FC<IResourceComponentsProps> = () => {
                                     Name
                                 </FormLabel>
                                 <TextField
-                                    {...register("name", {required: true, minLength: 1, maxLength: 30, setValueAs: v => stringToLowerCase(v)})}
+                                    {...register("name", {required: true, minLength: 1, maxLength: 100, setValueAs: v => stringToLowerCase(v)})}
                                     size="small"
                                     margin="none"
                                     variant="outlined"
