@@ -118,7 +118,7 @@ export const GetGeneraPagination: RequestHandler<unknown, unknown, unknown, Gene
             .exec();
         }
 
-        const totalCount = await GeneraModel.find(query).countDocuments();
+        const totalCount = await GeneraModel.find(query).countDocuments().exec();
 
         res.append('X-Total-Count', totalCount.toString());
         res.append('Access-Control-Expose-Headers', 'X-Total-Count');

@@ -118,7 +118,7 @@ export const GetTypeStrainPagination: RequestHandler<unknown, unknown, unknown, 
             .exec();
         }
 
-        const totalCount = await TypeStrainModel.find(query).countDocuments();
+        const totalCount = await TypeStrainModel.find(query).countDocuments().exec();
 
         res.append('X-Total-Count', totalCount.toString());
         res.append('Access-Control-Expose-Headers', 'X-Total-Count');

@@ -108,7 +108,7 @@ export const GetUserPagination: RequestHandler<unknown, unknown, unknown, UserPa
             .exec();
         }
 
-        const totalCount = await UserModel.find(query).countDocuments();
+        const totalCount = await UserModel.find(query).countDocuments().exec();
 
         res.append('X-Total-Count', totalCount.toString());
         res.append('Access-Control-Expose-Headers', 'X-Total-Count');
