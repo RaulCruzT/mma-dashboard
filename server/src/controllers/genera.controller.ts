@@ -34,6 +34,7 @@ export const CreateGenera: RequestHandler<unknown, unknown, GeneraBodyInterface,
 
         const newGenera = await GeneraModel.create({
             name,
+            creator: authenticatedUser._id
         });
 
         res.status(200).json(newGenera);

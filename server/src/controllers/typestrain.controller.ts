@@ -34,6 +34,7 @@ export const CreateTypeStrain: RequestHandler<unknown, unknown, TypeStrainBodyIn
 
         const newTypeStrain = await TypeStrainModel.create({
             name,
+            creator: authenticatedUser._id
         });
 
         res.status(200).json(newTypeStrain);

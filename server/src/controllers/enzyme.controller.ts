@@ -34,6 +34,7 @@ export const CreateEnzyme: RequestHandler<unknown, unknown, EnzymeBodyInterface,
 
         const newEnzyme = await EnzymeModel.create({
             name,
+            creator: authenticatedUser._id
         });
 
         res.status(200).json(newEnzyme);

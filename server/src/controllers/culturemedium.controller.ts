@@ -34,6 +34,7 @@ export const CreateCultureMedium: RequestHandler<unknown, unknown, CultureMedium
 
         const newCultureMedium = await CultureMediumModel.create({
             name,
+            creator: authenticatedUser._id
         });
 
         res.status(200).json(newCultureMedium);
