@@ -14,7 +14,7 @@ export const CreateGenera: RequestHandler<unknown, unknown, GeneraBodyInterface,
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -49,7 +49,7 @@ export const GetGeneraById: RequestHandler<GeneraParamsInterface, unknown, unkno
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -61,7 +61,7 @@ export const GetGeneraById: RequestHandler<GeneraParamsInterface, unknown, unkno
             throw createHttpError(401, "You cannot access the genera data");
         }
 
-        const genera = await GeneraModel.findOne({ _id: id });
+        const genera = await GeneraModel.findOne({ _id: id }).populate("creator");
 
         if (!genera) {
             throw createHttpError(404, "Genera not found");
@@ -86,7 +86,7 @@ export const GetGeneraPagination: RequestHandler<unknown, unknown, unknown, Gene
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -98,28 +98,18 @@ export const GetGeneraPagination: RequestHandler<unknown, unknown, unknown, Gene
             throw createHttpError(401, "You cannot access the genera data");
         }
 
-        let genera;
-
         let query = {};
 
         if(name_like) {
             query = {...query, name: { $regex: name_like}}
         }
 
-        if (_order && _sort) {
-            genera = await GeneraModel.find(query)
+        const genera = await GeneraModel.find(query)
             .skip(_start)
             .limit(_end)
-            .sort({[_sort]: _order})
-            .exec();
-        } else{
-            genera = await GeneraModel.find(query)
-            .skip(_start)
-            .limit(_end)
-            .exec();
-        }
+            .sort({[_sort]: _order});
 
-        const totalCount = await GeneraModel.find(query).countDocuments().exec();
+        const totalCount = await GeneraModel.find(query).countDocuments();
 
         res.append('X-Total-Count', totalCount.toString());
         res.append('Access-Control-Expose-Headers', 'X-Total-Count');
@@ -139,7 +129,7 @@ export const EditGenera: RequestHandler<GeneraParamsInterface, unknown, GeneraBo
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -155,7 +145,7 @@ export const EditGenera: RequestHandler<GeneraParamsInterface, unknown, GeneraBo
             throw createHttpError(400, "Invalid genera Id");
         }
 
-        const genera = await GeneraModel.findById(id).exec();
+        const genera = await GeneraModel.findById(id);
 
         if (!genera) {
             throw createHttpError(404, "Genera not found");
@@ -185,7 +175,7 @@ export const DeleteGenera: RequestHandler<GeneraParamsInterface, unknown, unknow
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -201,7 +191,7 @@ export const DeleteGenera: RequestHandler<GeneraParamsInterface, unknown, unknow
             throw createHttpError(400, "Invalid genera id");
         }
 
-        const genera = await GeneraModel.findById(id).exec();
+        const genera = await GeneraModel.findById(id);
 
         if (!genera) {
             throw createHttpError(404, "Genera not found");
