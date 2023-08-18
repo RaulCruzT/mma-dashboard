@@ -474,7 +474,6 @@ function App() {
 
               <RefineKbar />
               <UnsavedChangesNotifier />
-              <DocumentTitleHandler />
             </Refine>
           </RefineSnackbarProvider>
         </ColorModeContextProvider>
