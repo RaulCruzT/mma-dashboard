@@ -34,7 +34,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import routerBindings, {
   CatchAllNavigate,
-  DocumentTitleHandler,
   NavigateToResource,
   UnsavedChangesNotifier,
 } from "@refinedev/react-router-v6";
