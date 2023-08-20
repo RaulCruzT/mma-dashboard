@@ -4,7 +4,7 @@ import { ICultureMedium } from "../../interfaces/culturemedium";
 import { HttpError } from "@refinedev/core";
 import { Edit } from "@refinedev/mui";
 import { FormControl, FormHelperText, FormLabel, Grid, Stack, TextField } from "@mui/material";
-import { stringToLowerCase } from "../../utils/stringToLowerCase.ts";
+import { stringFormat } from "../../utils/stringFormat";
 
 export const CultureMediumEdit: React.FC<IResourceComponentsProps> = () => {
     const {
@@ -46,7 +46,7 @@ export const CultureMediumEdit: React.FC<IResourceComponentsProps> = () => {
                                             value: 100,
                                             message: "You cannot enter more than 100 characters"
                                         },
-                                        setValueAs: v => stringToLowerCase(v)
+                                        setValueAs: v => stringFormat(v)
                                     })}
                                     size="small"
                                     margin="none"
