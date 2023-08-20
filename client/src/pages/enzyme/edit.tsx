@@ -40,7 +40,14 @@ export const EnzymeEdit: React.FC<IResourceComponentsProps> = () => {
                                     Name
                                 </FormLabel>
                                 <TextField
-                                    {...register("name", {required: true, minLength: 1, maxLength: 100, setValueAs: v => stringToLowerCase(v)})}
+                                    {...register("name", {
+                                        required: true,
+                                        maxLength: {
+                                            value: 100,
+                                            message: "You cannot enter more than 100 characters"
+                                        },
+                                        setValueAs: v => stringToLowerCase(v)
+                                    })}
                                     size="small"
                                     margin="none"
                                     variant="outlined"
