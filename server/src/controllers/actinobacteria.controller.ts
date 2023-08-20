@@ -10,13 +10,13 @@ export const GetActinobacteriaById: RequestHandler<ActinobacteriaParamsInterface
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
         }
 
-        const actinobacteria = await ActinobacteriaModel.findOne({ _id: id });
+        const actinobacteria = await ActinobacteriaModel.findOne({ _id: id }).populate("creator");
 
         if (!actinobacteria) {
             throw createHttpError(404, "Actinobacteria not found");
@@ -29,7 +29,6 @@ export const GetActinobacteriaById: RequestHandler<ActinobacteriaParamsInterface
 };
 
 export const GetActinobacteriaPagination: RequestHandler<unknown, unknown, unknown, ActinobacteriaPaginationQueryInterface> = async (req, res, next) => {
-    console.log(req.query);
     const token = req.headers.authorization;
     const {
         _end,
@@ -41,34 +40,24 @@ export const GetActinobacteriaPagination: RequestHandler<unknown, unknown, unkno
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
         }
 
-        let actinobacteria;
-
         let query = {};
 
         if(name_like) {
-            query = {...query, name: { $regex: name_like}}
+            query = {...query, name: { $regex: name_like, $options: "i" }}
         }
 
-        if (_order && _sort) {
-            actinobacteria = await ActinobacteriaModel.find(query)
+        const actinobacteria = await ActinobacteriaModel.find(query)
             .skip(_start)
             .limit(_end)
-            .sort({[_sort]: _order})
-            .exec();
-        } else{
-            actinobacteria = await ActinobacteriaModel.find(query)
-            .skip(_start)
-            .limit(_end)
-            .exec();
-        }
+            .sort({[_sort]: _order});
 
-        const totalCount = await ActinobacteriaModel.find(query).countDocuments().exec();
+        const totalCount = await ActinobacteriaModel.find(query).countDocuments();
 
         res.append('X-Total-Count', totalCount.toString());
         res.append('Access-Control-Expose-Headers', 'X-Total-Count');
