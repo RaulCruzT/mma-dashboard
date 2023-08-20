@@ -18,7 +18,10 @@ export const GeneraList: React.FC<IResourceComponentsProps> = () => {
                 flex: 1,
                 filterOperators: getGridStringOperators().filter(
                     (operator) => operator.value === 'contains'
-                )
+                ),
+                renderCell: function render({ row }) {
+                    return <em>{row.name}</em>
+                }
             },
             {
                 field: "actions",
