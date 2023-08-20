@@ -14,7 +14,7 @@ export const CreateEnzyme: RequestHandler<unknown, unknown, EnzymeBodyInterface,
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -32,12 +32,12 @@ export const CreateEnzyme: RequestHandler<unknown, unknown, EnzymeBodyInterface,
             throw createHttpError(404, "A enzyme with that name already exists");
         }
 
-        const newEnzyme = await EnzymeModel.create({
+        await EnzymeModel.create({
             name,
             creator: authenticatedUser._id
         });
 
-        res.status(200).json(newEnzyme);
+        res.status(200).json({ message: "Enzyme created successfully" });
     } catch (error) {
         next(error);
     }
@@ -49,7 +49,7 @@ export const GetEnzymeById: RequestHandler<EnzymeParamsInterface, unknown, unkno
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -61,7 +61,7 @@ export const GetEnzymeById: RequestHandler<EnzymeParamsInterface, unknown, unkno
             throw createHttpError(401, "You cannot access the enzyme data");
         }
 
-        const enzyme = await EnzymeModel.findOne({ _id: id });
+        const enzyme = await EnzymeModel.findOne({ _id: id }).populate("creator");
 
         if (!enzyme) {
             throw createHttpError(404, "Enzyme not found");
@@ -74,7 +74,6 @@ export const GetEnzymeById: RequestHandler<EnzymeParamsInterface, unknown, unkno
 };
 
 export const GetEnzymePagination: RequestHandler<unknown, unknown, unknown, EnzymePaginationQueryInterface> = async (req, res, next) => {
-    console.log(req.query);
     const token = req.headers.authorization;
     const {
         _end,
@@ -86,7 +85,7 @@ export const GetEnzymePagination: RequestHandler<unknown, unknown, unknown, Enzy
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -98,28 +97,18 @@ export const GetEnzymePagination: RequestHandler<unknown, unknown, unknown, Enzy
             throw createHttpError(401, "You cannot access the enzyme data");
         }
 
-        let enzyme;
-
         let query = {};
 
         if(name_like) {
-            query = {...query, name: { $regex: name_like}}
+            query = {...query, name: { $regex: name_like, $options: "i" }}
         }
 
-        if (_order && _sort) {
-            enzyme = await EnzymeModel.find(query)
+        const enzyme = await EnzymeModel.find(query)
             .limit(_end)
             .skip(_start)
-            .sort({[_sort]: _order})
-            .exec();
-        } else{
-            enzyme = await EnzymeModel.find(query)
-            .limit(_end)
-            .skip(_start)
-            .exec();
-        }
+            .sort({[_sort]: _order});
 
-        const totalCount = await EnzymeModel.find(query).countDocuments().exec();
+        const totalCount = await EnzymeModel.find(query).countDocuments();
 
         res.append('X-Total-Count', totalCount.toString());
         res.append('Access-Control-Expose-Headers', 'X-Total-Count');
@@ -139,7 +128,7 @@ export const EditEnzyme: RequestHandler<EnzymeParamsInterface, unknown, EnzymeBo
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -155,25 +144,23 @@ export const EditEnzyme: RequestHandler<EnzymeParamsInterface, unknown, EnzymeBo
             throw createHttpError(400, "Invalid enzyme Id");
         }
 
-        const enzyme = await EnzymeModel.findById(id).exec();
+        const enzyme = await EnzymeModel.findById(id);
 
         if (!enzyme) {
             throw createHttpError(404, "Enzyme not found");
         }
 
-        if (name !== undefined) {
-            const enzymeExists = await EnzymeModel.findOne({name, _id : {$ne: enzyme._id}});
+        const enzymeExists = await EnzymeModel.findOne({name, _id : {$ne: enzyme._id}});
 
-            if (enzymeExists && enzymeExists._id !== enzymeExists._id) {
-                throw createHttpError(404, "A enzyme with that name already exists");
-            }
-
-            enzyme.name = name;
+        if (enzymeExists) {
+            throw createHttpError(404, "A enzyme with that name already exists");
         }
 
-        const updatedEnzyme = await enzyme.save();
+        enzyme.name = name;
 
-        res.status(200).json(updatedEnzyme);
+        await enzyme.save();
+
+        res.status(200).json({ message: "Enzyme updated successfully" });
     } catch (error) {
         next(error);
     }
@@ -185,7 +172,7 @@ export const DeleteEnzyme: RequestHandler<EnzymeParamsInterface, unknown, unknow
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -201,7 +188,7 @@ export const DeleteEnzyme: RequestHandler<EnzymeParamsInterface, unknown, unknow
             throw createHttpError(400, "Invalid enzyme id");
         }
 
-        const enzyme = await EnzymeModel.findById(id).exec();
+        const enzyme = await EnzymeModel.findById(id);
 
         if (!enzyme) {
             throw createHttpError(404, "Enzyme not found");
@@ -209,7 +196,7 @@ export const DeleteEnzyme: RequestHandler<EnzymeParamsInterface, unknown, unknow
 
         await EnzymeModel.deleteOne({_id: id});
 
-        res.sendStatus(204);
+        res.status(200).json({ message: "Enzyme deleted successfully" });
     } catch (error) {
         next(error);
     }

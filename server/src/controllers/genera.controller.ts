@@ -32,12 +32,12 @@ export const CreateGenera: RequestHandler<unknown, unknown, GeneraBodyInterface,
             throw createHttpError(404, "A genera with that name already exists");
         }
 
-        const newGenera = await GeneraModel.create({
+        await GeneraModel.create({
             name,
             creator: authenticatedUser._id
         });
 
-        res.status(200).json(newGenera);
+        res.status(200).json({ message: "Genera created successfully" });
     } catch (error) {
         next(error);
     }
@@ -74,7 +74,6 @@ export const GetGeneraById: RequestHandler<GeneraParamsInterface, unknown, unkno
 };
 
 export const GetGeneraPagination: RequestHandler<unknown, unknown, unknown, GeneraPaginationQueryInterface> = async (req, res, next) => {
-    console.log(req.query);
     const token = req.headers.authorization;
     const {
         _end,
@@ -101,7 +100,7 @@ export const GetGeneraPagination: RequestHandler<unknown, unknown, unknown, Gene
         let query = {};
 
         if(name_like) {
-            query = {...query, name: { $regex: name_like}}
+            query = {...query, name: { $regex: name_like, $options: "i" }}
         }
 
         const genera = await GeneraModel.find(query)
@@ -151,19 +150,17 @@ export const EditGenera: RequestHandler<GeneraParamsInterface, unknown, GeneraBo
             throw createHttpError(404, "Genera not found");
         }
 
-        if (name !== undefined) {
-            const generaExists = await GeneraModel.findOne({name, _id : {$ne: genera._id}});
+        const generaExists = await GeneraModel.findOne({name, _id : {$ne: genera._id}});
 
-            if (generaExists && generaExists._id !== generaExists._id) {
-                throw createHttpError(404, "A genera with that name already exists");
-            }
-
-            genera.name = name;
+        if (generaExists) {
+            throw createHttpError(404, "A genera with that name already exists");
         }
 
-        const updatedGenera = await genera.save();
+        genera.name = name;
 
-        res.status(200).json(updatedGenera);
+        await genera.save();
+
+        res.status(200).json({ message: "Genera updated successfully" });
     } catch (error) {
         next(error);
     }
@@ -199,7 +196,7 @@ export const DeleteGenera: RequestHandler<GeneraParamsInterface, unknown, unknow
 
         await GeneraModel.deleteOne({_id: id});
 
-        res.sendStatus(204);
+        res.status(200).json({ message: "Genera deleted successfully" });
     } catch (error) {
         next(error);
     }

@@ -14,7 +14,7 @@ export const CreateCultureMedium: RequestHandler<unknown, unknown, CultureMedium
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -32,12 +32,12 @@ export const CreateCultureMedium: RequestHandler<unknown, unknown, CultureMedium
             throw createHttpError(404, "A culture medium with that name already exists");
         }
 
-        const newCultureMedium = await CultureMediumModel.create({
+        await CultureMediumModel.create({
             name,
             creator: authenticatedUser._id
         });
 
-        res.status(200).json(newCultureMedium);
+        res.status(200).json({ message: "Culture medium created successfully" });
     } catch (error) {
         next(error);
     }
@@ -49,7 +49,7 @@ export const GetCultureMediumById: RequestHandler<CultureMediumParamsInterface, 
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -61,7 +61,7 @@ export const GetCultureMediumById: RequestHandler<CultureMediumParamsInterface, 
             throw createHttpError(401, "You cannot access the culture medium data");
         }
 
-        const cultureMedium = await CultureMediumModel.findOne({ _id: id });
+        const cultureMedium = await CultureMediumModel.findOne({ _id: id }).populate("creator");
 
         if (!cultureMedium) {
             throw createHttpError(404, "Culture medium not found");
@@ -74,7 +74,6 @@ export const GetCultureMediumById: RequestHandler<CultureMediumParamsInterface, 
 };
 
 export const GetCultureMediumPagination: RequestHandler<unknown, unknown, unknown, CultureMediumPaginationQueryInterface> = async (req, res, next) => {
-    console.log(req.query);
     const token = req.headers.authorization;
     const {
         _end,
@@ -86,7 +85,7 @@ export const GetCultureMediumPagination: RequestHandler<unknown, unknown, unknow
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -98,28 +97,18 @@ export const GetCultureMediumPagination: RequestHandler<unknown, unknown, unknow
             throw createHttpError(401, "You cannot access the culture medium data");
         }
 
-        let cultureMedium;
-
         let query = {};
 
         if(name_like) {
-            query = {...query, name: { $regex: name_like}}
+            query = {...query, name: { $regex: name_like, $options: "i" }}
         }
 
-        if (_order && _sort) {
-            cultureMedium = await CultureMediumModel.find(query)
+        const cultureMedium = await CultureMediumModel.find(query)
             .limit(_end)
             .skip(_start)
-            .sort({[_sort]: _order})
-            .exec();
-        } else{
-            cultureMedium = await CultureMediumModel.find(query)
-            .limit(_end)
-            .skip(_start)
-            .exec();
-        }
+            .sort({[_sort]: _order});
 
-        const totalCount = await CultureMediumModel.find(query).countDocuments().exec();
+        const totalCount = await CultureMediumModel.find(query).countDocuments();
 
         res.append('X-Total-Count', totalCount.toString());
         res.append('Access-Control-Expose-Headers', 'X-Total-Count');
@@ -139,7 +128,7 @@ export const EditCultureMedium: RequestHandler<CultureMediumParamsInterface, unk
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -155,25 +144,23 @@ export const EditCultureMedium: RequestHandler<CultureMediumParamsInterface, unk
             throw createHttpError(400, "Invalid culture medium Id");
         }
 
-        const cultureMedium = await CultureMediumModel.findById(id).exec();
+        const cultureMedium = await CultureMediumModel.findById(id);
 
         if (!cultureMedium) {
             throw createHttpError(404, "Culture medium not found");
         }
 
-        if (name !== undefined) {
-            const cultureMediumExists = await CultureMediumModel.findOne({name, _id : {$ne: cultureMedium._id}});
+        const cultureMediumExists = await CultureMediumModel.findOne({name, _id : {$ne: cultureMedium._id}});
 
-            if (cultureMediumExists && cultureMediumExists._id !== cultureMediumExists._id) {
-                throw createHttpError(404, "A culture medium with that name already exists");
-            }
-
-            cultureMedium.name = name;
+        if (cultureMediumExists) {
+            throw createHttpError(404, "A culture medium with that name already exists");
         }
 
-        const updatedCultureMedium = await cultureMedium.save();
+        cultureMedium.name = name;
 
-        res.status(200).json(updatedCultureMedium);
+        await cultureMedium.save();
+
+        res.status(200).json({ message: "Culture medium updated successfully" });
     } catch (error) {
         next(error);
     }
@@ -185,7 +172,7 @@ export const DeleteCultureMedium: RequestHandler<CultureMediumParamsInterface, u
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -201,7 +188,7 @@ export const DeleteCultureMedium: RequestHandler<CultureMediumParamsInterface, u
             throw createHttpError(400, "Invalid culture medium id");
         }
 
-        const cultureMedium = await CultureMediumModel.findById(id).exec();
+        const cultureMedium = await CultureMediumModel.findById(id);
 
         if (!cultureMedium) {
             throw createHttpError(404, "Culture medium not found");
@@ -209,7 +196,7 @@ export const DeleteCultureMedium: RequestHandler<CultureMediumParamsInterface, u
 
         await CultureMediumModel.deleteOne({_id: id});
 
-        res.sendStatus(204);
+        res.status(200).json({ message: "Culture medium deleted successfully" });
     } catch (error) {
         next(error);
     }

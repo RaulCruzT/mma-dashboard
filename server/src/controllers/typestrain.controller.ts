@@ -14,7 +14,7 @@ export const CreateTypeStrain: RequestHandler<unknown, unknown, TypeStrainBodyIn
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -32,12 +32,12 @@ export const CreateTypeStrain: RequestHandler<unknown, unknown, TypeStrainBodyIn
             throw createHttpError(404, "A type strain with that name already exists");
         }
 
-        const newTypeStrain = await TypeStrainModel.create({
+        await TypeStrainModel.create({
             name,
             creator: authenticatedUser._id
         });
 
-        res.status(200).json(newTypeStrain);
+        res.status(200).json({ message: "Type strain created successfully" });
     } catch (error) {
         next(error);
     }
@@ -49,7 +49,7 @@ export const GetTypeStrainById: RequestHandler<TypeStrainParamsInterface, unknow
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -61,7 +61,7 @@ export const GetTypeStrainById: RequestHandler<TypeStrainParamsInterface, unknow
             throw createHttpError(401, "You cannot access the type strain data");
         }
 
-        const typeStrain = await TypeStrainModel.findOne({ _id: id });
+        const typeStrain = await TypeStrainModel.findOne({ _id: id }).populate("creator");
 
         if (!typeStrain) {
             throw createHttpError(404, "Type strain not found");
@@ -74,7 +74,6 @@ export const GetTypeStrainById: RequestHandler<TypeStrainParamsInterface, unknow
 };
 
 export const GetTypeStrainPagination: RequestHandler<unknown, unknown, unknown, TypeStrainPaginationQueryInterface> = async (req, res, next) => {
-    console.log(req.query);
     const token = req.headers.authorization;
     const {
         _end,
@@ -86,7 +85,7 @@ export const GetTypeStrainPagination: RequestHandler<unknown, unknown, unknown, 
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -98,28 +97,18 @@ export const GetTypeStrainPagination: RequestHandler<unknown, unknown, unknown, 
             throw createHttpError(401, "You cannot access the type strain data");
         }
 
-        let typeStrain;
-
         let query = {};
 
         if(name_like) {
-            query = {...query, name: { $regex: name_like}}
+            query = {...query, name: { $regex: name_like, $options: "i" }}
         }
 
-        if (_order && _sort) {
-            typeStrain = await TypeStrainModel.find(query)
+        const typeStrain = await TypeStrainModel.find(query)
             .limit(_end)
             .skip(_start)
-            .sort({[_sort]: _order})
-            .exec();
-        } else{
-            typeStrain = await TypeStrainModel.find(query)
-            .limit(_end)
-            .skip(_start)
-            .exec();
-        }
+            .sort({[_sort]: _order});
 
-        const totalCount = await TypeStrainModel.find(query).countDocuments().exec();
+        const totalCount = await TypeStrainModel.find(query).countDocuments();
 
         res.append('X-Total-Count', totalCount.toString());
         res.append('Access-Control-Expose-Headers', 'X-Total-Count');
@@ -139,7 +128,7 @@ export const EditTypeStrain: RequestHandler<TypeStrainParamsInterface, unknown, 
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -155,25 +144,23 @@ export const EditTypeStrain: RequestHandler<TypeStrainParamsInterface, unknown, 
             throw createHttpError(400, "Invalid type strain Id");
         }
 
-        const typeStrain = await TypeStrainModel.findById(id).exec();
+        const typeStrain = await TypeStrainModel.findById(id);
 
         if (!typeStrain) {
             throw createHttpError(404, "Types strain not found");
         }
 
-        if (name !== undefined) {
-            const typeStrainExists = await TypeStrainModel.findOne({name, _id : {$ne: typeStrain._id}});
+        const typeStrainExists = await TypeStrainModel.findOne({name, _id : {$ne: typeStrain._id}});
 
-            if (typeStrainExists && typeStrainExists._id !== typeStrainExists._id) {
-                throw createHttpError(404, "A type strain with that name already exists");
-            }
-
-            typeStrain.name = name;
+        if (typeStrainExists) {
+            throw createHttpError(404, "A type strain with that name already exists");
         }
 
-        const updatedTypeStrain = await typeStrain.save();
+        typeStrain.name = name;
 
-        res.status(200).json(updatedTypeStrain);
+        await typeStrain.save();
+
+        res.status(200).json({ message: "Type strain updated successfully" });
     } catch (error) {
         next(error);
     }
@@ -185,7 +172,7 @@ export const DeleteTypeStrain: RequestHandler<TypeStrainParamsInterface, unknown
     const authenticatedUserEmail = parseJwt(token as string).email;
 
     try {
-        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail}).exec();
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
         if (!authenticatedUser) {
             throw createHttpError(404, "User not found");
@@ -201,7 +188,7 @@ export const DeleteTypeStrain: RequestHandler<TypeStrainParamsInterface, unknown
             throw createHttpError(400, "Invalid type strain id");
         }
 
-        const typeStrain = await TypeStrainModel.findById(id).exec();
+        const typeStrain = await TypeStrainModel.findById(id);
 
         if (!typeStrain) {
             throw createHttpError(404, "Type strain not found");
@@ -209,7 +196,7 @@ export const DeleteTypeStrain: RequestHandler<TypeStrainParamsInterface, unknown
 
         await TypeStrainModel.deleteOne({_id: id});
 
-        res.sendStatus(204);
+        res.status(200).json({ message: "Type strain deleted successfully" });
     } catch (error) {
         next(error);
     }
