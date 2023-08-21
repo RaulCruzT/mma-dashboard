@@ -7,6 +7,7 @@ import { Accordion, AccordionDetails, AccordionSummary, FormControl, FormHelperT
 import {
     ExpandMore
 } from "@mui/icons-material";
+import { stringFormat } from "../../utils/stringFormat";
 
 export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => {
     const {
@@ -27,9 +28,46 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                         <Typography>Identification</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography>
-                            Identification
-                        </Typography>
+                    <Grid
+                        container
+                    >
+                        <Grid item xs={12} md={12}>
+                            <Stack gap="24px">
+                                <FormControl>
+                                    <FormLabel
+                                        required
+                                        sx={{
+                                            marginBottom: "8px",
+                                            fontWeight: "700",
+                                            fontSize: "14px",
+                                            color: "text.primary",
+                                        }}
+                                    >
+                                        Strain
+                                    </FormLabel>
+                                    <TextField
+                                        {...register("identifierStrain", {
+                                            required: true,
+                                            maxLength: {
+                                                value: 100,
+                                                message: "You cannot enter more than 100 characters"
+                                            },
+                                            setValueAs: v => stringFormat(v)
+                                        })}
+                                        size="small"
+                                        margin="none"
+                                        variant="outlined"
+                                        inputProps={{ style: { textTransform: "lowercase" } }}
+                                    />
+                                    {errors.identifierStrain && (
+                                        <FormHelperText error>
+                                            {errors.identifierStrain.message}
+                                        </FormHelperText>
+                                    )}
+                                </FormControl>
+                            </Stack>
+                        </Grid>
+                    </Grid>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
