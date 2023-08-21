@@ -1,4 +1,4 @@
-import { IResourceComponentsProps } from "@refinedev/core/dist/contexts/resource"
+import { IResourceComponentsProps } from "@refinedev/core/dist/contexts/resource";
 import { useForm } from "@refinedev/react-hook-form";
 import { IEnzyme } from "../../interfaces/enzyme";
 import { HttpError } from "@refinedev/core";

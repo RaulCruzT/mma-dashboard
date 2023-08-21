@@ -1,6 +1,6 @@
+import { IResourceComponentsProps } from "@refinedev/core/dist/contexts/resource";
 
-
-export const AssemblyShow = () => {
+export const AssemblyShow: React.FC<IResourceComponentsProps> = () => {
     return (
         <div>AssemblyShow</div>
     )

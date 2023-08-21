@@ -37,7 +37,7 @@ export const ActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
             },
             {
                 field: "arnr16sCompleteness",
-                headerName: "16S rRNA",
+                headerName: "rRNA 16S",
                 flex: 1,
                 filterOperators: getGridStringOperators().filter(
                     (operator) => operator.value === 'contains'
