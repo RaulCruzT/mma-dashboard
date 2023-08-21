@@ -1,7 +1,7 @@
 import { InferSchemaType, model, Schema } from "mongoose";
 
 const actinobacteriaSchema = new Schema({
-    creator: { type: Schema.Types.ObjectId, ref: "User", select: false },
+    creator: { type: Schema.Types.ObjectId, required: true, ref: "User", select: false },
     identifierStrain: { type: String, required: true, unique: true },
     identifierGenera: { type: Schema.Types.ObjectId, ref: "Genera" },
     identifierSpecies: { type: String },

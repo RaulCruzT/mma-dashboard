@@ -1,15 +1,15 @@
 import { List, useDataGrid, EditButton, DeleteButton, ShowButton } from "@refinedev/mui";
-import { IActinobacteria } from "../../interfaces/actinobacteria";
+import { IMyActinobacteria } from "../../interfaces/myactinobacteria";
 import { IResourceComponentsProps } from "@refinedev/core";
 import { DataGrid, GridColDef, GridToolbar, getGridStringOperators } from "@mui/x-data-grid";
 import React from "react";
 
 export const MyActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
-    const { dataGridProps } = useDataGrid<IActinobacteria>({
+    const { dataGridProps } = useDataGrid<IMyActinobacteria>({
         initialPageSize: 10,
     });
 
-    const columns = React.useMemo<GridColDef<IActinobacteria>[]>(
+    const columns = React.useMemo<GridColDef<IMyActinobacteria>[]>(
         () => [
             {
                 field: "identifierStrain",
@@ -86,7 +86,7 @@ export const MyActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
             <DataGrid
                 {...dataGridProps}
                 columns={columns}
-                getRowId={(row: IActinobacteria) =>  row._id}
+                getRowId={(row: IMyActinobacteria) =>  row._id}
                 filterModel={undefined}
                 autoHeight
                 pageSizeOptions={[10, 20, 50, 100]}
