@@ -7,7 +7,6 @@ import { Accordion, AccordionDetails, AccordionSummary, FormControl, FormHelperT
 import {
     ExpandMore
 } from "@mui/icons-material";
-import { stringFormat } from "../../utils/stringFormat";
 
 export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => {
     const {
@@ -28,46 +27,44 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                         <Typography>Identification</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                    <Grid
-                        container
-                    >
-                        <Grid item xs={12} md={12}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        required
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Strain
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("identifierStrain", {
-                                            required: true,
-                                            maxLength: {
-                                                value: 100,
-                                                message: "You cannot enter more than 100 characters"
-                                            },
-                                            setValueAs: v => stringFormat(v)
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        inputProps={{ style: { textTransform: "lowercase" } }}
-                                    />
-                                    {errors.identifierStrain && (
-                                        <FormHelperText error>
-                                            {errors.identifierStrain.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
+                        <Grid
+                            container
+                        >
+                            <Grid item xs={12} md={12}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            required
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Strain
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("identifierStrain", {
+                                                required: true,
+                                                maxLength: {
+                                                    value: 100,
+                                                    message: "You cannot enter more than 100 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                        />
+                                        {errors.identifierStrain && (
+                                            <FormHelperText error>
+                                                {errors.identifierStrain.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
                         </Grid>
-                    </Grid>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
@@ -79,9 +76,177 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                         <Typography>Geographical data</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography>
-                            Geographical data
-                        </Typography>
+                        <Grid
+                            container
+                            spacing={2}
+                        >
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            required
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Isolation site
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("geographyIsolationSite", {
+                                                required: true,
+                                                maxLength: {
+                                                    value: 100,
+                                                    message: "You cannot enter more than 100 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                        />
+                                        {errors.geographyIsolationSite && (
+                                            <FormHelperText error>
+                                                {errors.geographyIsolationSite.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Coordinates
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("geographyCoordinates", {
+                                                required: false,
+                                                maxLength: {
+                                                    value: 100,
+                                                    message: "You cannot enter more than 100 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                        />
+                                        {errors.geographyCoordinates && (
+                                            <FormHelperText error>
+                                                {errors.geographyCoordinates.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            required
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Isolation source
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("geographyIsolationSource", {
+                                                required: true,
+                                                maxLength: {
+                                                    value: 100,
+                                                    message: "You cannot enter more than 100 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                        />
+                                        {errors.geographyIsolationSource && (
+                                            <FormHelperText error>
+                                                {errors.geographyIsolationSource.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Altitude (m.a.s.l)
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("geographyAltitude", {
+                                                required: false
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            type="number"
+                                        />
+                                        {errors.geographyAltitude && (
+                                            <FormHelperText error>
+                                                {errors.geographyAltitude.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Comments
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("geographyComments", {
+                                                required: false,
+                                                maxLength: {
+                                                    value: 400,
+                                                    message: "You cannot enter more than 400 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            multiline
+                                            minRows={5}
+                                        />
+                                        {errors.geographyComments && (
+                                            <FormHelperText error>
+                                                {errors.geographyComments.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                        </Grid>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
