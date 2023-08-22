@@ -537,9 +537,80 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                         <Typography>Genome</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography>
-                            Genome
-                        </Typography>
+                        <Grid
+                            container
+                            spacing={2}
+                        >
+                            <Grid item xs={12} md={12}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Raw data link
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("genomeRawData", {
+                                                required: false,
+                                                maxLength: {
+                                                    value: 100,
+                                                    message: "You cannot enter more than 100 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            type="url"
+                                        />
+                                        {errors.genomeRawData && (
+                                            <FormHelperText error>
+                                                {errors.genomeRawData.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Comments
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("genomeComments", {
+                                                required: false,
+                                                maxLength: {
+                                                    value: 400,
+                                                    message: "You cannot enter more than 400 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            multiline
+                                            minRows={5}
+                                        />
+                                        {errors.genomeComments && (
+                                            <FormHelperText error>
+                                                {errors.genomeComments.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                        </Grid>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
