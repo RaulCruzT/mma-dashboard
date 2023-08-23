@@ -2,12 +2,13 @@ import { IResourceComponentsProps } from "@refinedev/core/dist/contexts/resource
 import { useForm } from "@refinedev/react-hook-form";
 import { IMyActinobacteria } from "../../interfaces/myactinobacteria";
 import { HttpError } from "@refinedev/core";
-import { Create } from "@refinedev/mui";
+import { Create, useAutocomplete } from "@refinedev/mui";
 import { Accordion, AccordionDetails, AccordionSummary, Autocomplete, FormControl, FormHelperText, FormLabel, Grid, Stack, TextField, Typography } from "@mui/material";
 import {
     ExpandMore
 } from "@mui/icons-material";
 import { Controller } from "react-hook-form";
+import { IGenera } from "../../interfaces/genera";
 
 export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => {
     const {
@@ -16,6 +17,10 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
         saveButtonProps,
         control
     } = useForm<IMyActinobacteria, HttpError, IMyActinobacteria>();
+
+    const { autocompleteProps } = useAutocomplete<IGenera>({
+        resource: "genera",
+    });
 
     return (
         <Create saveButtonProps={saveButtonProps}>
@@ -31,6 +36,7 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                     <AccordionDetails>
                         <Grid
                             container
+                            spacing={2}
                         >
                             <Grid item xs={12} md={12}>
                                 <Stack gap="24px">
@@ -64,6 +70,64 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                             </FormHelperText>
                                         )}
                                     </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                <FormControl sx={{ marginTop: "10px" }}>
+                                    <Controller
+                                        control={control}
+                                        name="identifierGenera"
+                                        // eslint-disable-next-line
+                                        defaultValue={null as any}
+                                        render={({ field }) => (
+                                            <Autocomplete
+                                                disablePortal
+                                                {...autocompleteProps}
+                                                {...field}
+                                                onChange={(_, value) => {
+                                                    field.onChange(value);
+                                                }}
+                                                getOptionLabel={(item) => {
+                                                    return item.name
+                                                        ? item.name
+                                                        : autocompleteProps?.options?.find(
+                                                            (p) =>
+                                                                p._id.toString() ===
+                                                                item.toString(),
+                                                        )?.name ?? "";
+                                                }}
+                                                isOptionEqualToValue={(
+                                                    option,
+                                                    value,
+                                                ) =>
+                                                    value === undefined ||
+                                                    option?._id?.toString() ===
+                                                        (
+                                                            value?._id ?? value
+                                                        )?.toString()
+                                                }
+                                                renderInput={(params) => (
+                                                    <TextField
+                                                        {...params}
+                                                        label="Genera"
+                                                        variant="outlined"
+                                                        error={
+                                                            !!errors.identifierGenera
+                                                                ?.message
+                                                        }
+                                                        required
+                                                    />
+                                                )}
+                                            />
+                                        )}
+                                    />
+                                    {errors.identifierGenera && (
+                                        <FormHelperText error>
+                                            {errors.identifierGenera.message}
+                                        </FormHelperText>
+                                    )}
+                                </FormControl>
                                 </Stack>
                             </Grid>
                         </Grid>
