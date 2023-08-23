@@ -18,8 +18,8 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
         control
     } = useForm<IMyActinobacteria, HttpError, IMyActinobacteria>();
 
-    const { autocompleteProps } = useAutocomplete<IGenera>({
-        resource: "genera",
+    const { autocompleteProps: generaAutocompleteProps } = useAutocomplete<IGenera>({
+        resource: "genera"
     });
 
     return (
@@ -95,7 +95,7 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                                 <Autocomplete
                                                     size="small"
                                                     disablePortal
-                                                    {...autocompleteProps}
+                                                    {...generaAutocompleteProps}
                                                     {...field}
                                                     onChange={(_, value) => {
                                                         field.onChange(value);
@@ -103,7 +103,7 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                                     getOptionLabel={(item) => {
                                                         return item.name
                                                             ? item.name
-                                                            : autocompleteProps?.options?.find(
+                                                            : generaAutocompleteProps?.options?.find(
                                                                 (p) =>
                                                                     p._id.toString() ===
                                                                     item.toString(),
@@ -136,6 +136,210 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                         {errors.identifierGenera && (
                                             <FormHelperText error>
                                                 {errors.identifierGenera.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Species
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("identifierSpecies", {
+                                                required: false,
+                                                maxLength: {
+                                                    value: 100,
+                                                    message: "You cannot enter more than 100 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                        />
+                                        {errors.identifierSpecies && (
+                                            <FormHelperText error>
+                                                {errors.identifierSpecies.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            required
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Main photo link
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("identifierMainPhoto", {
+                                                required: true,
+                                                maxLength: {
+                                                    value: 400,
+                                                    message: "You cannot enter more than 400 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            type="url"
+                                        />
+                                        {errors.identifierMainPhoto && (
+                                            <FormHelperText error>
+                                                {errors.identifierMainPhoto.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Other photos
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("identifierPhotos", {
+                                                required: false,
+                                                maxLength: {
+                                                    value: 400,
+                                                    message: "You cannot enter more than 400 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            type="url"
+                                        />
+                                        {errors.identifierPhotos && (
+                                            <FormHelperText error>
+                                                {errors.identifierPhotos.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            required
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Local storage
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("identifierLocalStorage", {
+                                                required: true,
+                                                maxLength: {
+                                                    value: 100,
+                                                    message: "You cannot enter more than 100 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                        />
+                                        {errors.identifierLocalStorage && (
+                                            <FormHelperText error>
+                                                {errors.identifierLocalStorage.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            International storage
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("identifierInternationalStorage", {
+                                                required: false,
+                                                maxLength: {
+                                                    value: 100,
+                                                    message: "You cannot enter more than 100 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                        />
+                                        {errors.identifierInternationalStorage && (
+                                            <FormHelperText error>
+                                                {errors.identifierInternationalStorage.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Comments
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("identifierComments", {
+                                                required: false,
+                                                maxLength: {
+                                                    value: 400,
+                                                    message: "You cannot enter more than 400 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            multiline
+                                            minRows={5}
+                                        />
+                                        {errors.identifierComments && (
+                                            <FormHelperText error>
+                                                {errors.identifierComments.message}
                                             </FormHelperText>
                                         )}
                                     </FormControl>
