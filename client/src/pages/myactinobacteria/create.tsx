@@ -19,7 +19,19 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
     } = useForm<IMyActinobacteria, HttpError, IMyActinobacteria>();
 
     const { autocompleteProps: generaAutocompleteProps } = useAutocomplete<IGenera>({
-        resource: "genera"
+        resource: "genera",
+        onSearch: (value: string) => [
+            {
+                field: "name",
+                operator: "contains",
+                value
+            }
+        ],
+        pagination: {
+            mode: "server",
+            current: 1,
+            pageSize: 10
+        },
     });
 
     return (
