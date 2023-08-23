@@ -74,60 +74,71 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <Stack gap="24px">
-                                <FormControl sx={{ marginTop: "10px" }}>
-                                    <Controller
-                                        control={control}
-                                        name="identifierGenera"
-                                        // eslint-disable-next-line
-                                        defaultValue={null as any}
-                                        render={({ field }) => (
-                                            <Autocomplete
-                                                disablePortal
-                                                {...autocompleteProps}
-                                                {...field}
-                                                onChange={(_, value) => {
-                                                    field.onChange(value);
-                                                }}
-                                                getOptionLabel={(item) => {
-                                                    return item.name
-                                                        ? item.name
-                                                        : autocompleteProps?.options?.find(
-                                                            (p) =>
-                                                                p._id.toString() ===
-                                                                item.toString(),
-                                                        )?.name ?? "";
-                                                }}
-                                                isOptionEqualToValue={(
-                                                    option,
-                                                    value,
-                                                ) =>
-                                                    value === undefined ||
-                                                    option?._id?.toString() ===
-                                                        (
-                                                            value?._id ?? value
-                                                        )?.toString()
-                                                }
-                                                renderInput={(params) => (
-                                                    <TextField
-                                                        {...params}
-                                                        label="Genera"
-                                                        variant="outlined"
-                                                        error={
-                                                            !!errors.identifierGenera
-                                                                ?.message
-                                                        }
-                                                        required
-                                                    />
-                                                )}
-                                            />
+                                    <FormControl>
+                                        <FormLabel
+                                            required
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Genera
+                                        </FormLabel>
+                                        <Controller
+                                            control={control}
+                                            name="identifierGenera"
+                                            // eslint-disable-next-line
+                                            defaultValue={null as any}
+                                            render={({ field }) => (
+                                                <Autocomplete
+                                                    size="small"
+                                                    disablePortal
+                                                    {...autocompleteProps}
+                                                    {...field}
+                                                    onChange={(_, value) => {
+                                                        field.onChange(value);
+                                                    }}
+                                                    getOptionLabel={(item) => {
+                                                        return item.name
+                                                            ? item.name
+                                                            : autocompleteProps?.options?.find(
+                                                                (p) =>
+                                                                    p._id.toString() ===
+                                                                    item.toString(),
+                                                            )?.name ?? "";
+                                                    }}
+                                                    isOptionEqualToValue={(
+                                                        option,
+                                                        value,
+                                                    ) =>
+                                                        value === undefined ||
+                                                        option?._id?.toString() ===
+                                                            (
+                                                                value?._id ?? value
+                                                            )?.toString()
+                                                    }
+                                                    renderInput={(params) => (
+                                                        <TextField
+                                                            {...params}
+                                                            variant="outlined"
+                                                            error={
+                                                                !!errors.identifierGenera
+                                                                    ?.message
+                                                            }
+                                                            required
+                                                        />
+                                                    )}
+                                                />
+                                            )}
+                                        />
+                                        {errors.identifierGenera && (
+                                            <FormHelperText error>
+                                                {errors.identifierGenera.message}
+                                            </FormHelperText>
                                         )}
-                                    />
-                                    {errors.identifierGenera && (
-                                        <FormHelperText error>
-                                            {errors.identifierGenera.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
+                                    </FormControl>
                                 </Stack>
                             </Grid>
                         </Grid>
