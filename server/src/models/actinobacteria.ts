@@ -23,7 +23,7 @@ const actinobacteriaSchema = new Schema({
     isolationThesisPaperLink: { type: String, match: [/^(http|https):\/\/[^ "]+$/, 'Please enter a valid URL.'] },
     isolationComments: { type: String },
     arnr16sCompleteness: { type: String, required: true },
-    arnr16sSize: { type: String, required: true },
+    arnr16sSize: { type: Schema.Types.Decimal128, required: true },
     arnr16sSequenceFile: { type: String, required: true, match: [/^(http|https):\/\/[^ "]+$/, 'Please enter a valid URL.'] },
     arnr16sMacrogenFile: { type: String, match: [/^(http|https):\/\/[^ "]+$/, 'Please enter a valid URL.'] },
     arnr16sComments: { type: String },

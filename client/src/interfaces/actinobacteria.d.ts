@@ -27,7 +27,7 @@ export interface IActinobacteria {
     isolationThesisPaperLink: string;
     isolationComments: string;
     arnr16sCompleteness: string;
-    arnr16sSize: string;
+    arnr16sSize: number;
     arnr16sSequenceFile: string;
     arnr16sMacrogenFile: string;
     arnr16sComments: string;

@@ -3,16 +3,18 @@ import { useForm } from "@refinedev/react-hook-form";
 import { IMyActinobacteria } from "../../interfaces/myactinobacteria";
 import { HttpError } from "@refinedev/core";
 import { Create } from "@refinedev/mui";
-import { Accordion, AccordionDetails, AccordionSummary, FormControl, FormHelperText, FormLabel, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Autocomplete, FormControl, FormHelperText, FormLabel, Grid, Stack, TextField, Typography } from "@mui/material";
 import {
     ExpandMore
 } from "@mui/icons-material";
+import { Controller } from "react-hook-form";
 
 export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => {
     const {
         register,
         formState: { errors },
         saveButtonProps,
+        control
     } = useForm<IMyActinobacteria, HttpError, IMyActinobacteria>();
 
     return (
@@ -509,9 +511,207 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                         <Typography>rRNA 16S</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography>
-                            rRNA 16S
-                        </Typography>
+                        <Grid
+                            container
+                            spacing={2}
+                        >
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            required
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Completeness
+                                        </FormLabel>
+                                        <Controller
+                                            control={control}
+                                            name="arnr16sCompleteness"
+                                            // eslint-disable-next-line
+                                            defaultValue={null as any}
+                                            render={({ field }) => (
+                                                <Autocomplete
+                                                    size="small"
+                                                    {...field}
+                                                    onChange={(
+                                                        _,
+                                                        value,
+                                                    ) => {
+                                                        field.onChange(
+                                                            value,
+                                                        );
+                                                    }}
+                                                    options={[
+                                                        "Complete",
+                                                        "Partial",
+                                                    ]}
+                                                    renderInput={(
+                                                        params,
+                                                    ) => (
+                                                        <TextField
+                                                            {...params}
+                                                            variant="outlined"
+                                                            error={
+                                                                !!errors.arnr16sCompleteness
+                                                            }
+                                                            required
+                                                        />
+                                                    )}
+                                                />
+                                            )}
+                                        />
+                                        {errors.arnr16sCompleteness && (
+                                            <FormHelperText error>
+                                                {errors.arnr16sCompleteness.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            required
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Size (?)
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("arnr16sSize", {
+                                                required: true,
+                                                maxLength: {
+                                                    value: 100,
+                                                    message: "You cannot enter more than 100 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                        />
+                                        {errors.arnr16sSize && (
+                                            <FormHelperText error>
+                                                {errors.arnr16sSize.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            required
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Sequence file link
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("arnr16sSequenceFile", {
+                                                required: true,
+                                                maxLength: {
+                                                    value: 100,
+                                                    message: "You cannot enter more than 100 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            type="url"
+                                        />
+                                        {errors.arnr16sSequenceFile && (
+                                            <FormHelperText error>
+                                                {errors.arnr16sSequenceFile.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Macrogen file link
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("arnr16sMacrogenFile", {
+                                                required: false,
+                                                maxLength: {
+                                                    value: 100,
+                                                    message: "You cannot enter more than 100 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            type="url"
+                                        />
+                                        {errors.arnr16sMacrogenFile && (
+                                            <FormHelperText error>
+                                                {errors.arnr16sMacrogenFile.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Comments
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("arnr16sComments", {
+                                                required: false,
+                                                maxLength: {
+                                                    value: 400,
+                                                    message: "You cannot enter more than 400 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            multiline
+                                            minRows={5}
+                                        />
+                                        {errors.arnr16sComments && (
+                                            <FormHelperText error>
+                                                {errors.arnr16sComments.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                        </Grid>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
