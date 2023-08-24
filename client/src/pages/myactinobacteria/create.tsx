@@ -240,7 +240,10 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                         </FormLabel>
                                         <TextField
                                             {...register("identifierMainPhoto", {
-                                                required: true,
+                                                required: {
+                                                    value: true,
+                                                    message: "required"
+                                                },
                                                 maxLength: {
                                                     value: 400,
                                                     message: "You cannot enter more than 400 characters"
@@ -309,7 +312,10 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                         </FormLabel>
                                         <TextField
                                             {...register("identifierLocalStorage", {
-                                                required: true,
+                                                required: {
+                                                    value: true,
+                                                    message: "required"
+                                                },
                                                 maxLength: {
                                                     value: 100,
                                                     message: "You cannot enter more than 100 characters"
@@ -427,7 +433,10 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                         </FormLabel>
                                         <TextField
                                             {...register("geographyIsolationSite", {
-                                                required: true,
+                                                required: {
+                                                    value: true,
+                                                    message: "required"
+                                                },
                                                 maxLength: {
                                                     value: 100,
                                                     message: "You cannot enter more than 100 characters"
@@ -494,7 +503,10 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                         </FormLabel>
                                         <TextField
                                             {...register("geographyIsolationSource", {
-                                                required: true,
+                                                required: {
+                                                    value: true,
+                                                    message: "required"
+                                                },
                                                 maxLength: {
                                                     value: 100,
                                                     message: "You cannot enter more than 100 characters"
@@ -609,7 +621,10 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                         </FormLabel>
                                         <TextField
                                             {...register("isolationMedium", {
-                                                required: true,
+                                                required: {
+                                                    value: true,
+                                                    message: "required"
+                                                },
                                                 maxLength: {
                                                     value: 100,
                                                     message: "You cannot enter more than 100 characters"
@@ -643,7 +658,10 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                         </FormLabel>
                                         <TextField
                                             {...register("isolationTemperature", {
-                                                required: true,
+                                                required: {
+                                                    value: true,
+                                                    message: "required"
+                                                },
                                             })}
                                             size="small"
                                             margin="none"
@@ -674,7 +692,10 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                         </FormLabel>
                                         <TextField
                                             {...register("isolationMethod", {
-                                                required: true,
+                                                required: {
+                                                    value: true,
+                                                    message: "required"
+                                                },
                                                 maxLength: {
                                                     value: 100,
                                                     message: "You cannot enter more than 100 characters"
@@ -708,7 +729,10 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                         </FormLabel>
                                         <TextField
                                             {...register("isolationResponsible", {
-                                                required: true,
+                                                required: {
+                                                    value: true,
+                                                    message: "required"
+                                                },
                                                 maxLength: {
                                                     value: 100,
                                                     message: "You cannot enter more than 100 characters"
@@ -919,7 +943,10 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                         </FormLabel>
                                         <TextField
                                             {...register("arnr16sSize", {
-                                                required: true,
+                                                required: {
+                                                    value: true,
+                                                    message: "required"
+                                                },
                                                 maxLength: {
                                                     value: 100,
                                                     message: "You cannot enter more than 100 characters"
@@ -953,7 +980,10 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                         </FormLabel>
                                         <TextField
                                             {...register("arnr16sSequenceFile", {
-                                                required: true,
+                                                required: {
+                                                    value: true,
+                                                    message: "required"
+                                                },
                                                 maxLength: {
                                                     value: 100,
                                                     message: "You cannot enter more than 100 characters"
@@ -1250,9 +1280,7 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                                                     id="bioactivityYes"
                                                                     margin="normal"
                                                                     variant="outlined"
-                                                                    error={!!errors.bioactivityYes}
-                                                                    helperText={errors.bioactivityYes?.message}
-                                                                    required
+                                                                    error={!!errors.bioactivityYes?.message}
                                                                 />
                                                             );
                                                         }}
@@ -1260,6 +1288,11 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                                 );
                                             }}
                                         />
+                                        {errors.bioactivityYes && (
+                                            <FormHelperText error>
+                                                {errors.bioactivityYes.message}
+                                            </FormHelperText>
+                                        )}
                                     </FormControl>
                                 </Stack>
                             </Grid>
@@ -1323,9 +1356,7 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                                                     id="bioactivityNo"
                                                                     margin="normal"
                                                                     variant="outlined"
-                                                                    error={!!errors.bioactivityNo}
-                                                                    helperText={errors.bioactivityNo?.message}
-                                                                    required
+                                                                    error={!!errors.bioactivityNo?.message}
                                                                 />
                                                             );
                                                         }}
@@ -1333,6 +1364,11 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                                 );
                                             }}
                                         />
+                                        {errors.bioactivityNo && (
+                                            <FormHelperText error>
+                                                {errors.bioactivityNo.message}
+                                            </FormHelperText>
+                                        )}
                                     </FormControl>
                                 </Stack>
                             </Grid>
@@ -1396,9 +1432,7 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                                                     id="bioactivityNa"
                                                                     margin="normal"
                                                                     variant="outlined"
-                                                                    error={!!errors.bioactivityNa}
-                                                                    helperText={errors.bioactivityNa?.message}
-                                                                    required
+                                                                    error={!!errors.bioactivityNa?.message}
                                                                 />
                                                             );
                                                         }}
@@ -1406,6 +1440,11 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                                 );
                                             }}
                                         />
+                                        {errors.bioactivityNa && (
+                                            <FormHelperText error>
+                                                {errors.bioactivityNa.message}
+                                            </FormHelperText>
+                                        )}
                                     </FormControl>
                                 </Stack>
                             </Grid>
