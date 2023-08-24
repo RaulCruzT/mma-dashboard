@@ -28,9 +28,7 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
             }
         ],
         pagination: {
-            mode: "server",
-            current: 1,
-            pageSize: 10
+            mode: "server"
         },
     });
 
@@ -1113,9 +1111,80 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                         <Typography>Bioactivity</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography>
-                            Bioactivity
-                        </Typography>
+                    <Grid
+                            container
+                            spacing={2}
+                        >
+                            <Grid item xs={12} md={12}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            File link
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("bioactivityFile", {
+                                                required: false,
+                                                maxLength: {
+                                                    value: 100,
+                                                    message: "You cannot enter more than 100 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            type="url"
+                                        />
+                                        {errors.bioactivityFile && (
+                                            <FormHelperText error>
+                                                {errors.bioactivityFile.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Comments
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("bioactivityComments", {
+                                                required: false,
+                                                maxLength: {
+                                                    value: 400,
+                                                    message: "You cannot enter more than 400 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            multiline
+                                            minRows={5}
+                                        />
+                                        {errors.bioactivityComments && (
+                                            <FormHelperText error>
+                                                {errors.bioactivityComments.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                        </Grid>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
