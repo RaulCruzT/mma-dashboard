@@ -1,7 +1,4 @@
-import { ICultureMedium } from './culturemedium';
-import { IEnzyme } from './enzyme';
 import { IGenera } from './genera';
-import { ITypeStrain } from './typestrain';
 import { IUser } from './user';
 export interface IActinobacteria {
     _id: string;
@@ -31,8 +28,8 @@ export interface IActinobacteria {
     arnr16sSequenceFile: string;
     arnr16sMacrogenFile: string;
     arnr16sComments: string;
-    characterizationGrowingMedia: ICultureMedium[];
-    characterizationNotGrowingMedia: ICultureMedium[];
+    characterizationGrowingMedia: string[];
+    characterizationNotGrowingMedia: string[];
     characterizationMycelial: string;
     characterizationColoniesDay: number;
     characterizationSporulationDay: number;
@@ -48,15 +45,15 @@ export interface IActinobacteria {
     genomeRawData: string;
     genomeComments: string;
     bioactivityFile: string;
-    bioactivityYes: ITypeStrain[];
-    bioactivityNo: ITypeStrain[];
-    bioactivityNa: ITypeStrain[];
+    bioactivityYes: string[];
+    bioactivityNo: string[];
+    bioactivityNa: string[];
     bioactivityComments: string;
     metabolomicsMedinaFoundationReports: string;
     metabolomicsRawData: string;
     metabolomicsComments: string;
-    enzymesYes: IEnzyme[];
-    enzymesNo: IEnzyme[];
-    enzymesNa: IEnzyme[];
+    enzymesYes: string[];
+    enzymesNo: string[];
+    enzymesNa: string[];
     enzymesComments: string;
 }

@@ -9,14 +9,17 @@ import {
 } from "@mui/icons-material";
 import { Controller } from "react-hook-form";
 import { IGenera } from "../../interfaces/genera";
+import { ITypeStrain } from "../../interfaces/typestrain";
+import { Nullable } from "../../interfaces/utils";
 
 export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => {
     const {
         register,
         formState: { errors },
         saveButtonProps,
-        control
-    } = useForm<IMyActinobacteria, HttpError, IMyActinobacteria>();
+        control,
+        getValues
+    } = useForm<IMyActinobacteria, HttpError, Nullable<IMyActinobacteria>>();
 
     const { autocompleteProps: generaAutocompleteProps } = useAutocomplete<IGenera>({
         resource: "genera",
@@ -26,10 +29,43 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                 operator: "contains",
                 value
             }
-        ],
-        pagination: {
-            mode: "server"
-        },
+        ]
+    });
+
+    const { autocompleteProps: typeStrainYesAutocompleteProps } = useAutocomplete<ITypeStrain>({
+        resource: "typestrain",
+        defaultValue: getValues("bioactivityYes") || [],
+        onSearch: (value: string) => [
+            {
+                field: "name",
+                operator: "contains",
+                value
+            }
+        ]
+    });
+
+    const { autocompleteProps: typeStrainNoAutocompleteProps } = useAutocomplete<ITypeStrain>({
+        resource: "typestrain",
+        defaultValue: getValues("bioactivityNo") || [],
+        onSearch: (value: string) => [
+            {
+                field: "name",
+                operator: "contains",
+                value
+            }
+        ]
+    });
+
+    const { autocompleteProps: typeStrainNaAutocompleteProps } = useAutocomplete<ITypeStrain>({
+        resource: "typestrain",
+        defaultValue: getValues("bioactivityNa") || [],
+        onSearch: (value: string) => [
+            {
+                field: "name",
+                operator: "contains",
+                value
+            }
+        ]
     });
 
     return (
@@ -64,7 +100,10 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                         </FormLabel>
                                         <TextField
                                             {...register("identifierStrain", {
-                                                required: true,
+                                                required: {
+                                                    value: true,
+                                                    message: "required"
+                                                },
                                                 maxLength: {
                                                     value: 100,
                                                     message: "You cannot enter more than 100 characters"
@@ -99,6 +138,7 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                         <Controller
                                             control={control}
                                             name="identifierGenera"
+                                            rules={{ required: "required" }}
                                             // eslint-disable-next-line
                                             defaultValue={null as any}
                                             render={({ field }) => (
@@ -821,6 +861,7 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                         <Controller
                                             control={control}
                                             name="arnr16sCompleteness"
+                                            rules={{ required: "required" }}
                                             // eslint-disable-next-line
                                             defaultValue={null as any}
                                             render={({ field }) => (
@@ -1111,7 +1152,7 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                         <Typography>Bioactivity</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                    <Grid
+                        <Grid
                             container
                             spacing={2}
                         >
@@ -1146,6 +1187,225 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                                 {errors.bioactivityFile.message}
                                             </FormHelperText>
                                         )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Yes
+                                        </FormLabel>
+                                        <Controller
+                                            control={control}
+                                            name="bioactivityYes"
+                                            defaultValue={[]}
+                                            render={({ field }) => {
+                                                const newValue = typeStrainYesAutocompleteProps.options.filter(
+                                                    (p) =>
+                                                        field.value?.find((v) => v === p?._id) !==
+                                                        undefined,
+                                                );
+
+                                                return (
+                                                    <Autocomplete
+                                                        {...typeStrainYesAutocompleteProps}
+                                                        {...field}
+                                                        value={newValue}
+                                                        multiple
+                                                        clearOnBlur={false}
+                                                        onChange={(_, value) => {
+                                                            const newValue = value.map((p) => p?._id.toString());
+                                                            field.onChange(newValue);
+                                                        }}
+                                                        getOptionLabel={(item) => {
+                                                            return (
+                                                                typeStrainYesAutocompleteProps?.options?.find(
+                                                                    (p) =>
+                                                                        p?._id?.toString() ===
+                                                                        item?._id.toString(),
+                                                                )?.name ?? ""
+                                                            );
+                                                        }}
+                                                        isOptionEqualToValue={(option, value) => {
+                                                            return (
+                                                                value === undefined ||
+                                                                option?._id?.toString() ===
+                                                                    value?._id?.toString()
+                                                            );
+                                                        }}
+                                                        renderInput={(params) => {
+                                                            return (
+                                                                <TextField
+                                                                    {...params}
+                                                                    size="small"
+                                                                    name="bioactivityYes"
+                                                                    id="bioactivityYes"
+                                                                    margin="normal"
+                                                                    variant="outlined"
+                                                                    error={!!errors.bioactivityYes}
+                                                                    helperText={errors.bioactivityYes?.message}
+                                                                    required
+                                                                />
+                                                            );
+                                                        }}
+                                                    />
+                                                );
+                                            }}
+                                        />
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            No
+                                        </FormLabel>
+                                        <Controller
+                                            control={control}
+                                            name="bioactivityNo"
+                                            defaultValue={[]}
+                                            render={({ field }) => {
+                                                const newValue = typeStrainNoAutocompleteProps.options.filter(
+                                                    (p) =>
+                                                        field.value?.find((v) => v === p?._id) !==
+                                                        undefined,
+                                                );
+
+                                                return (
+                                                    <Autocomplete
+                                                        {...typeStrainNoAutocompleteProps}
+                                                        {...field}
+                                                        value={newValue}
+                                                        multiple
+                                                        clearOnBlur={false}
+                                                        onChange={(_, value) => {
+                                                            const newValue = value.map((p) => p?._id.toString());
+                                                            field.onChange(newValue);
+                                                        }}
+                                                        getOptionLabel={(item) => {
+                                                            return (
+                                                                typeStrainNoAutocompleteProps?.options?.find(
+                                                                    (p) =>
+                                                                        p?._id?.toString() ===
+                                                                        item?._id.toString(),
+                                                                )?.name ?? ""
+                                                            );
+                                                        }}
+                                                        isOptionEqualToValue={(option, value) => {
+                                                            return (
+                                                                value === undefined ||
+                                                                option?._id?.toString() ===
+                                                                    value?._id?.toString()
+                                                            );
+                                                        }}
+                                                        renderInput={(params) => {
+                                                            return (
+                                                                <TextField
+                                                                    {...params}
+                                                                    size="small"
+                                                                    name="bioactivityNo"
+                                                                    id="bioactivityNo"
+                                                                    margin="normal"
+                                                                    variant="outlined"
+                                                                    error={!!errors.bioactivityNo}
+                                                                    helperText={errors.bioactivityNo?.message}
+                                                                    required
+                                                                />
+                                                            );
+                                                        }}
+                                                    />
+                                                );
+                                            }}
+                                        />
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Na
+                                        </FormLabel>
+                                        <Controller
+                                            control={control}
+                                            name="bioactivityNa"
+                                            defaultValue={[]}
+                                            render={({ field }) => {
+                                                const newValue = typeStrainNaAutocompleteProps.options.filter(
+                                                    (p) =>
+                                                        field.value?.find((v) => v === p?._id) !==
+                                                        undefined,
+                                                );
+
+                                                return (
+                                                    <Autocomplete
+                                                        {...typeStrainNaAutocompleteProps}
+                                                        {...field}
+                                                        value={newValue}
+                                                        multiple
+                                                        clearOnBlur={false}
+                                                        onChange={(_, value) => {
+                                                            const newValue = value.map((p) => p?._id.toString());
+                                                            field.onChange(newValue);
+                                                        }}
+                                                        getOptionLabel={(item) => {
+                                                            return (
+                                                                typeStrainNaAutocompleteProps?.options?.find(
+                                                                    (p) =>
+                                                                        p?._id?.toString() ===
+                                                                        item?._id.toString(),
+                                                                )?.name ?? ""
+                                                            );
+                                                        }}
+                                                        isOptionEqualToValue={(option, value) => {
+                                                            return (
+                                                                value === undefined ||
+                                                                option?._id?.toString() ===
+                                                                    value?._id?.toString()
+                                                            );
+                                                        }}
+                                                        renderInput={(params) => {
+                                                            return (
+                                                                <TextField
+                                                                    {...params}
+                                                                    size="small"
+                                                                    name="bioactivityNa"
+                                                                    id="bioactivityNa"
+                                                                    margin="normal"
+                                                                    variant="outlined"
+                                                                    error={!!errors.bioactivityNa}
+                                                                    helperText={errors.bioactivityNa?.message}
+                                                                    required
+                                                                />
+                                                            );
+                                                        }}
+                                                    />
+                                                );
+                                            }}
+                                        />
                                     </FormControl>
                                 </Stack>
                             </Grid>
