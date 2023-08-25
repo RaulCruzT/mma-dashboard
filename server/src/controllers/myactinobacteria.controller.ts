@@ -203,7 +203,8 @@ export const GetMyActinobacteriaPagination: RequestHandler<unknown, unknown, unk
         const actinobacteria = await ActinobacteriaModel.find(query)
             .skip(_start)
             .limit(_end)
-            .sort({[_sort]: _order});
+            .sort({[_sort]: _order})
+            .populate("identifierGenera");
 
         const totalCount = await ActinobacteriaModel.find(query).countDocuments();
 

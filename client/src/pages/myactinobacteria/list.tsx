@@ -21,11 +21,12 @@ export const MyActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
                 )
             },
             {
-                field: "identifierGenera.name",
+                field: "identifierGenera",
                 headerName: "Genera",
                 flex: 1,
                 sortable: false,
                 filterable: false,
+                valueGetter: (params) => params.row?.identifierGenera?.name 
             },
             {
                 field: "identifierSpecies",
