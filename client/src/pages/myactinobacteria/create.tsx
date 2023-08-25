@@ -12,6 +12,7 @@ import { Nullable } from "../../interfaces/utils";
 import { IGenera } from "../../interfaces/genera";
 import { ITypeStrain } from "../../interfaces/typestrain";
 import { IEnzyme } from "../../interfaces/enzyme";
+import { ICultureMedium } from "../../interfaces/culturemedium";
 
 export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => {
     const {
@@ -96,6 +97,30 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
     const { autocompleteProps: enzymesNaAutocompleteProps } = useAutocomplete<IEnzyme>({
         resource: "enzyme",
         defaultValue: getValues("enzymesNa") || [],
+        onSearch: (value: string) => [
+            {
+                field: "name",
+                operator: "contains",
+                value
+            }
+        ]
+    });
+
+    const { autocompleteProps: characterizationGrowingMediaAutocompleteProps } = useAutocomplete<ICultureMedium>({
+        resource: "culturemedium",
+        defaultValue: getValues("characterizationGrowingMedia") || [],
+        onSearch: (value: string) => [
+            {
+                field: "name",
+                operator: "contains",
+                value
+            }
+        ]
+    });
+
+    const { autocompleteProps: characterizationNotGrowingMediaAutocompleteProps } = useAutocomplete<ICultureMedium>({
+        resource: "culturemedium",
+        defaultValue: getValues("characterizationNotGrowingMedia") || [],
         onSearch: (value: string) => [
             {
                 field: "name",
@@ -1120,9 +1145,737 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                         <Typography>Characterization</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography>
-                            Characterization
-                        </Typography>
+                        <Grid
+                            container
+                            spacing={2}
+                        >
+                            <Grid item xs={12} md={12}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            required
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Growing media
+                                        </FormLabel>
+                                        <Controller
+                                            control={control}
+                                            name="characterizationGrowingMedia"
+                                            rules={{ required: "required" }}
+                                            defaultValue={[]}
+                                            render={({ field }) => {
+                                                const newValue = characterizationGrowingMediaAutocompleteProps.options.filter(
+                                                    (p) =>
+                                                        field.value?.find((v) => v === p?._id) !==
+                                                        undefined,
+                                                );
+
+                                                return (
+                                                    <Autocomplete
+                                                        {...characterizationGrowingMediaAutocompleteProps}
+                                                        {...field}
+                                                        value={newValue}
+                                                        multiple
+                                                        clearOnBlur={false}
+                                                        onChange={(_, value) => {
+                                                            const newValue = value.map((p) => p?._id.toString());
+                                                            field.onChange(newValue);
+                                                        }}
+                                                        getOptionLabel={(item) => {
+                                                            return (
+                                                                characterizationGrowingMediaAutocompleteProps?.options?.find(
+                                                                    (p) =>
+                                                                        p?._id?.toString() ===
+                                                                        item?._id.toString(),
+                                                                )?.name ?? ""
+                                                            );
+                                                        }}
+                                                        isOptionEqualToValue={(option, value) => {
+                                                            return (
+                                                                value === undefined ||
+                                                                option?._id?.toString() ===
+                                                                    value?._id?.toString()
+                                                            );
+                                                        }}
+                                                        renderInput={(params) => {
+                                                            return (
+                                                                <TextField
+                                                                    {...params}
+                                                                    size="small"
+                                                                    name="characterizationGrowingMedia"
+                                                                    id="characterizationGrowingMedia"
+                                                                    margin="normal"
+                                                                    variant="outlined"
+                                                                    error={!!errors.characterizationGrowingMedia?.message}
+                                                                />
+                                                            );
+                                                        }}
+                                                    />
+                                                );
+                                            }}
+                                        />
+                                        {errors.characterizationGrowingMedia && (
+                                            <FormHelperText error>
+                                                {errors.characterizationGrowingMedia.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Not growing media
+                                        </FormLabel>
+                                        <Controller
+                                            control={control}
+                                            name="characterizationNotGrowingMedia"
+                                            defaultValue={[]}
+                                            render={({ field }) => {
+                                                const newValue = characterizationNotGrowingMediaAutocompleteProps.options.filter(
+                                                    (p) =>
+                                                        field.value?.find((v) => v === p?._id) !==
+                                                        undefined,
+                                                );
+
+                                                return (
+                                                    <Autocomplete
+                                                        {...characterizationNotGrowingMediaAutocompleteProps}
+                                                        {...field}
+                                                        value={newValue}
+                                                        multiple
+                                                        clearOnBlur={false}
+                                                        onChange={(_, value) => {
+                                                            const newValue = value.map((p) => p?._id.toString());
+                                                            field.onChange(newValue);
+                                                        }}
+                                                        getOptionLabel={(item) => {
+                                                            return (
+                                                                characterizationNotGrowingMediaAutocompleteProps?.options?.find(
+                                                                    (p) =>
+                                                                        p?._id?.toString() ===
+                                                                        item?._id.toString(),
+                                                                )?.name ?? ""
+                                                            );
+                                                        }}
+                                                        isOptionEqualToValue={(option, value) => {
+                                                            return (
+                                                                value === undefined ||
+                                                                option?._id?.toString() ===
+                                                                    value?._id?.toString()
+                                                            );
+                                                        }}
+                                                        renderInput={(params) => {
+                                                            return (
+                                                                <TextField
+                                                                    {...params}
+                                                                    size="small"
+                                                                    name="characterizationNotGrowingMedia"
+                                                                    id="characterizationNotGrowingMedia"
+                                                                    margin="normal"
+                                                                    variant="outlined"
+                                                                    error={!!errors.characterizationNotGrowingMedia?.message}
+                                                                />
+                                                            );
+                                                        }}
+                                                    />
+                                                );
+                                            }}
+                                        />
+                                        {errors.characterizationNotGrowingMedia && (
+                                            <FormHelperText error>
+                                                {errors.characterizationNotGrowingMedia.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            required
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Mycelial
+                                        </FormLabel>
+                                        <Controller
+                                            control={control}
+                                            name="characterizationMycelial"
+                                            rules={{ required: "required" }}
+                                            // eslint-disable-next-line
+                                            defaultValue={null as any}
+                                            render={({ field }) => (
+                                                <Autocomplete
+                                                    size="small"
+                                                    {...field}
+                                                    onChange={(
+                                                        _,
+                                                        value,
+                                                    ) => {
+                                                        field.onChange(
+                                                            value,
+                                                        );
+                                                    }}
+                                                    options={[
+                                                        "Yes",
+                                                        "No",
+                                                    ]}
+                                                    renderInput={(
+                                                        params,
+                                                    ) => (
+                                                        <TextField
+                                                            {...params}
+                                                            variant="outlined"
+                                                            error={
+                                                                !!errors.characterizationMycelial
+                                                            }
+                                                            required
+                                                        />
+                                                    )}
+                                                />
+                                            )}
+                                        />
+                                        {errors.characterizationMycelial && (
+                                            <FormHelperText error>
+                                                {errors.characterizationMycelial.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Day of appearance of the first colonies
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("characterizationColoniesDay", {
+                                                required: false,
+                                                min: {
+                                                    value: 0,
+                                                    message: "You cannot enter a number less than 0"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            type="number"
+                                        />
+                                        {errors.characterizationColoniesDay && (
+                                            <FormHelperText error>
+                                                {errors.characterizationColoniesDay.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Sporulation start day
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("characterizationSporulationDay", {
+                                                required: false,
+                                                min: {
+                                                    value: 0,
+                                                    message: "You cannot enter a number less than 0"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            type="number"
+                                        />
+                                        {errors.characterizationSporulationDay && (
+                                            <FormHelperText error>
+                                                {errors.characterizationSporulationDay.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Biomass collection day
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("characterizationBiomassDay", {
+                                                required: false,
+                                                min: {
+                                                    value: 0,
+                                                    message: "You cannot enter a number less than 0"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            type="number"
+                                        />
+                                        {errors.characterizationBiomassDay && (
+                                            <FormHelperText error>
+                                                {errors.characterizationBiomassDay.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Shape
+                                        </FormLabel>
+                                        <Controller
+                                            control={control}
+                                            name="characterizationShape"
+                                            // eslint-disable-next-line
+                                            defaultValue={null as any}
+                                            render={({ field }) => (
+                                                <Autocomplete
+                                                    size="small"
+                                                    {...field}
+                                                    onChange={(
+                                                        _,
+                                                        value,
+                                                    ) => {
+                                                        field.onChange(
+                                                            value,
+                                                        );
+                                                    }}
+                                                    options={[
+                                                        "Circular",
+                                                        "Fusiform",
+                                                        "Rhizoid",
+                                                        "Filamentous",
+                                                        "Irregular",
+                                                    ]}
+                                                    renderInput={(
+                                                        params,
+                                                    ) => (
+                                                        <TextField
+                                                            {...params}
+                                                            variant="outlined"
+                                                            error={
+                                                                !!errors.characterizationShape
+                                                            }
+                                                        />
+                                                    )}
+                                                />
+                                            )}
+                                        />
+                                        {errors.characterizationShape && (
+                                            <FormHelperText error>
+                                                {errors.characterizationShape.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Border (margin of the colony)
+                                        </FormLabel>
+                                        <Controller
+                                            control={control}
+                                            name="characterizationBorder"
+                                            // eslint-disable-next-line
+                                            defaultValue={null as any}
+                                            render={({ field }) => (
+                                                <Autocomplete
+                                                    size="small"
+                                                    {...field}
+                                                    onChange={(
+                                                        _,
+                                                        value,
+                                                    ) => {
+                                                        field.onChange(
+                                                            value,
+                                                        );
+                                                    }}
+                                                    options={[
+                                                        "Complete",
+                                                        "Rhizoid",
+                                                        "Filamentous",
+                                                        "Wavy",
+                                                        "Lobed",
+                                                        "Curly",
+                                                    ]}
+                                                    renderInput={(
+                                                        params,
+                                                    ) => (
+                                                        <TextField
+                                                            {...params}
+                                                            variant="outlined"
+                                                            error={
+                                                                !!errors.characterizationBorder
+                                                            }
+                                                        />
+                                                    )}
+                                                />
+                                            )}
+                                        />
+                                        {errors.characterizationBorder && (
+                                            <FormHelperText error>
+                                                {errors.characterizationBorder.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Elevation
+                                        </FormLabel>
+                                        <Controller
+                                            control={control}
+                                            name="characterizationElevation"
+                                            // eslint-disable-next-line
+                                            defaultValue={null as any}
+                                            render={({ field }) => (
+                                                <Autocomplete
+                                                    size="small"
+                                                    {...field}
+                                                    onChange={(
+                                                        _,
+                                                        value,
+                                                    ) => {
+                                                        field.onChange(
+                                                            value,
+                                                        );
+                                                    }}
+                                                    options={[
+                                                        "Flat",
+                                                        "Convex",
+                                                        "Elevated",
+                                                    ]}
+                                                    renderInput={(
+                                                        params,
+                                                    ) => (
+                                                        <TextField
+                                                            {...params}
+                                                            variant="outlined"
+                                                            error={
+                                                                !!errors.characterizationElevation
+                                                            }
+                                                        />
+                                                    )}
+                                                />
+                                            )}
+                                        />
+                                        {errors.characterizationElevation && (
+                                            <FormHelperText error>
+                                                {errors.characterizationElevation.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Surface
+                                        </FormLabel>
+                                        <Controller
+                                            control={control}
+                                            name="characterizationSurface"
+                                            // eslint-disable-next-line
+                                            defaultValue={null as any}
+                                            render={({ field }) => (
+                                                <Autocomplete
+                                                    size="small"
+                                                    {...field}
+                                                    onChange={(
+                                                        _,
+                                                        value,
+                                                    ) => {
+                                                        field.onChange(
+                                                            value,
+                                                        );
+                                                    }}
+                                                    options={[
+                                                        "Smooth",
+                                                        "Rough",
+                                                    ]}
+                                                    renderInput={(
+                                                        params,
+                                                    ) => (
+                                                        <TextField
+                                                            {...params}
+                                                            variant="outlined"
+                                                            error={
+                                                                !!errors.characterizationSurface
+                                                            }
+                                                        />
+                                                    )}
+                                                />
+                                            )}
+                                        />
+                                        {errors.characterizationSurface && (
+                                            <FormHelperText error>
+                                                {errors.characterizationSurface.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Color
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("characterizationColor", {
+                                                maxLength: {
+                                                    value: 100,
+                                                    message: "You cannot enter more than 100 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                        />
+                                        {errors.characterizationColor && (
+                                            <FormHelperText error>
+                                                {errors.characterizationColor.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Transparency
+                                        </FormLabel>
+                                        <Controller
+                                            control={control}
+                                            name="characterizationTransparency"
+                                            // eslint-disable-next-line
+                                            defaultValue={null as any}
+                                            render={({ field }) => (
+                                                <Autocomplete
+                                                    size="small"
+                                                    {...field}
+                                                    onChange={(
+                                                        _,
+                                                        value,
+                                                    ) => {
+                                                        field.onChange(
+                                                            value,
+                                                        );
+                                                    }}
+                                                    options={[
+                                                        "Opaque",
+                                                        "Transparent",
+                                                    ]}
+                                                    renderInput={(
+                                                        params,
+                                                    ) => (
+                                                        <TextField
+                                                            {...params}
+                                                            variant="outlined"
+                                                            error={
+                                                                !!errors.characterizationTransparency
+                                                            }
+                                                        />
+                                                    )}
+                                                />
+                                            )}
+                                        />
+                                        {errors.characterizationTransparency && (
+                                            <FormHelperText error>
+                                                {errors.characterizationTransparency.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Brightness
+                                        </FormLabel>
+                                        <Controller
+                                            control={control}
+                                            name="characterizationBrightness"
+                                            // eslint-disable-next-line
+                                            defaultValue={null as any}
+                                            render={({ field }) => (
+                                                <Autocomplete
+                                                    size="small"
+                                                    {...field}
+                                                    onChange={(
+                                                        _,
+                                                        value,
+                                                    ) => {
+                                                        field.onChange(
+                                                            value,
+                                                        );
+                                                    }}
+                                                    options={[
+                                                        "Bright",
+                                                        "Without bright",
+                                                    ]}
+                                                    renderInput={(
+                                                        params,
+                                                    ) => (
+                                                        <TextField
+                                                            {...params}
+                                                            variant="outlined"
+                                                            error={
+                                                                !!errors.characterizationBrightness
+                                                            }
+                                                        />
+                                                    )}
+                                                />
+                                            )}
+                                        />
+                                        {errors.characterizationBrightness && (
+                                            <FormHelperText error>
+                                                {errors.characterizationBrightness.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <Stack gap="24px">
+                                    <FormControl>
+                                        <FormLabel
+                                            sx={{
+                                                marginBottom: "8px",
+                                                fontWeight: "700",
+                                                fontSize: "14px",
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            Comments
+                                        </FormLabel>
+                                        <TextField
+                                            {...register("characterizationComments", {
+                                                required: false,
+                                                maxLength: {
+                                                    value: 400,
+                                                    message: "You cannot enter more than 400 characters"
+                                                }
+                                            })}
+                                            size="small"
+                                            margin="none"
+                                            variant="outlined"
+                                            multiline
+                                            minRows={5}
+                                        />
+                                        {errors.characterizationComments && (
+                                            <FormHelperText error>
+                                                {errors.characterizationComments.message}
+                                            </FormHelperText>
+                                        )}
+                                    </FormControl>
+                                </Stack>
+                            </Grid>
+                        </Grid>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
