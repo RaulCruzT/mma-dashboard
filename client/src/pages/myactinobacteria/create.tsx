@@ -210,7 +210,7 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                                     {...generaAutocompleteProps}
                                                     {...field}
                                                     onChange={(_, value) => {
-                                                        field.onChange(value);
+                                                        field.onChange(value?._id);
                                                     }}
                                                     getOptionLabel={(item) => {
                                                         return item.name
@@ -335,7 +335,7 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                                 color: "text.primary",
                                             }}
                                         >
-                                            Other photos
+                                            Other photos link
                                         </FormLabel>
                                         <TextField
                                             {...register("identifierPhotos", {
@@ -1008,15 +1008,12 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                                 required: {
                                                     value: true,
                                                     message: "required"
-                                                },
-                                                maxLength: {
-                                                    value: 100,
-                                                    message: "You cannot enter more than 100 characters"
                                                 }
                                             })}
                                             size="small"
                                             margin="none"
                                             variant="outlined"
+                                            type="number"
                                         />
                                         {errors.arnr16sSize && (
                                             <FormHelperText error>
