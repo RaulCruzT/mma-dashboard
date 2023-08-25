@@ -154,7 +154,7 @@ export const GetMyActinobacteriaById: RequestHandler<ActinobacteriaParamsInterfa
 
         const authenticatedUserRole = authenticatedUser.role as string;
 
-        const actinobacteria = await ActinobacteriaModel.findOne({ _id: id }).populate("creator");
+        const actinobacteria = await ActinobacteriaModel.findOne({ _id: id }).populate("identifierGenera", "creator");
 
         if (!actinobacteria) {
             throw createHttpError(404, "Actinobacteria not found");
