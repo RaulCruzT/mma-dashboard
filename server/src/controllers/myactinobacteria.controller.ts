@@ -4,6 +4,7 @@ import { UserModel, ActinobacteriaModel } from '../models';
 import { ActinobacteriaParamsInterface, ActinobacteriaPaginationQueryInterface, ActinobacteriaBodyInterface } from '../data/interfaces/actinobacteria';
 import { parseJwt } from '../utils';
 import { UserRoles } from '../data/enums/user.enum';
+import mongoose from 'mongoose';
 
 export const CreateMyActinobacteria: RequestHandler<unknown, unknown, ActinobacteriaBodyInterface, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
@@ -71,9 +72,9 @@ export const CreateMyActinobacteria: RequestHandler<unknown, unknown, Actinobact
             throw createHttpError(404, "User not found");
         }
 
-        const generaExists = await ActinobacteriaModel.findOne({ identifierStrain });
+        const actinobacteriaExists = await ActinobacteriaModel.findOne({ identifierStrain });
 
-        if (generaExists) {
+        if (actinobacteriaExists) {
             throw createHttpError(404, "An actinobacteria with that strain already exists");
         }
 
@@ -154,7 +155,7 @@ export const GetMyActinobacteriaById: RequestHandler<ActinobacteriaParamsInterfa
 
         const authenticatedUserRole = authenticatedUser.role as string;
 
-        const actinobacteria = await ActinobacteriaModel.findOne({ _id: id }).populate("identifierGenera", "creator");
+        const actinobacteria = await ActinobacteriaModel.findOne({ _id: id }).populate("identifierGenera", "creator").exec();
 
         if (!actinobacteria) {
             throw createHttpError(404, "Actinobacteria not found");
@@ -212,6 +213,42 @@ export const GetMyActinobacteriaPagination: RequestHandler<unknown, unknown, unk
         res.append('Access-Control-Expose-Headers', 'X-Total-Count');
 
         res.status(200).json(actinobacteria);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const DeleteMyActinobacteria: RequestHandler<ActinobacteriaParamsInterface, unknown, unknown, unknown>  = async (req, res, next) => {
+    const token = req.headers.authorization;
+    const { id } = req.params;
+    const authenticatedUserEmail = parseJwt(token as string).email;
+
+    try {
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
+
+        if (!authenticatedUser) {
+            throw createHttpError(404, "User not found");
+        }
+
+        const authenticatedUserRole = authenticatedUser.role as string;
+
+        if (!mongoose.isValidObjectId(id)) {
+            throw createHttpError(400, "Invalid actinobacteria id");
+        }
+
+        const actinobacteria = await ActinobacteriaModel.findById(id);
+
+        if (!actinobacteria) {
+            throw createHttpError(404, "Actinobacteria not found");
+        }
+
+        if (![UserRoles.Manager as string, UserRoles.Admin as string].includes(authenticatedUserRole) && authenticatedUser._id !== actinobacteria.creator) {
+            throw createHttpError(401, "You cannot delete this actinobacteria");
+        }
+
+        await ActinobacteriaModel.deleteOne({_id: id});
+
+        res.status(200).json({ message: "Actinobacteria deleted successfully" });
     } catch (error) {
         next(error);
     }
