@@ -16,11 +16,12 @@ import { ICultureMedium } from "../../interfaces/culturemedium";
 
 export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => {
     const {
-        register,
-        formState: { errors },
         saveButtonProps,
+        refineCore: { formLoading },
+        register,
         control,
-        getValues
+        formState: { errors },
+        getValues,
     } = useForm<IMyActinobacteria, HttpError, Nullable<IMyActinobacteria>>();
 
     const { autocompleteProps: generaAutocompleteProps } = useAutocomplete<IGenera>({
@@ -131,7 +132,7 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
     });
 
     return (
-        <Create saveButtonProps={saveButtonProps}>
+        <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
             <form>
                 <Accordion>
                     <AccordionSummary
