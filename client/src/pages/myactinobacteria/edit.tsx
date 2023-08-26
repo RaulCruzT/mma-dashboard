@@ -176,6 +176,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                             size="small"
                                             margin="none"
                                             variant="outlined"
+                                            disabled
                                         />
                                         {errors.identifierStrain && (
                                             <FormHelperText error>
