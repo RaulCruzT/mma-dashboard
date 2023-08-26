@@ -211,16 +211,16 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
                                                     {...generaAutocompleteProps}
                                                     {...field}
                                                     onChange={(_, value) => {
-                                                        field.onChange(value?._id);
+                                                        field.onChange(value);
                                                     }}
                                                     getOptionLabel={(item) => {
-                                                        return item.name
-                                                            ? item.name
-                                                            : generaAutocompleteProps?.options?.find(
+                                                        return (
+                                                            generaAutocompleteProps?.options?.find(
                                                                 (p) =>
-                                                                    p._id.toString() ===
-                                                                    item.toString(),
-                                                            )?.name ?? "";
+                                                                    p?._id?.toString() ===
+                                                                    item?._id?.toString(),
+                                                            )?.name ?? ""
+                                                        );
                                                     }}
                                                     isOptionEqualToValue={(
                                                         option,
