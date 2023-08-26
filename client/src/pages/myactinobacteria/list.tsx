@@ -63,7 +63,7 @@ export const MyActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
                             <DeleteButton
                                 size="small"
                                 hideText
-                                resource="actinobacteria"
+                                resource="myactinobacteria"
                                 recordItemId={row._id}
                                 mutationMode="undoable"
                                 confirmTitle={`Are you sure to delete ${row.identifierStrain} actinobacteria?`}
