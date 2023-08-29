@@ -218,6 +218,153 @@ export const GetMyActinobacteriaPagination: RequestHandler<unknown, unknown, unk
     }
 }
 
+export const EditMyActinobacteria: RequestHandler<ActinobacteriaParamsInterface, unknown, ActinobacteriaBodyInterface, unknown> = async (req, res, next) => {
+    const token = req.headers.authorization;
+    const { id } = req.params;
+    const {
+        identifierStrain,
+        identifierSpecies,
+        identifierMainPhoto,
+        identifierPhotos,
+        identifierLocalStorage,
+        identifierInternationalStorage,
+        identifierComments,
+        geographyIsolationSite,
+        geographyCoordinates,
+        geographyIsolationSource,
+        geographyAltitude,
+        geographyComments,
+        isolationMedium,
+        isolationTemperature,
+        isolationMethod,
+        isolationResponsible,
+        isolationThesisPaper,
+        isolationThesisPaperLink,
+        isolationComments,
+        arnr16sSize,
+        arnr16sSequenceFile,
+        arnr16sMacrogenFile,
+        arnr16sComments,
+        enzymesComments,
+        genomeRawData,
+        genomeComments,
+        bioactivityFile,
+        bioactivityComments,
+        metabolomicsMedinaFoundationReports,
+        metabolomicsRawData,
+        metabolomicsComments,
+        identifierGenera,
+        arnr16sCompleteness,
+        characterizationGrowingMedia,
+        characterizationNotGrowingMedia,
+        enzymesNa,
+        bioactivityYes,
+        bioactivityNo,
+        bioactivityNa,
+        enzymesYes,
+        enzymesNo,
+        characterizationMycelial,
+        characterizationColoniesDay,
+        characterizationSporulationDay,
+        characterizationBiomassDay,
+        characterizationShape,
+        characterizationBorder,
+        characterizationElevation,
+        characterizationSurface,
+        characterizationColor,
+        characterizationTransparency,
+        characterizationBrightness,
+        characterizationComments
+    } = req.body;
+    const authenticatedUserEmail = parseJwt(token as string).email;
+
+    try {
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
+
+        if (!authenticatedUser) {
+            throw createHttpError(404, "User not found");
+        }
+
+        const authenticatedUserRole = authenticatedUser.role as string;
+
+        if (!mongoose.isValidObjectId(id)) {
+            throw createHttpError(400, "Invalid actinobacteria id");
+        }
+
+        const actinobacteria = await ActinobacteriaModel.findById(id);
+
+        if (!actinobacteria) {
+            throw createHttpError(404, "Actinobacteria not found");
+        }
+
+        if (![UserRoles.Manager as string, UserRoles.Admin as string].includes(authenticatedUserRole) && authenticatedUser._id !== actinobacteria.creator) {
+            throw createHttpError(401, "You cannot update this actinobacteria");
+        }
+
+        actinobacteria.identifierStrain = identifierStrain;
+        actinobacteria.identifierSpecies = identifierSpecies;
+        actinobacteria.identifierMainPhoto = identifierMainPhoto;
+        actinobacteria.identifierPhotos = identifierPhotos;
+        actinobacteria.identifierLocalStorage = identifierLocalStorage;
+        actinobacteria.identifierInternationalStorage = identifierInternationalStorage;
+        actinobacteria.identifierComments = identifierComments;
+        actinobacteria.geographyIsolationSite = geographyIsolationSite;
+        actinobacteria.geographyCoordinates = geographyCoordinates;
+        actinobacteria.geographyIsolationSource = geographyIsolationSource;
+        // actinobacteria.geographyAltitude = new mongoose.Types.Decimal128(geographyAltitude.toString());
+        actinobacteria.geographyComments = geographyComments;
+        actinobacteria.isolationMedium = isolationMedium;
+        // actinobacteria.isolationTemperature = new mongoose.Types.Decimal128(isolationTemperature.toString());
+        actinobacteria.isolationMethod = isolationMethod;
+        actinobacteria.isolationResponsible = isolationResponsible;
+        actinobacteria.isolationThesisPaper = isolationThesisPaper;
+        actinobacteria.isolationThesisPaperLink = isolationThesisPaperLink;
+        actinobacteria.isolationComments = isolationComments;
+        // actinobacteria.arnr16sSize = new mongoose.Types.Decimal128(arnr16sSize.toString());
+        actinobacteria.arnr16sSequenceFile = arnr16sSequenceFile;
+        actinobacteria.arnr16sMacrogenFile = arnr16sMacrogenFile;
+        actinobacteria.arnr16sComments = arnr16sComments;
+        actinobacteria.enzymesComments = enzymesComments;
+        actinobacteria.genomeRawData = genomeRawData;
+        actinobacteria.genomeComments = genomeComments;
+        actinobacteria.bioactivityFile = bioactivityFile;
+        actinobacteria.bioactivityComments = bioactivityComments;
+        actinobacteria.metabolomicsMedinaFoundationReports = metabolomicsMedinaFoundationReports;
+        actinobacteria.metabolomicsRawData = metabolomicsRawData;
+        actinobacteria.metabolomicsComments = metabolomicsComments;
+        // actinobacteria.identifierGenera = new mongoose.Types.ObjectId(identifierGenera);
+        actinobacteria.arnr16sCompleteness = arnr16sCompleteness;
+        // actinobacteria.characterizationGrowingMedia = characterizationGrowingMedia.map(x => (new mongoose.Types.ObjectId(x)));
+        // actinobacteria.characterizationNotGrowingMedia = characterizationNotGrowingMedia.map(x => (new mongoose.Types.ObjectId(x)));
+        // actinobacteria.enzymesNa = enzymesNa.map(x => (new mongoose.Types.ObjectId(x)));
+        // actinobacteria.bioactivityYes = bioactivityYes.map(x => (new mongoose.Types.ObjectId(x)));
+        // actinobacteria.bioactivityNo = bioactivityNo.map(x => (new mongoose.Types.ObjectId(x)));
+        // actinobacteria.bioactivityNa = bioactivityNa.map(x => (new mongoose.Types.ObjectId(x)));
+        // actinobacteria.enzymesYes = enzymesYes.map(x => (new mongoose.Types.ObjectId(x)));
+        // actinobacteria.enzymesNo = enzymesNo.map(x => (new mongoose.Types.ObjectId(x)));
+        actinobacteria.characterizationMycelial = characterizationMycelial;
+        actinobacteria.characterizationColoniesDay = characterizationColoniesDay;
+        actinobacteria.characterizationSporulationDay = characterizationSporulationDay;
+        actinobacteria.characterizationBiomassDay = characterizationBiomassDay;
+        actinobacteria.characterizationShape = characterizationShape;
+        actinobacteria.characterizationBorder = characterizationBorder;
+        actinobacteria.characterizationElevation = characterizationElevation;
+        actinobacteria.characterizationSurface = characterizationSurface;
+        actinobacteria.characterizationColor = characterizationColor;
+        actinobacteria.characterizationTransparency = characterizationTransparency;
+        actinobacteria.characterizationBrightness = characterizationBrightness;
+        actinobacteria.characterizationComments = characterizationComments;
+        
+        console.log(JSON.stringify(actinobacteria));
+
+        await actinobacteria.save();
+
+        res.status(200).json({ message: "Actinobacteria updated successfully" });
+    } catch (error) {
+        next(error);
+    }
+}
+
 export const DeleteMyActinobacteria: RequestHandler<ActinobacteriaParamsInterface, unknown, unknown, unknown>  = async (req, res, next) => {
     const token = req.headers.authorization;
     const { id } = req.params;

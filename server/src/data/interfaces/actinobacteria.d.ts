@@ -18,7 +18,7 @@ export interface ActinobacteriaBodyInterface {
     geographyAltitude: number;
     geographyComments: string;
     isolationMedium: string;
-    isolationTemperature: string;
+    isolationTemperature: number;
     isolationMethod: string;
     isolationResponsible: string;
     isolationThesisPaper: string;

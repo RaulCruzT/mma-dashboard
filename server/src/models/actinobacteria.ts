@@ -1,4 +1,5 @@
 import { InferSchemaType, model, Schema } from "mongoose";
+import getFloat from "../utils/getFloat";
 
 const actinobacteriaSchema = new Schema({
     creator: { type: Schema.Types.ObjectId, required: true, ref: "User", select: false },
@@ -13,17 +14,17 @@ const actinobacteriaSchema = new Schema({
     geographyIsolationSite: { type: String, required: true },
     geographyCoordinates: { type: String },
     geographyIsolationSource: { type: String, required: true },
-    geographyAltitude: { type: Schema.Types.Decimal128 },
+    geographyAltitude: { type: Schema.Types.Decimal128, get: getFloat },
     geographyComments: { type: String },
     isolationMedium: { type: String, required: true },
-    isolationTemperature: { type: Schema.Types.Decimal128, required: true },
+    isolationTemperature: { type: Schema.Types.Decimal128, get: getFloat, required: true },
     isolationMethod: { type: String, required: true },
     isolationResponsible: { type: String, required: true },
     isolationThesisPaper: { type: String },
     isolationThesisPaperLink: { type: String, match: [/^(http|https):\/\/[^ "]+$/, 'Please enter a valid URL.'] },
     isolationComments: { type: String },
     arnr16sCompleteness: { type: String, required: true },
-    arnr16sSize: { type: Schema.Types.Decimal128, required: true },
+    arnr16sSize: { type: Schema.Types.Decimal128, get: getFloat, required: true },
     arnr16sSequenceFile: { type: String, required: true, match: [/^(http|https):\/\/[^ "]+$/, 'Please enter a valid URL.'] },
     arnr16sMacrogenFile: { type: String, match: [/^(http|https):\/\/[^ "]+$/, 'Please enter a valid URL.'] },
     arnr16sComments: { type: String },
@@ -55,7 +56,7 @@ const actinobacteriaSchema = new Schema({
     enzymesNo: [{ type: Schema.Types.ObjectId, ref: "Enzyme" }],
     enzymesNa: [{ type: Schema.Types.ObjectId, ref: "Enzyme" }],
     enzymesComments: { type: String },
-}, { timestamps: true });
+}, { timestamps: true, toJSON: {getters: true}});
 
 type Actinobacteria = InferSchemaType<typeof actinobacteriaSchema>;
 
