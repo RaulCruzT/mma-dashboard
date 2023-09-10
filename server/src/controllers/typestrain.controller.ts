@@ -157,8 +157,12 @@ export const EditTypeStrain: RequestHandler<TypeStrainParamsInterface, unknown, 
         }
 
         await TypeStrainModel.findByIdAndUpdate(
-            {_id: id},
-            {name: name}
+            {
+                _id: id
+            },
+            {
+                name: name
+            }
         );
 
         res.status(200).json({ message: "Type strain updated successfully" });

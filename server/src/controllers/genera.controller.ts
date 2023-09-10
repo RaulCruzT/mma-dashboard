@@ -157,8 +157,12 @@ export const EditGenera: RequestHandler<GeneraParamsInterface, unknown, GeneraBo
         }
 
         await GeneraModel.findByIdAndUpdate(
-            {_id: id},
-            {name: name}
+            {
+                _id: id
+            },
+            {
+                name: name
+            }
         );
 
         res.status(200).json({ message: "Genera updated successfully" });

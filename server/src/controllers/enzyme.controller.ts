@@ -157,8 +157,12 @@ export const EditEnzyme: RequestHandler<EnzymeParamsInterface, unknown, EnzymeBo
         }
 
         await EnzymeModel.findByIdAndUpdate(
-            {_id: id},
-            {name: name}
+            {
+                _id: id
+            },
+            {
+                name: name
+            }
         );
 
         res.status(200).json({ message: "Enzyme updated successfully" });

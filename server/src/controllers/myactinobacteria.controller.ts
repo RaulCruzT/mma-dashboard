@@ -232,16 +232,16 @@ export const EditMyActinobacteria: RequestHandler<ActinobacteriaParamsInterface,
         geographyIsolationSite,
         geographyCoordinates,
         geographyIsolationSource,
-        geographyAltitude,
+        // geographyAltitude,
         geographyComments,
         isolationMedium,
-        isolationTemperature,
+        // isolationTemperature,
         isolationMethod,
         isolationResponsible,
         isolationThesisPaper,
         isolationThesisPaperLink,
         isolationComments,
-        arnr16sSize,
+        // arnr16sSize,
         arnr16sSequenceFile,
         arnr16sMacrogenFile,
         arnr16sComments,
@@ -301,63 +301,66 @@ export const EditMyActinobacteria: RequestHandler<ActinobacteriaParamsInterface,
             throw createHttpError(401, "You cannot update this actinobacteria");
         }
 
-        actinobacteria.identifierStrain = identifierStrain;
-        actinobacteria.identifierSpecies = identifierSpecies;
-        actinobacteria.identifierMainPhoto = identifierMainPhoto;
-        actinobacteria.identifierPhotos = identifierPhotos;
-        actinobacteria.identifierLocalStorage = identifierLocalStorage;
-        actinobacteria.identifierInternationalStorage = identifierInternationalStorage;
-        actinobacteria.identifierComments = identifierComments;
-        actinobacteria.geographyIsolationSite = geographyIsolationSite;
-        actinobacteria.geographyCoordinates = geographyCoordinates;
-        actinobacteria.geographyIsolationSource = geographyIsolationSource;
-        // actinobacteria.geographyAltitude = new mongoose.Types.Decimal128(geographyAltitude.toString());
-        actinobacteria.geographyComments = geographyComments;
-        actinobacteria.isolationMedium = isolationMedium;
-        // actinobacteria.isolationTemperature = new mongoose.Types.Decimal128(isolationTemperature.toString());
-        actinobacteria.isolationMethod = isolationMethod;
-        actinobacteria.isolationResponsible = isolationResponsible;
-        actinobacteria.isolationThesisPaper = isolationThesisPaper;
-        actinobacteria.isolationThesisPaperLink = isolationThesisPaperLink;
-        actinobacteria.isolationComments = isolationComments;
-        // actinobacteria.arnr16sSize = new mongoose.Types.Decimal128(arnr16sSize.toString());
-        actinobacteria.arnr16sSequenceFile = arnr16sSequenceFile;
-        actinobacteria.arnr16sMacrogenFile = arnr16sMacrogenFile;
-        actinobacteria.arnr16sComments = arnr16sComments;
-        actinobacteria.enzymesComments = enzymesComments;
-        actinobacteria.genomeRawData = genomeRawData;
-        actinobacteria.genomeComments = genomeComments;
-        actinobacteria.bioactivityFile = bioactivityFile;
-        actinobacteria.bioactivityComments = bioactivityComments;
-        actinobacteria.metabolomicsMedinaFoundationReports = metabolomicsMedinaFoundationReports;
-        actinobacteria.metabolomicsRawData = metabolomicsRawData;
-        actinobacteria.metabolomicsComments = metabolomicsComments;
-        // actinobacteria.identifierGenera = new mongoose.Types.ObjectId(identifierGenera);
-        actinobacteria.arnr16sCompleteness = arnr16sCompleteness;
-        // actinobacteria.characterizationGrowingMedia = characterizationGrowingMedia.map(x => (new mongoose.Types.ObjectId(x)));
-        // actinobacteria.characterizationNotGrowingMedia = characterizationNotGrowingMedia.map(x => (new mongoose.Types.ObjectId(x)));
-        // actinobacteria.enzymesNa = enzymesNa.map(x => (new mongoose.Types.ObjectId(x)));
-        // actinobacteria.bioactivityYes = bioactivityYes.map(x => (new mongoose.Types.ObjectId(x)));
-        // actinobacteria.bioactivityNo = bioactivityNo.map(x => (new mongoose.Types.ObjectId(x)));
-        // actinobacteria.bioactivityNa = bioactivityNa.map(x => (new mongoose.Types.ObjectId(x)));
-        // actinobacteria.enzymesYes = enzymesYes.map(x => (new mongoose.Types.ObjectId(x)));
-        // actinobacteria.enzymesNo = enzymesNo.map(x => (new mongoose.Types.ObjectId(x)));
-        actinobacteria.characterizationMycelial = characterizationMycelial;
-        actinobacteria.characterizationColoniesDay = characterizationColoniesDay;
-        actinobacteria.characterizationSporulationDay = characterizationSporulationDay;
-        actinobacteria.characterizationBiomassDay = characterizationBiomassDay;
-        actinobacteria.characterizationShape = characterizationShape;
-        actinobacteria.characterizationBorder = characterizationBorder;
-        actinobacteria.characterizationElevation = characterizationElevation;
-        actinobacteria.characterizationSurface = characterizationSurface;
-        actinobacteria.characterizationColor = characterizationColor;
-        actinobacteria.characterizationTransparency = characterizationTransparency;
-        actinobacteria.characterizationBrightness = characterizationBrightness;
-        actinobacteria.characterizationComments = characterizationComments;
-        
-        console.log(JSON.stringify(actinobacteria));
-
-        await actinobacteria.save();
+        await ActinobacteriaModel.findByIdAndUpdate(
+            {
+                _id: id
+            },
+            {
+                identifierStrain: identifierStrain,
+                identifierSpecies: identifierSpecies,
+                identifierMainPhoto: identifierMainPhoto,
+                identifierPhotos: identifierPhotos,
+                identifierLocalStorage: identifierLocalStorage,
+                identifierInternationalStorage: identifierInternationalStorage,
+                identifierComments: identifierComments,
+                geographyIsolationSite: geographyIsolationSite,
+                geographyCoordinates: geographyCoordinates,
+                geographyIsolationSource: geographyIsolationSource,
+                // geographyAltitude: geographyAltitude,
+                geographyComments: geographyComments,
+                isolationMedium: isolationMedium,
+                // isolationTemperature: isolationTemperature,
+                isolationMethod: isolationMethod,
+                isolationResponsible: isolationResponsible,
+                isolationThesisPaper: isolationThesisPaper,
+                isolationThesisPaperLink: isolationThesisPaperLink,
+                isolationComments: isolationComments,
+                // arnr16sSize: arnr16sSize,
+                arnr16sSequenceFile: arnr16sSequenceFile,
+                arnr16sMacrogenFile: arnr16sMacrogenFile,
+                arnr16sComments: arnr16sComments,
+                enzymesComments: enzymesComments,
+                genomeRawData: genomeRawData,
+                genomeComments: genomeComments,
+                bioactivityFile: bioactivityFile,
+                bioactivityComments: bioactivityComments,
+                metabolomicsMedinaFoundationReports: metabolomicsMedinaFoundationReports,
+                metabolomicsRawData: metabolomicsRawData,
+                metabolomicsComments: metabolomicsComments,
+                identifierGenera: identifierGenera,
+                arnr16sCompleteness: arnr16sCompleteness,
+                characterizationGrowingMedia: characterizationGrowingMedia,
+                characterizationNotGrowingMedia: characterizationNotGrowingMedia,
+                enzymesNa: enzymesNa,
+                bioactivityYes: bioactivityYes,
+                bioactivityNo: bioactivityNo,
+                bioactivityNa: bioactivityNa,
+                enzymesYes: enzymesYes,
+                enzymesNo: enzymesNo,
+                characterizationMycelial: characterizationMycelial,
+                characterizationColoniesDay: characterizationColoniesDay,
+                characterizationSporulationDay: characterizationSporulationDay,
+                characterizationBiomassDay: characterizationBiomassDay,
+                characterizationShape: characterizationShape,
+                characterizationBorder: characterizationBorder,
+                characterizationElevation: characterizationElevation,
+                characterizationSurface: characterizationSurface,
+                characterizationColor: characterizationColor,
+                characterizationTransparency: characterizationTransparency,
+                characterizationBrightness: characterizationBrightness,
+                characterizationComments: characterizationComments,                
+            }
+        );
 
         res.status(200).json({ message: "Actinobacteria updated successfully" });
     } catch (error) {
@@ -400,3 +403,4 @@ export const DeleteMyActinobacteria: RequestHandler<ActinobacteriaParamsInterfac
         next(error);
     }
 }
+

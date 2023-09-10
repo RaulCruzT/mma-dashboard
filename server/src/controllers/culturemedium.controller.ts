@@ -157,8 +157,12 @@ export const EditCultureMedium: RequestHandler<CultureMediumParamsInterface, unk
         }
 
         await CultureMediumModel.findByIdAndUpdate(
-            {_id: id},
-            {name: name}
+            {
+                _id: id
+            },
+            {
+                name: name
+            }
         );
 
         res.status(200).json({ message: "Culture medium updated successfully" });
