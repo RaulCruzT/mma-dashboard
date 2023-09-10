@@ -156,9 +156,10 @@ export const EditGenera: RequestHandler<GeneraParamsInterface, unknown, GeneraBo
             throw createHttpError(404, "A genera with that name already exists");
         }
 
-        genera.name = name;
-
-        await genera.save();
+        await GeneraModel.findByIdAndUpdate(
+            {_id: id},
+            {name: name}
+        );
 
         res.status(200).json({ message: "Genera updated successfully" });
     } catch (error) {

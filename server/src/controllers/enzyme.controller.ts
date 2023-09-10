@@ -156,9 +156,10 @@ export const EditEnzyme: RequestHandler<EnzymeParamsInterface, unknown, EnzymeBo
             throw createHttpError(404, "A enzyme with that name already exists");
         }
 
-        enzyme.name = name;
-
-        await enzyme.save();
+        await EnzymeModel.findByIdAndUpdate(
+            {_id: id},
+            {name: name}
+        );
 
         res.status(200).json({ message: "Enzyme updated successfully" });
     } catch (error) {

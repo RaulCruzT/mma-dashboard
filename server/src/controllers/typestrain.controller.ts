@@ -156,9 +156,10 @@ export const EditTypeStrain: RequestHandler<TypeStrainParamsInterface, unknown, 
             throw createHttpError(404, "A type strain with that name already exists");
         }
 
-        typeStrain.name = name;
-
-        await typeStrain.save();
+        await TypeStrainModel.findByIdAndUpdate(
+            {_id: id},
+            {name: name}
+        );
 
         res.status(200).json({ message: "Type strain updated successfully" });
     } catch (error) {

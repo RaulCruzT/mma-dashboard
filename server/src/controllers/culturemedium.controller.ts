@@ -156,9 +156,10 @@ export const EditCultureMedium: RequestHandler<CultureMediumParamsInterface, unk
             throw createHttpError(404, "A culture medium with that name already exists");
         }
 
-        cultureMedium.name = name;
-
-        await cultureMedium.save();
+        await CultureMediumModel.findByIdAndUpdate(
+            {_id: id},
+            {name: name}
+        );
 
         res.status(200).json({ message: "Culture medium updated successfully" });
     } catch (error) {
