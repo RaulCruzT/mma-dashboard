@@ -132,6 +132,8 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
         ]
     });
 
+    const step = 0.01;
+
     return (
         <Edit isLoading={formLoading} saveButtonProps={saveButtonProps}>
             <form>
@@ -610,6 +612,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                             margin="none"
                                             variant="outlined"
                                             type="number"
+                                            InputProps={{ inputProps: { step: step}}}
                                         />
                                         {errors.geographyAltitude && (
                                             <FormHelperText error>
@@ -732,6 +735,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                             margin="none"
                                             variant="outlined"
                                             type="number"
+                                            InputProps={{ inputProps: { step: step}}}
                                         />
                                         {errors.isolationTemperature && (
                                             <FormHelperText error>
@@ -1017,6 +1021,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                             margin="none"
                                             variant="outlined"
                                             type="number"
+                                            InputProps={{ inputProps: { step: step}}}
                                         />
                                         {errors.arnr16sSize && (
                                             <FormHelperText error>
