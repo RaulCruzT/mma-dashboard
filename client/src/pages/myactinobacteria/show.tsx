@@ -13,6 +13,7 @@ import { IGenera } from "../../interfaces/genera";
 import { ITypeStrain } from "../../interfaces/typestrain";
 import { IEnzyme } from "../../interfaces/enzyme";
 import { ICultureMedium } from "../../interfaces/culturemedium";
+import { LinkButton } from "../../components";
 
 export const MyActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
     const {
@@ -296,19 +297,7 @@ export const MyActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                                         >
                                             Main photo link
                                         </FormLabel>
-                                        <TextField
-                                            {...register("identifierMainPhoto", {
-                                                maxLength: {
-                                                    value: 400,
-                                                    message: "You cannot enter more than 400 characters"
-                                                }
-                                            })}
-                                            size="small"
-                                            margin="none"
-                                            variant="outlined"
-                                            type="url"
-                                            disabled
-                                        />
+                                        <LinkButton href={queryResult?.data?.data.identifierMainPhoto} />
                                         {errors.identifierMainPhoto && (
                                             <FormHelperText error>
                                                 {errors.identifierMainPhoto.message}
@@ -330,19 +319,7 @@ export const MyActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                                         >
                                             Other photos link
                                         </FormLabel>
-                                        <TextField
-                                            {...register("identifierPhotos", {
-                                                maxLength: {
-                                                    value: 400,
-                                                    message: "You cannot enter more than 400 characters"
-                                                }
-                                            })}
-                                            size="small"
-                                            margin="none"
-                                            variant="outlined"
-                                            type="url"
-                                            disabled
-                                        />
+                                        <LinkButton href={queryResult?.data?.data.identifierPhotos} />
                                         {errors.identifierPhotos && (
                                             <FormHelperText error>
                                                 {errors.identifierPhotos.message}
@@ -823,19 +800,7 @@ export const MyActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                                         >
                                             Thesis/Paper link
                                         </FormLabel>
-                                        <TextField
-                                            {...register("isolationThesisPaperLink", {
-                                                maxLength: {
-                                                    value: 400,
-                                                    message: "You cannot enter more than 400 characters"
-                                                }
-                                            })}
-                                            size="small"
-                                            margin="none"
-                                            variant="outlined"
-                                            type="url"
-                                            disabled
-                                        />
+                                        <LinkButton href={queryResult?.data?.data.isolationThesisPaperLink} />
                                         {errors.isolationThesisPaperLink && (
                                             <FormHelperText error>
                                                 {errors.isolationThesisPaperLink.message}
@@ -995,19 +960,7 @@ export const MyActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                                         >
                                             Sequence file link
                                         </FormLabel>
-                                        <TextField
-                                            {...register("arnr16sSequenceFile", {
-                                                maxLength: {
-                                                    value: 100,
-                                                    message: "You cannot enter more than 100 characters"
-                                                }
-                                            })}
-                                            size="small"
-                                            margin="none"
-                                            variant="outlined"
-                                            type="url"
-                                            disabled
-                                        />
+                                        <LinkButton href={queryResult?.data?.data.arnr16sSequenceFile} />
                                         {errors.arnr16sSequenceFile && (
                                             <FormHelperText error>
                                                 {errors.arnr16sSequenceFile.message}
@@ -1029,19 +982,7 @@ export const MyActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                                         >
                                             Macrogen file link
                                         </FormLabel>
-                                        <TextField
-                                            {...register("arnr16sMacrogenFile", {
-                                                maxLength: {
-                                                    value: 100,
-                                                    message: "You cannot enter more than 100 characters"
-                                                }
-                                            })}
-                                            size="small"
-                                            margin="none"
-                                            variant="outlined"
-                                            type="url"
-                                            disabled
-                                        />
+                                        <LinkButton href={queryResult?.data?.data.arnr16sMacrogenFile} />
                                         {errors.arnr16sMacrogenFile && (
                                             <FormHelperText error>
                                                 {errors.arnr16sMacrogenFile.message}
@@ -1863,19 +1804,7 @@ export const MyActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                                         >
                                             Raw data link
                                         </FormLabel>
-                                        <TextField
-                                            {...register("genomeRawData", {
-                                                maxLength: {
-                                                    value: 100,
-                                                    message: "You cannot enter more than 100 characters"
-                                                }
-                                            })}
-                                            size="small"
-                                            margin="none"
-                                            variant="outlined"
-                                            type="url"
-                                            disabled
-                                        />
+                                        <LinkButton href={queryResult?.data?.data.genomeRawData} />
                                         {errors.genomeRawData && (
                                             <FormHelperText error>
                                                 {errors.genomeRawData.message}
@@ -1948,19 +1877,7 @@ export const MyActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                                         >
                                             File link
                                         </FormLabel>
-                                        <TextField
-                                            {...register("bioactivityFile", {
-                                                maxLength: {
-                                                    value: 100,
-                                                    message: "You cannot enter more than 100 characters"
-                                                }
-                                            })}
-                                            size="small"
-                                            margin="none"
-                                            variant="outlined"
-                                            type="url"
-                                            disabled
-                                        />
+                                        <LinkButton href={queryResult?.data?.data.bioactivityFile} />
                                         {errors.bioactivityFile && (
                                             <FormHelperText error>
                                                 {errors.bioactivityFile.message}
@@ -2265,19 +2182,7 @@ export const MyActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                                         >
                                             Medina Foundation reports link
                                         </FormLabel>
-                                        <TextField
-                                            {...register("metabolomicsMedinaFoundationReports", {
-                                                maxLength: {
-                                                    value: 100,
-                                                    message: "You cannot enter more than 100 characters"
-                                                }
-                                            })}
-                                            size="small"
-                                            margin="none"
-                                            variant="outlined"
-                                            type="url"
-                                            disabled
-                                        />
+                                        <LinkButton href={queryResult?.data?.data.metabolomicsMedinaFoundationReports} />
                                         {errors.metabolomicsMedinaFoundationReports && (
                                             <FormHelperText error>
                                                 {errors.metabolomicsMedinaFoundationReports.message}
@@ -2299,19 +2204,7 @@ export const MyActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                                         >
                                             Raw data link
                                         </FormLabel>
-                                        <TextField
-                                            {...register("metabolomicsRawData", {
-                                                maxLength: {
-                                                    value: 100,
-                                                    message: "You cannot enter more than 100 characters"
-                                                }
-                                            })}
-                                            size="small"
-                                            margin="none"
-                                            variant="outlined"
-                                            type="url"
-                                            disabled
-                                        />
+                                        <LinkButton href={queryResult?.data?.data.metabolomicsRawData} />
                                         {errors.metabolomicsRawData && (
                                             <FormHelperText error>
                                                 {errors.metabolomicsRawData.message}
