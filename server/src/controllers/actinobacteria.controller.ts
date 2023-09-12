@@ -16,7 +16,7 @@ export const GetActinobacteriaById: RequestHandler<ActinobacteriaParamsInterface
             throw createHttpError(404, "User not found");
         }
 
-        const actinobacteria = await ActinobacteriaModel.findOne({ _id: id }).populate("creator");
+        const actinobacteria = await ActinobacteriaModel.findOne({ _id: id }).populate("identifierGenera", "creator").exec();
 
         if (!actinobacteria) {
             throw createHttpError(404, "Actinobacteria not found");

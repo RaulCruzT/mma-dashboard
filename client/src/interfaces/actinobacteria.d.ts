@@ -24,12 +24,12 @@ export interface IActinobacteria {
     isolationThesisPaperLink: string;
     isolationComments: string;
     arnr16sCompleteness: string;
-    arnr16sSize: number;
+    arnr16sSize: string;
     arnr16sSequenceFile: string;
     arnr16sMacrogenFile: string;
     arnr16sComments: string;
-    characterizationGrowingMedia: string[];
-    characterizationNotGrowingMedia: string[];
+    characterizationGrowingMedia: ICultureMedium[];
+    characterizationNotGrowingMedia: ICultureMedium[];
     characterizationMycelial: string;
     characterizationColoniesDay: number;
     characterizationSporulationDay: number;
@@ -45,15 +45,15 @@ export interface IActinobacteria {
     genomeRawData: string;
     genomeComments: string;
     bioactivityFile: string;
-    bioactivityYes: string[];
-    bioactivityNo: string[];
-    bioactivityNa: string[];
+    bioactivityYes: ITypeStrain[];
+    bioactivityNo: ITypeStrain[];
+    bioactivityNa: ITypeStrain[];
     bioactivityComments: string;
     metabolomicsMedinaFoundationReports: string;
     metabolomicsRawData: string;
     metabolomicsComments: string;
-    enzymesYes: string[];
-    enzymesNo: string[];
-    enzymesNa: string[];
+    enzymesYes: IEnzyme[];
+    enzymesNo: IEnzyme[];
+    enzymesNa: IEnzyme[];
     enzymesComments: string;
 }
