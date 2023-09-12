@@ -416,7 +416,6 @@ function App() {
                     <Route index element={<ActinobacteriaList />} />
                     <Route path="show/:id" element={<ActinobacteriaShow />} />
                   </Route>
-                  <Route path="*" element={<ErrorComponent />} />
                   <Route path="/myactinobacteria">
                     <Route index element={<MyActinobacteriaList />} />
                     <Route path="create" element={<MyActinobacteriaCreate />} />
@@ -459,6 +458,7 @@ function App() {
                     <Route path="create" element={<EnzymeCreate />} />
                     <Route path="edit/:id" element={<EnzymeEdit />} />
                   </Route>
+                  <Route path="*" element={<ErrorComponent />} />
                 </Route>
                 <Route
                   element={
