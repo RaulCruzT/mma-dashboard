@@ -61,7 +61,7 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                     </TableContainer>
                 </AccordionDetails>
             </Accordion>
-            {/* <Accordion>
+            <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
@@ -70,178 +70,35 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                     <Typography>Geographical data</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Grid
-                        container
-                        spacing={2}
-                    >
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Isolation site
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("geographyIsolationSite", {
-                                            maxLength: {
-                                                value: 100,
-                                                message: "You cannot enter more than 100 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                    {errors.geographyIsolationSite && (
-                                        <FormHelperText error>
-                                            {errors.geographyIsolationSite.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Coordinates
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("geographyCoordinates", {
-                                            maxLength: {
-                                                value: 100,
-                                                message: "You cannot enter more than 100 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                    {errors.geographyCoordinates && (
-                                        <FormHelperText error>
-                                            {errors.geographyCoordinates.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Isolation source
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("geographyIsolationSource", {
-                                            maxLength: {
-                                                value: 100,
-                                                message: "You cannot enter more than 100 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                    {errors.geographyIsolationSource && (
-                                        <FormHelperText error>
-                                            {errors.geographyIsolationSource.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Altitude (m.a.s.l)
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("geographyAltitude")}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        type="number"
-                                        InputProps={{ inputProps: { step: step}}}
-                                        disabled
-                                    />
-                                    {errors.geographyAltitude && (
-                                        <FormHelperText error>
-                                            {errors.geographyAltitude.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={12}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Comments
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("geographyComments", {
-                                            maxLength: {
-                                                value: 400,
-                                                message: "You cannot enter more than 400 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        multiline
-                                        minRows={5}
-                                        disabled
-                                    />
-                                    {errors.geographyComments && (
-                                        <FormHelperText error>
-                                            {errors.geographyComments.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                    </Grid>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 350 }} aria-label="simple table">
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Isolation site</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.geographyIsolationSite}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Coordinates</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.geographyCoordinates}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Isolation source</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.geographyIsolationSource}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Altitude (m.a.s.l)</TableCell>
+                                    <TableCell align="right">{queryResult?.data?.data.geographyAltitude}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Comments</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.geographyComments}</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </AccordionDetails>
             </Accordion>
-            <Accordion>
+            {/* <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
