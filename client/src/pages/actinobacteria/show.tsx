@@ -3,8 +3,9 @@ import {
     useShow
 } from "@refinedev/core";
 import { IActinobacteria } from "../../interfaces/actinobacteria";
-import { Accordion, AccordionDetails, AccordionSummary, Grid, Stack, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
+import { LinkButton } from "../../components";
 
 export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
     const { queryResult } = useShow<IActinobacteria>();
@@ -20,260 +21,44 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                     <Typography>Identification</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Grid
-                        container
-                        spacing={2}
-                    >
-                        <Grid item xs={12} md={12}>
-                            <Typography>Strain: {queryResult.data?.data.identifierStrain}</Typography>
-                        </Grid>
-                        {/* <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Genera
-                                    </FormLabel>
-                                    <Controller
-                                        control={control}
-                                        name="identifierGenera"
-                                        // eslint-disable-next-line
-                                        defaultValue={null as any}
-                                        render={({ field }) => (
-                                            <Autocomplete
-                                                size="small"
-                                                disablePortal
-                                                {...generaAutocompleteProps}
-                                                {...field}
-                                                onChange={(_, value) => {
-                                                    field.onChange(value);
-                                                }}
-                                                getOptionLabel={(item) => {
-                                                    return (
-                                                        generaAutocompleteProps?.options?.find(
-                                                            (p) =>
-                                                                p?._id?.toString() ===
-                                                                item?._id?.toString(),
-                                                        )?.name ?? ""
-                                                    );
-                                                }}
-                                                isOptionEqualToValue={(
-                                                    option,
-                                                    value,
-                                                ) =>
-                                                    value === undefined ||
-                                                    option?._id?.toString() ===
-                                                        (
-                                                            value?._id ?? value
-                                                        )?.toString()
-                                                }
-                                                renderInput={(params) => (
-                                                    <TextField
-                                                        {...params}
-                                                        variant="outlined"
-                                                        error={
-                                                            !!errors.identifierGenera
-                                                                ?.message
-                                                        }
-                                                        disabled
-                                                    />
-                                                )}
-                                            />
-                                        )}
-                                    />
-                                    {errors.identifierGenera && (
-                                        <FormHelperText error>
-                                            {errors.identifierGenera.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Species
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("identifierSpecies", {
-                                            maxLength: {
-                                                value: 100,
-                                                message: "You cannot enter more than 100 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                    {errors.identifierSpecies && (
-                                        <FormHelperText error>
-                                            {errors.identifierSpecies.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Main photo link
-                                    </FormLabel>
-                                    <LinkButton href={queryResult?.data?.data.identifierMainPhoto} />
-                                    {errors.identifierMainPhoto && (
-                                        <FormHelperText error>
-                                            {errors.identifierMainPhoto.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Other photos link
-                                    </FormLabel>
-                                    <LinkButton href={queryResult?.data?.data.identifierPhotos} />
-                                    {errors.identifierPhotos && (
-                                        <FormHelperText error>
-                                            {errors.identifierPhotos.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Local storage
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("identifierLocalStorage", {
-                                            maxLength: {
-                                                value: 100,
-                                                message: "You cannot enter more than 100 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                    {errors.identifierLocalStorage && (
-                                        <FormHelperText error>
-                                            {errors.identifierLocalStorage.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        International storage
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("identifierInternationalStorage", {
-                                            maxLength: {
-                                                value: 100,
-                                                message: "You cannot enter more than 100 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                    {errors.identifierInternationalStorage && (
-                                        <FormHelperText error>
-                                            {errors.identifierInternationalStorage.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={12}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Comments
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("identifierComments", {
-                                            maxLength: {
-                                                value: 400,
-                                                message: "You cannot enter more than 400 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        multiline
-                                        minRows={5}
-                                        disabled
-                                    />
-                                    {errors.identifierComments && (
-                                        <FormHelperText error>
-                                            {errors.identifierComments.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid> */}
-                    </Grid>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 350 }} aria-label="simple table">
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Strain</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.identifierStrain}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Genera</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.identifierGenera.name}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Species</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.identifierSpecies}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Main photo link</TableCell>
+                                    <TableCell align="right"><LinkButton href={queryResult?.data?.data.identifierMainPhoto} /></TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Other photos link</TableCell>
+                                    <TableCell align="right"><LinkButton href={queryResult?.data?.data.identifierPhotos} /></TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Local storage</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.identifierLocalStorage}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>International storage</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.identifierInternationalStorage}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Comments</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.identifierComments}</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </AccordionDetails>
             </Accordion>
             {/* <Accordion>

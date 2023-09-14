@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import {
     OpenInNew
 } from "@mui/icons-material";
@@ -23,12 +23,12 @@ const isValidUrl = (urlString: string): boolean => {
 export const LinkButton = ({ href }: LinkButtonProps) => {
     return (
         href && isValidUrl(href) ? 
-        <Button variant="outlined" endIcon={<OpenInNew />} target="_blank" href={href}>
-            Open in new tab
-        </Button>
+        <IconButton color="primary" target="_blank" href={href}>
+            <OpenInNew />
+        </IconButton>
         :
-        <Button variant="outlined" endIcon={<OpenInNew />} disabled>
+        <Typography>
             No link provided
-        </Button>
+        </Typography>
     )
 };
