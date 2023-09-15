@@ -20,6 +20,14 @@ export const GetActinobacteriaById: RequestHandler<ActinobacteriaParamsInterface
             . populate({
                 path:'identifierGenera',
                 select:'name'
+            })
+            .populate({
+                path: 'characterizationGrowingMedia',
+                select: 'name'
+            })
+            .populate({
+                path: 'characterizationNotGrowingMedia',
+                select: 'name'
             }).exec();
 
         if (!actinobacteria) {
