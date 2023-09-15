@@ -155,7 +155,43 @@ export const GetMyActinobacteriaById: RequestHandler<ActinobacteriaParamsInterfa
 
         const authenticatedUserRole = authenticatedUser.role as string;
 
-        const actinobacteria = await ActinobacteriaModel.findOne({ _id: id }).populate("identifierGenera", "creator").exec();
+        const actinobacteria = await ActinobacteriaModel.findOne({ _id: id })
+            . populate({
+                path:'identifierGenera',
+                select:'name'
+            })
+            .populate({
+                path: 'characterizationGrowingMedia',
+                select: 'name'
+            })
+            .populate({
+                path: 'characterizationNotGrowingMedia',
+                select: 'name'
+            })
+            .populate({
+                path: 'bioactivityYes',
+                select: 'name'
+            })
+            .populate({
+                path: 'bioactivityNo',
+                select: 'name'
+            })
+            .populate({
+                path: 'bioactivityNa',
+                select: 'name'
+            })
+            .populate({
+                path: 'enzymesYes',
+                select: 'name'
+            })
+            .populate({
+                path: 'enzymesNo',
+                select: 'name'
+            })
+            .populate({
+                path: 'enzymesNa',
+                select: 'name'
+            }).exec();
 
         if (!actinobacteria) {
             throw createHttpError(404, "Actinobacteria not found");
