@@ -282,7 +282,7 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                     </TableContainer>
                 </AccordionDetails>
             </Accordion>
-            {/* <Accordion>
+            <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
@@ -291,302 +291,40 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                     <Typography>Bioactivity</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Grid
-                        container
-                        spacing={2}
-                    >
-                        <Grid item xs={12} md={12}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        File link
-                                    </FormLabel>
-                                    <LinkButton href={queryResult?.data?.data.bioactivityFile} />
-                                    {errors.bioactivityFile && (
-                                        <FormHelperText error>
-                                            {errors.bioactivityFile.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={12}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Yes
-                                    </FormLabel>
-                                    <Controller
-                                        control={control}
-                                        name="bioactivityYes"
-                                        defaultValue={[]}
-                                        render={({ field }) => {
-                                            const newValue = typeStrainYesAutocompleteProps.options.filter(
-                                                (p) =>
-                                                    field.value?.find((v) => v === p?._id) !==
-                                                    undefined,
-                                            );
-
-                                            return (
-                                                <Autocomplete
-                                                    {...typeStrainYesAutocompleteProps}
-                                                    {...field}
-                                                    value={newValue}
-                                                    multiple
-                                                    clearOnBlur={false}
-                                                    onChange={(_, value) => {
-                                                        const newValue = value.map((p) => p?._id.toString());
-                                                        field.onChange(newValue);
-                                                    }}
-                                                    getOptionLabel={(item) => {
-                                                        return (
-                                                            typeStrainYesAutocompleteProps?.options?.find(
-                                                                (p) =>
-                                                                    p?._id?.toString() ===
-                                                                    item?._id.toString(),
-                                                            )?.name ?? ""
-                                                        );
-                                                    }}
-                                                    isOptionEqualToValue={(option, value) => {
-                                                        return (
-                                                            value === undefined ||
-                                                            option?._id?.toString() ===
-                                                                value?._id?.toString()
-                                                        );
-                                                    }}
-                                                    renderInput={(params) => {
-                                                        return (
-                                                            <TextField
-                                                                {...params}
-                                                                size="small"
-                                                                name="bioactivityYes"
-                                                                id="bioactivityYes"
-                                                                margin="normal"
-                                                                variant="outlined"
-                                                                error={!!errors.bioactivityYes?.message}
-                                                                disabled
-                                                            />
-                                                        );
-                                                    }}
-                                                    readOnly={true}
-                                                />
-                                            );
-                                        }}
-                                    />
-                                    {errors.bioactivityYes && (
-                                        <FormHelperText error>
-                                            {errors.bioactivityYes.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={12}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        No
-                                    </FormLabel>
-                                    <Controller
-                                        control={control}
-                                        name="bioactivityNo"
-                                        defaultValue={[]}
-                                        render={({ field }) => {
-                                            const newValue = typeStrainNoAutocompleteProps.options.filter(
-                                                (p) =>
-                                                    field.value?.find((v) => v === p?._id) !==
-                                                    undefined,
-                                            );
-
-                                            return (
-                                                <Autocomplete
-                                                    {...typeStrainNoAutocompleteProps}
-                                                    {...field}
-                                                    value={newValue}
-                                                    multiple
-                                                    clearOnBlur={false}
-                                                    onChange={(_, value) => {
-                                                        const newValue = value.map((p) => p?._id.toString());
-                                                        field.onChange(newValue);
-                                                    }}
-                                                    getOptionLabel={(item) => {
-                                                        return (
-                                                            typeStrainNoAutocompleteProps?.options?.find(
-                                                                (p) =>
-                                                                    p?._id?.toString() ===
-                                                                    item?._id.toString(),
-                                                            )?.name ?? ""
-                                                        );
-                                                    }}
-                                                    isOptionEqualToValue={(option, value) => {
-                                                        return (
-                                                            value === undefined ||
-                                                            option?._id?.toString() ===
-                                                                value?._id?.toString()
-                                                        );
-                                                    }}
-                                                    renderInput={(params) => {
-                                                        return (
-                                                            <TextField
-                                                                {...params}
-                                                                size="small"
-                                                                name="bioactivityNo"
-                                                                id="bioactivityNo"
-                                                                margin="normal"
-                                                                variant="outlined"
-                                                                error={!!errors.bioactivityNo?.message}
-                                                            />
-                                                        );
-                                                    }}
-                                                    readOnly={true}
-                                                />
-                                            );
-                                        }}
-                                    />
-                                    {errors.bioactivityNo && (
-                                        <FormHelperText error>
-                                            {errors.bioactivityNo.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={12}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Na
-                                    </FormLabel>
-                                    <Controller
-                                        control={control}
-                                        name="bioactivityNa"
-                                        defaultValue={[]}
-                                        render={({ field }) => {
-                                            const newValue = typeStrainNaAutocompleteProps.options.filter(
-                                                (p) =>
-                                                    field.value?.find((v) => v === p?._id) !==
-                                                    undefined,
-                                            );
-
-                                            return (
-                                                <Autocomplete
-                                                    {...typeStrainNaAutocompleteProps}
-                                                    {...field}
-                                                    value={newValue}
-                                                    multiple
-                                                    clearOnBlur={false}
-                                                    onChange={(_, value) => {
-                                                        const newValue = value.map((p) => p?._id.toString());
-                                                        field.onChange(newValue);
-                                                    }}
-                                                    getOptionLabel={(item) => {
-                                                        return (
-                                                            typeStrainNaAutocompleteProps?.options?.find(
-                                                                (p) =>
-                                                                    p?._id?.toString() ===
-                                                                    item?._id.toString(),
-                                                            )?.name ?? ""
-                                                        );
-                                                    }}
-                                                    isOptionEqualToValue={(option, value) => {
-                                                        return (
-                                                            value === undefined ||
-                                                            option?._id?.toString() ===
-                                                                value?._id?.toString()
-                                                        );
-                                                    }}
-                                                    renderInput={(params) => {
-                                                        return (
-                                                            <TextField
-                                                                {...params}
-                                                                size="small"
-                                                                name="bioactivityNa"
-                                                                id="bioactivityNa"
-                                                                margin="normal"
-                                                                variant="outlined"
-                                                                error={!!errors.bioactivityNa?.message}
-                                                            />
-                                                        );
-                                                    }}
-                                                    readOnly={true}
-                                                />
-                                            );
-                                        }}
-                                    />
-                                    {errors.bioactivityNa && (
-                                        <FormHelperText error>
-                                            {errors.bioactivityNa.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={12}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Comments
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("bioactivityComments", {
-                                            maxLength: {
-                                                value: 400,
-                                                message: "You cannot enter more than 400 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        multiline
-                                        minRows={5}
-                                        disabled
-                                    />
-                                    {errors.bioactivityComments && (
-                                        <FormHelperText error>
-                                            {errors.bioactivityComments.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                    </Grid>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 350 }} aria-label="simple table">
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>File link</TableCell>
+                                    <TableCell align="right"><LinkButton href={queryResult?.data?.data.bioactivityFile} /></TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Yes</TableCell>
+                                    <TableCell align="right">
+                                        {queryResult?.data?.data.bioactivityYes.map(x => x.name).join(", ")}
+                                        </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>No</TableCell>
+                                    <TableCell align="right">
+                                        {queryResult?.data?.data.bioactivityNo.map(x => x.name).join(", ")}
+                                        </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Na</TableCell>
+                                    <TableCell align="right">
+                                        {queryResult?.data?.data.bioactivityNa.map(x => x.name).join(", ")}
+                                        </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Comments</TableCell>
+                                    <TableCell align="right">{queryResult?.data?.data.bioactivityComments}</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </AccordionDetails>
-            </Accordion> */}
+            </Accordion>
             {/* <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}

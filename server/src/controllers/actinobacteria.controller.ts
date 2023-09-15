@@ -28,6 +28,18 @@ export const GetActinobacteriaById: RequestHandler<ActinobacteriaParamsInterface
             .populate({
                 path: 'characterizationNotGrowingMedia',
                 select: 'name'
+            })
+            .populate({
+                path: 'bioactivityYes',
+                select: 'name'
+            })
+            .populate({
+                path: 'bioactivityNo',
+                select: 'name'
+            })
+            .populate({
+                path: 'bioactivityNa',
+                select: 'name'
             }).exec();
 
         if (!actinobacteria) {
