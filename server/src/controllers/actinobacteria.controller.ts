@@ -40,6 +40,18 @@ export const GetActinobacteriaById: RequestHandler<ActinobacteriaParamsInterface
             .populate({
                 path: 'bioactivityNa',
                 select: 'name'
+            })
+            .populate({
+                path: 'enzymesYes',
+                select: 'name'
+            })
+            .populate({
+                path: 'enzymesNo',
+                select: 'name'
+            })
+            .populate({
+                path: 'enzymesNa',
+                select: 'name'
             }).exec();
 
         if (!actinobacteria) {

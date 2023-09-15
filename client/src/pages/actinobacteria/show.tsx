@@ -354,7 +354,7 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                     </TableContainer>
                 </AccordionDetails>
             </Accordion>
-            {/* <Accordion>
+            <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
@@ -363,279 +363,36 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                     <Typography>Enzymes</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Grid
-                        container
-                        spacing={2}
-                    >
-                        <Grid item xs={12} md={12}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Yes
-                                    </FormLabel>
-                                    <Controller
-                                        control={control}
-                                        name="enzymesYes"
-                                        defaultValue={[]}
-                                        render={({ field }) => {
-                                            const newValue = enzymesYesAutocompleteProps.options.filter(
-                                                (p) =>
-                                                    field.value?.find((v) => v === p?._id) !==
-                                                    undefined,
-                                            );
-
-                                            return (
-                                                <Autocomplete
-                                                    {...enzymesYesAutocompleteProps}
-                                                    {...field}
-                                                    value={newValue}
-                                                    multiple
-                                                    clearOnBlur={false}
-                                                    onChange={(_, value) => {
-                                                        const newValue = value.map((p) => p?._id.toString());
-                                                        field.onChange(newValue);
-                                                    }}
-                                                    getOptionLabel={(item) => {
-                                                        return (
-                                                            enzymesYesAutocompleteProps?.options?.find(
-                                                                (p) =>
-                                                                    p?._id?.toString() ===
-                                                                    item?._id.toString(),
-                                                            )?.name ?? ""
-                                                        );
-                                                    }}
-                                                    isOptionEqualToValue={(option, value) => {
-                                                        return (
-                                                            value === undefined ||
-                                                            option?._id?.toString() ===
-                                                                value?._id?.toString()
-                                                        );
-                                                    }}
-                                                    renderInput={(params) => {
-                                                        return (
-                                                            <TextField
-                                                                {...params}
-                                                                size="small"
-                                                                name="enzymesYes"
-                                                                id="enzymesYes"
-                                                                margin="normal"
-                                                                variant="outlined"
-                                                                error={!!errors.enzymesYes?.message}
-                                                            />
-                                                        );
-                                                    }}
-                                                    readOnly={true}
-                                                />
-                                            );
-                                        }}
-                                    />
-                                    {errors.enzymesYes && (
-                                        <FormHelperText error>
-                                            {errors.enzymesYes.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={12}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        No
-                                    </FormLabel>
-                                    <Controller
-                                        control={control}
-                                        name="enzymesNo"
-                                        defaultValue={[]}
-                                        render={({ field }) => {
-                                            const newValue = enzymesNoAutocompleteProps.options.filter(
-                                                (p) =>
-                                                    field.value?.find((v) => v === p?._id) !==
-                                                    undefined,
-                                            );
-
-                                            return (
-                                                <Autocomplete
-                                                    {...enzymesNoAutocompleteProps}
-                                                    {...field}
-                                                    value={newValue}
-                                                    multiple
-                                                    clearOnBlur={false}
-                                                    onChange={(_, value) => {
-                                                        const newValue = value.map((p) => p?._id.toString());
-                                                        field.onChange(newValue);
-                                                    }}
-                                                    getOptionLabel={(item) => {
-                                                        return (
-                                                            enzymesNoAutocompleteProps?.options?.find(
-                                                                (p) =>
-                                                                    p?._id?.toString() ===
-                                                                    item?._id.toString(),
-                                                            )?.name ?? ""
-                                                        );
-                                                    }}
-                                                    isOptionEqualToValue={(option, value) => {
-                                                        return (
-                                                            value === undefined ||
-                                                            option?._id?.toString() ===
-                                                                value?._id?.toString()
-                                                        );
-                                                    }}
-                                                    renderInput={(params) => {
-                                                        return (
-                                                            <TextField
-                                                                {...params}
-                                                                size="small"
-                                                                name="enzymesNo"
-                                                                id="enzymesNo"
-                                                                margin="normal"
-                                                                variant="outlined"
-                                                                error={!!errors.enzymesNo?.message}
-                                                            />
-                                                        );
-                                                    }}
-                                                    readOnly={true}
-                                                />
-                                            );
-                                        }}
-                                    />
-                                    {errors.enzymesNo && (
-                                        <FormHelperText error>
-                                            {errors.enzymesNo.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={12}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Na
-                                    </FormLabel>
-                                    <Controller
-                                        control={control}
-                                        name="enzymesNa"
-                                        defaultValue={[]}
-                                        render={({ field }) => {
-                                            const newValue = enzymesNaAutocompleteProps.options.filter(
-                                                (p) =>
-                                                    field.value?.find((v) => v === p?._id) !==
-                                                    undefined,
-                                            );
-
-                                            return (
-                                                <Autocomplete
-                                                    {...enzymesNaAutocompleteProps}
-                                                    {...field}
-                                                    value={newValue}
-                                                    multiple
-                                                    clearOnBlur={false}
-                                                    onChange={(_, value) => {
-                                                        const newValue = value.map((p) => p?._id.toString());
-                                                        field.onChange(newValue);
-                                                    }}
-                                                    getOptionLabel={(item) => {
-                                                        return (
-                                                            enzymesNaAutocompleteProps?.options?.find(
-                                                                (p) =>
-                                                                    p?._id?.toString() ===
-                                                                    item?._id.toString(),
-                                                            )?.name ?? ""
-                                                        );
-                                                    }}
-                                                    isOptionEqualToValue={(option, value) => {
-                                                        return (
-                                                            value === undefined ||
-                                                            option?._id?.toString() ===
-                                                                value?._id?.toString()
-                                                        );
-                                                    }}
-                                                    renderInput={(params) => {
-                                                        return (
-                                                            <TextField
-                                                                {...params}
-                                                                size="small"
-                                                                name="enzymesNa"
-                                                                id="enzymesNa"
-                                                                margin="normal"
-                                                                variant="outlined"
-                                                                error={!!errors.enzymesNa?.message}
-                                                            />
-                                                        );
-                                                    }}
-                                                    readOnly={true}
-                                                />
-                                            );
-                                        }}
-                                    />
-                                    {errors.enzymesNa && (
-                                        <FormHelperText error>
-                                            {errors.enzymesNa.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={12}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Comments
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("enzymesComments", {
-                                            maxLength: {
-                                                value: 400,
-                                                message: "You cannot enter more than 400 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        multiline
-                                        minRows={5}
-                                        disabled
-                                    />
-                                    {errors.enzymesComments && (
-                                        <FormHelperText error>
-                                            {errors.enzymesComments.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                    </Grid>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 350 }} aria-label="simple table">
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Yes</TableCell>
+                                    <TableCell align="right">
+                                        {queryResult?.data?.data.enzymesYes.map(x => x.name).join(", ")}
+                                        </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>No</TableCell>
+                                    <TableCell align="right">
+                                        {queryResult?.data?.data.enzymesNo.map(x => x.name).join(", ")}
+                                        </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Na</TableCell>
+                                    <TableCell align="right">
+                                        {queryResult?.data?.data.enzymesNa.map(x => x.name).join(", ")}
+                                        </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Comments</TableCell>
+                                    <TableCell align="right">{queryResult?.data?.data.enzymesComments}</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </AccordionDetails>
-            </Accordion> */}
+            </Accordion>
         </Stack>
     )
 }
