@@ -98,7 +98,7 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                     </TableContainer>
                 </AccordionDetails>
             </Accordion>
-            {/* <Accordion>
+            <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
@@ -107,233 +107,43 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                     <Typography>Isolation</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Grid
-                        container
-                        spacing={2}
-                    >
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Medium
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("isolationMedium", {
-                                            maxLength: {
-                                                value: 100,
-                                                message: "You cannot enter more than 100 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                    {errors.isolationMedium && (
-                                        <FormHelperText error>
-                                            {errors.isolationMedium.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Temperature (°C)
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("isolationTemperature")}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        type="number"
-                                        InputProps={{ inputProps: { step: step}}}
-                                        disabled
-                                    />
-                                    {errors.isolationTemperature && (
-                                        <FormHelperText error>
-                                            {errors.isolationTemperature.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Method
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("isolationMethod", {
-                                            maxLength: {
-                                                value: 100,
-                                                message: "You cannot enter more than 100 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                    {errors.isolationMethod && (
-                                        <FormHelperText error>
-                                            {errors.isolationMethod.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Person in charge
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("isolationResponsible", {
-                                            maxLength: {
-                                                value: 100,
-                                                message: "You cannot enter more than 100 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                    {errors.isolationResponsible && (
-                                        <FormHelperText error>
-                                            {errors.isolationResponsible.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Thesis/Paper
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("isolationThesisPaper", {
-                                            maxLength: {
-                                                value: 100,
-                                                message: "You cannot enter more than 100 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                    {errors.isolationThesisPaper && (
-                                        <FormHelperText error>
-                                            {errors.isolationThesisPaper.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Thesis/Paper link
-                                    </FormLabel>
-                                    <LinkButton href={queryResult?.data?.data.isolationThesisPaperLink} />
-                                    {errors.isolationThesisPaperLink && (
-                                        <FormHelperText error>
-                                            {errors.isolationThesisPaperLink.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={12}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Comments
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("isolationComments", {
-                                            maxLength: {
-                                                value: 400,
-                                                message: "You cannot enter more than 400 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        multiline
-                                        minRows={5}
-                                        disabled
-                                    />
-                                    {errors.isolationComments && (
-                                        <FormHelperText error>
-                                            {errors.isolationComments.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                    </Grid>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 350 }} aria-label="simple table">
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Medium</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.isolationMedium}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Temperature (°C)</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.isolationTemperature}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Method</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.isolationMethod}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Person in charge</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.isolationResponsible}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Thesis/Paper</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.isolationThesisPaper}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Thesis/Paper link</TableCell>
+                                    <TableCell align="right"><LinkButton href={queryResult?.data?.data.isolationThesisPaperLink} /></TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Comments</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.isolationComments}</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </AccordionDetails>
             </Accordion>
-            <Accordion>
+            {/* <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
@@ -514,8 +324,8 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                         </Grid>
                     </Grid>
                 </AccordionDetails>
-            </Accordion>
-            <Accordion>
+            </Accordion> */}
+            {/* <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
@@ -1263,8 +1073,8 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                         </Grid>
                     </Grid>
                 </AccordionDetails>
-            </Accordion>
-            <Accordion>
+            </Accordion> */}
+            {/* <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
@@ -1336,8 +1146,8 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                         </Grid>
                     </Grid>
                 </AccordionDetails>
-            </Accordion>
-            <Accordion>
+            </Accordion> */}
+            {/* <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
@@ -1641,8 +1451,8 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                         </Grid>
                     </Grid>
                 </AccordionDetails>
-            </Accordion>
-            <Accordion>
+            </Accordion> */}
+            {/* <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
@@ -1736,8 +1546,8 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                         </Grid>
                     </Grid>
                 </AccordionDetails>
-            </Accordion>
-            <Accordion>
+            </Accordion> */}
+            {/* <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
