@@ -143,7 +143,7 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                     </TableContainer>
                 </AccordionDetails>
             </Accordion>
-            {/* <Accordion>
+            <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
@@ -152,179 +152,34 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                     <Typography>rRNA 16S</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Grid
-                        container
-                        spacing={2}
-                    >
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Completeness
-                                    </FormLabel>
-                                    <Controller
-                                        control={control}
-                                        name="arnr16sCompleteness"
-                                        // eslint-disable-next-line
-                                        defaultValue={null as any}
-                                        render={({ field }) => (
-                                            <Autocomplete
-                                                size="small"
-                                                {...field}
-                                                onChange={(
-                                                    _,
-                                                    value,
-                                                ) => {
-                                                    field.onChange(
-                                                        value,
-                                                    );
-                                                }}
-                                                options={[
-                                                    "Complete",
-                                                    "Partial",
-                                                ]}
-                                                renderInput={(
-                                                    params,
-                                                ) => (
-                                                    <TextField
-                                                        {...params}
-                                                        variant="outlined"
-                                                        error={
-                                                            !!errors.arnr16sCompleteness
-                                                        }
-                                                        disabled
-                                                    />
-                                                )}
-                                            />
-                                        )}
-                                    />
-                                    {errors.arnr16sCompleteness && (
-                                        <FormHelperText error>
-                                            {errors.arnr16sCompleteness.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Size (?)
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("arnr16sSize")}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        type="number"
-                                        InputProps={{ inputProps: { step: step}}}
-                                        disabled
-                                    />
-                                    {errors.arnr16sSize && (
-                                        <FormHelperText error>
-                                            {errors.arnr16sSize.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Sequence file link
-                                    </FormLabel>
-                                    <LinkButton href={queryResult?.data?.data.arnr16sSequenceFile} />
-                                    {errors.arnr16sSequenceFile && (
-                                        <FormHelperText error>
-                                            {errors.arnr16sSequenceFile.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Macrogen file link
-                                    </FormLabel>
-                                    <LinkButton href={queryResult?.data?.data.arnr16sMacrogenFile} />
-                                    {errors.arnr16sMacrogenFile && (
-                                        <FormHelperText error>
-                                            {errors.arnr16sMacrogenFile.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={12}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Comments
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("arnr16sComments", {
-                                            maxLength: {
-                                                value: 400,
-                                                message: "You cannot enter more than 400 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        multiline
-                                        minRows={5}
-                                        disabled
-                                    />
-                                    {errors.arnr16sComments && (
-                                        <FormHelperText error>
-                                            {errors.arnr16sComments.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                    </Grid>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 350 }} aria-label="simple table">
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Completeness</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.arnr16sCompleteness}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Size (?)</TableCell>
+                                    <TableCell align="right">{queryResult.data?.data.arnr16sSize}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Sequence file link</TableCell>
+                                    <TableCell align="right"><LinkButton href={queryResult?.data?.data.arnr16sSequenceFile} /></TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Macrogen file link</TableCell>
+                                    <TableCell align="right"><LinkButton href={queryResult?.data?.data.arnr16sMacrogenFile} /></TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Comments</TableCell>
+                                    <TableCell align="right">{queryResult?.data?.data.arnr16sComments}</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </AccordionDetails>
-            </Accordion> */}
+            </Accordion>
             {/* <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}
