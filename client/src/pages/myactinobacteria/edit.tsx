@@ -1176,7 +1176,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                             render={({ field }) => {
                                                 const newValue = characterizationGrowingMediaAutocompleteProps.options.filter(
                                                     (p) =>
-                                                        field.value?.find((v) => v === p?._id) !==
+                                                        field.value?.find((v) => v._id === p?._id) !==
                                                         undefined,
                                                 );
 
@@ -1188,7 +1188,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                                         multiple
                                                         clearOnBlur={false}
                                                         onChange={(_, value) => {
-                                                            const newValue = value.map((p) => p?._id.toString());
+                                                            const newValue = value;
                                                             field.onChange(newValue);
                                                         }}
                                                         getOptionLabel={(item) => {
@@ -1252,7 +1252,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                             render={({ field }) => {
                                                 const newValue = characterizationNotGrowingMediaAutocompleteProps.options.filter(
                                                     (p) =>
-                                                        field.value?.find((v) => v === p?._id) !==
+                                                        field.value?.find((v) => v._id === p?._id) !==
                                                         undefined,
                                                 );
 
@@ -1264,7 +1264,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                                         multiple
                                                         clearOnBlur={false}
                                                         onChange={(_, value) => {
-                                                            const newValue = value.map((p) => p?._id.toString());
+                                                            const newValue = value;
                                                             field.onChange(newValue);
                                                         }}
                                                         getOptionLabel={(item) => {
@@ -2035,7 +2035,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                             render={({ field }) => {
                                                 const newValue = typeStrainYesAutocompleteProps.options.filter(
                                                     (p) =>
-                                                        field.value?.find((v) => v === p?._id) !==
+                                                        field.value?.find((v) => v._id === p?._id) !==
                                                         undefined,
                                                 );
 
@@ -2047,7 +2047,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                                         multiple
                                                         clearOnBlur={false}
                                                         onChange={(_, value) => {
-                                                            const newValue = value.map((p) => p?._id.toString());
+                                                            const newValue = value;
                                                             field.onChange(newValue);
                                                         }}
                                                         getOptionLabel={(item) => {
@@ -2111,7 +2111,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                             render={({ field }) => {
                                                 const newValue = typeStrainNoAutocompleteProps.options.filter(
                                                     (p) =>
-                                                        field.value?.find((v) => v === p?._id) !==
+                                                        field.value?.find((v) => v._id === p?._id) !==
                                                         undefined,
                                                 );
 
@@ -2123,7 +2123,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                                         multiple
                                                         clearOnBlur={false}
                                                         onChange={(_, value) => {
-                                                            const newValue = value.map((p) => p?._id.toString());
+                                                            const newValue = value;
                                                             field.onChange(newValue);
                                                         }}
                                                         getOptionLabel={(item) => {
@@ -2187,7 +2187,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                             render={({ field }) => {
                                                 const newValue = typeStrainNaAutocompleteProps.options.filter(
                                                     (p) =>
-                                                        field.value?.find((v) => v === p?._id) !==
+                                                        field.value?.find((v) => v._id === p?._id) !==
                                                         undefined,
                                                 );
 
@@ -2199,7 +2199,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                                         multiple
                                                         clearOnBlur={false}
                                                         onChange={(_, value) => {
-                                                            const newValue = value.map((p) => p?._id.toString());
+                                                            const newValue = value;
                                                             field.onChange(newValue);
                                                         }}
                                                         getOptionLabel={(item) => {
@@ -2433,7 +2433,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                             render={({ field }) => {
                                                 const newValue = enzymesYesAutocompleteProps.options.filter(
                                                     (p) =>
-                                                        field.value?.find((v) => v === p?._id) !==
+                                                        field.value?.find((v) => v._id === p?._id) !==
                                                         undefined,
                                                 );
 
@@ -2445,7 +2445,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                                         multiple
                                                         clearOnBlur={false}
                                                         onChange={(_, value) => {
-                                                            const newValue = value.map((p) => p?._id.toString());
+                                                            const newValue = value;
                                                             field.onChange(newValue);
                                                         }}
                                                         getOptionLabel={(item) => {
@@ -2509,7 +2509,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                             render={({ field }) => {
                                                 const newValue = enzymesNoAutocompleteProps.options.filter(
                                                     (p) =>
-                                                        field.value?.find((v) => v === p?._id) !==
+                                                        field.value?.find((v) => v._id === p?._id) !==
                                                         undefined,
                                                 );
 
@@ -2521,7 +2521,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                                         multiple
                                                         clearOnBlur={false}
                                                         onChange={(_, value) => {
-                                                            const newValue = value.map((p) => p?._id.toString());
+                                                            const newValue = value;
                                                             field.onChange(newValue);
                                                         }}
                                                         getOptionLabel={(item) => {
@@ -2585,7 +2585,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                             render={({ field }) => {
                                                 const newValue = enzymesNaAutocompleteProps.options.filter(
                                                     (p) =>
-                                                        field.value?.find((v) => v === p?._id) !==
+                                                        field.value?.find((v) => v._id === p?._id) !==
                                                         undefined,
                                                 );
 
@@ -2597,7 +2597,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
                                                         multiple
                                                         clearOnBlur={false}
                                                         onChange={(_, value) => {
-                                                            const newValue = value.map((p) => p?._id.toString());
+                                                            const newValue = value;
                                                             field.onChange(newValue);
                                                         }}
                                                         getOptionLabel={(item) => {
