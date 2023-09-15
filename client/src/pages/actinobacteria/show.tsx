@@ -325,7 +325,7 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                     </TableContainer>
                 </AccordionDetails>
             </Accordion>
-            {/* <Accordion>
+            <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
@@ -334,92 +334,26 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                     <Typography>Metabolomics</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                <Grid
-                        container
-                        spacing={2}
-                    >
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Medina Foundation reports link
-                                    </FormLabel>
-                                    <LinkButton href={queryResult?.data?.data.metabolomicsMedinaFoundationReports} />
-                                    {errors.metabolomicsMedinaFoundationReports && (
-                                        <FormHelperText error>
-                                            {errors.metabolomicsMedinaFoundationReports.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Raw data link
-                                    </FormLabel>
-                                    <LinkButton href={queryResult?.data?.data.metabolomicsRawData} />
-                                    {errors.metabolomicsRawData && (
-                                        <FormHelperText error>
-                                            {errors.metabolomicsRawData.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={12}>
-                            <Stack gap="24px">
-                                <FormControl>
-                                    <FormLabel
-                                        sx={{
-                                            marginBottom: "8px",
-                                            fontWeight: "700",
-                                            fontSize: "14px",
-                                            color: "text.primary",
-                                        }}
-                                    >
-                                        Comments
-                                    </FormLabel>
-                                    <TextField
-                                        {...register("metabolomicsComments", {
-                                            maxLength: {
-                                                value: 400,
-                                                message: "You cannot enter more than 400 characters"
-                                            }
-                                        })}
-                                        size="small"
-                                        margin="none"
-                                        variant="outlined"
-                                        multiline
-                                        minRows={5}
-                                        disabled
-                                    />
-                                    {errors.metabolomicsComments && (
-                                        <FormHelperText error>
-                                            {errors.metabolomicsComments.message}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Stack>
-                        </Grid>
-                    </Grid>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 350 }} aria-label="simple table">
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Medina Foundation reports link</TableCell>
+                                    <TableCell align="right"><LinkButton href={queryResult?.data?.data.metabolomicsMedinaFoundationReports} /></TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Raw data link</TableCell>
+                                    <TableCell align="right"><LinkButton href={queryResult?.data?.data.metabolomicsRawData} /></TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell variant="head" sx={{fontWeight: 700}}>Comments</TableCell>
+                                    <TableCell align="right">{queryResult?.data?.data.metabolomicsComments}</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </AccordionDetails>
-            </Accordion> */}
+            </Accordion>
             {/* <Accordion>
                 <AccordionSummary
                 expandIcon={<ExpandMore />}
