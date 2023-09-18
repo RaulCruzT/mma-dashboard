@@ -9,7 +9,14 @@ import { LinkButton } from "../../components";
 import { Show } from "@refinedev/mui";
 
 export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
-    const { queryResult } = useShow<IActinobacteria>();
+    const { queryResult } = useShow<IActinobacteria>({
+        errorNotification: () => {
+            return {
+                message: 'Error getting actinobacteria data',
+                type: "error",
+            };
+        },
+    });
 
     return (
         <Show title={<Typography variant="h5">Show Actinobacteria</Typography>}>
