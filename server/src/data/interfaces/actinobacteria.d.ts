@@ -6,6 +6,7 @@ export interface ActinobacteriaParamsInterface {
 
 export interface ActinobacteriaBodyInterface {
     identifierStrain: string;
+    identifierGenera: string;
     identifierSpecies: string;
     identifierMainPhoto: string;
     identifierPhotos: string;
@@ -36,7 +37,6 @@ export interface ActinobacteriaBodyInterface {
     metabolomicsMedinaFoundationReports: string;
     metabolomicsRawData: string;
     metabolomicsComments: string;
-    identifierGenera: string;
     arnr16sCompleteness: string;
     characterizationGrowingMedia: string[];
     characterizationNotGrowingMedia: string[];
@@ -61,5 +61,7 @@ export interface ActinobacteriaBodyInterface {
 }
 
 export interface ActinobacteriaPaginationQueryInterface extends PaginationQueryInterface {
-    name_like: string;
+    identifierStrain_like: string;
+    identifierSpecies_like: string;
+    arnr16sCompleteness_like: string;
 }

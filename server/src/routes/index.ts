@@ -6,3 +6,4 @@ export { default as typeStrainRoutes } from "./typestrain.routes";
 export { default as enzymeRoutes } from "./enzyme.routes";
 export { default as actinobacteriaRoutes } from "./actinobacteria.routes";
 export { default as myActinobacteriaRoutes } from "./myactinobacteria.routes";
+export { default as assemblyRoutes } from "./assembly.routes";

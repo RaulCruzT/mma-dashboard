@@ -52,6 +52,10 @@ export const GetActinobacteriaById: RequestHandler<ActinobacteriaParamsInterface
             .populate({
                 path: 'enzymesNa',
                 select: 'name'
+            })
+            .populate({
+                path: 'creator',
+                select: 'name email'
             }).exec();
 
         if (!actinobacteria) {
@@ -71,7 +75,9 @@ export const GetActinobacteriaPagination: RequestHandler<unknown, unknown, unkno
         _order,
         _start,
         _sort,
-        name_like = ""
+        identifierStrain_like = "",
+        identifierSpecies_like = "",
+        arnr16sCompleteness_like = ""
     } = req.query;
     const authenticatedUserEmail = parseJwt(token as string).email;
 
@@ -84,8 +90,16 @@ export const GetActinobacteriaPagination: RequestHandler<unknown, unknown, unkno
 
         let query = {};
 
-        if(name_like) {
-            query = {...query, name: { $regex: name_like, $options: "i" }}
+        if(identifierStrain_like) {
+            query = {...query, identifierStrain: { $regex: identifierStrain_like, $options: "i" }}
+        }
+
+        if(identifierSpecies_like) {
+            query = {...query, identifierSpecies: { $regex: identifierSpecies_like, $options: "i" }}
+        }
+
+        if(arnr16sCompleteness_like) {
+            query = {...query, arnr16sCompleteness: { $regex: arnr16sCompleteness_like, $options: "i" }}
         }
 
         const actinobacteria = await ActinobacteriaModel.find(query)
