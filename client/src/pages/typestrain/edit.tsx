@@ -12,7 +12,22 @@ export const TypeStrainEdit: React.FC<IResourceComponentsProps> = () => {
         refineCore: { formLoading },
         formState: { errors },
         saveButtonProps,
-    } = useForm<ITypeStrain, HttpError, ITypeStrain>();
+    } = useForm<ITypeStrain, HttpError, ITypeStrain>({
+        refineCoreProps: {
+            successNotification: () => {
+                return {
+                    message: 'Successfully updated type strain',
+                    type: "success",
+                };
+            },
+            errorNotification: () => {
+                return {
+                    message: 'Error updating a type strain',
+                    type: "error",
+                }
+            }
+        }
+    });
 
     return (
         <Edit isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Edit Type Strain</Typography>}>

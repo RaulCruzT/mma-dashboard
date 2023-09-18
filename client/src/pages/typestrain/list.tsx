@@ -8,6 +8,12 @@ import { Typography } from "@mui/material";
 export const TypeStrainList: React.FC<IResourceComponentsProps> = () => {
     const { dataGridProps } = useDataGrid<ITypeStrain>({
         initialPageSize: 10,
+        errorNotification: () => {
+            return {
+                message: 'Something went wrong when getting type strains',
+                type: "error",
+            };
+        },
     });
 
     const columns = React.useMemo<GridColDef<ITypeStrain>[]>(
@@ -39,6 +45,14 @@ export const TypeStrainList: React.FC<IResourceComponentsProps> = () => {
                                 recordItemId={row._id}
                                 mutationMode="undoable"
                                 confirmTitle={`Are you sure to delete ${row.name} type strain?`}
+                                successNotification={{
+                                    message: 'Successfully deleted type strain',
+                                    type: "success",
+                                }}
+                                errorNotification={{
+                                    message: 'Error deleting a type strain',
+                                    type: "error",
+                                }}
                             />
                         </>
                     );

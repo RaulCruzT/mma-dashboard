@@ -22,7 +22,22 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
         control,
         formState: { errors },
         getValues,
-    } = useForm<IMyActinobacteria, HttpError, Nullable<IMyActinobacteria>>();
+    } = useForm<IMyActinobacteria, HttpError, Nullable<IMyActinobacteria>>({
+        refineCoreProps: {
+            successNotification: () => {
+                return {
+                    message: 'Successfully created actinobacteria',
+                    type: "success",
+                };
+            },
+            errorNotification: () => {
+                return {
+                    message: 'Error creating an actinobacteria',
+                    type: "error",
+                }
+            }
+        }
+    });
 
     const { autocompleteProps: generaAutocompleteProps } = useAutocomplete<IGenera>({
         resource: "genera",

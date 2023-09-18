@@ -12,7 +12,22 @@ export const EnzymeEdit: React.FC<IResourceComponentsProps> = () => {
         refineCore: { formLoading },
         formState: { errors },
         saveButtonProps,
-    } = useForm<IEnzyme, HttpError, IEnzyme>();
+    } = useForm<IEnzyme, HttpError, IEnzyme>({
+        refineCoreProps: {
+            successNotification: () => {
+                return {
+                    message: 'Successfully updated enzyme',
+                    type: "success",
+                };
+            },
+            errorNotification: () => {
+                return {
+                    message: 'Error updating an enzyme',
+                    type: "error",
+                }
+            }
+        }
+    });
 
     return (
         <Edit isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Edit Enzyme</Typography>}>

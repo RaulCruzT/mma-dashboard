@@ -18,6 +18,12 @@ const CustomToolbar: React.JSXElementConstructor<unknown> = () => {
 export const UsersList: React.FC<IResourceComponentsProps> = () => {
     const { dataGridProps } = useDataGrid<IUser>({
         initialPageSize: 10,
+        errorNotification: () => {
+            return {
+                message: 'Something went wrong when getting users',
+                type: "error",
+            };
+        },
     });
 
     const columns = React.useMemo<GridColDef<IUser>[]>(

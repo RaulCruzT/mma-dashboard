@@ -8,6 +8,12 @@ import { Typography } from "@mui/material";
 export const ActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
     const { dataGridProps } = useDataGrid<IActinobacteria>({
         initialPageSize: 10,
+        errorNotification: () => {
+            return {
+                message: 'Something went wrong when getting actinobacteria',
+                type: "error",
+            };
+        },
     });
 
     const columns = React.useMemo<GridColDef<IActinobacteria>[]>(

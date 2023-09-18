@@ -11,7 +11,22 @@ export const CultureMediumCreate: React.FC<IResourceComponentsProps> = () => {
         register,
         formState: { errors },
         saveButtonProps,
-    } = useForm<ICultureMedium, HttpError, ICultureMedium>();
+    } = useForm<ICultureMedium, HttpError, ICultureMedium>({
+        refineCoreProps: {
+            successNotification: () => {
+                return {
+                    message: 'Successfully created culture medium',
+                    type: "success",
+                };
+            },
+            errorNotification: () => {
+                return {
+                    message: 'Error creating a culture medium',
+                    type: "error",
+                }
+            }
+        }
+    });
 
     return (
         <Create saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Culture Medium</Typography>}>

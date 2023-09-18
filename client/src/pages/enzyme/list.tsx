@@ -8,6 +8,12 @@ import { Typography } from "@mui/material";
 export const EnzymeList: React.FC<IResourceComponentsProps> = () => {
     const { dataGridProps } = useDataGrid<IEnzyme>({
         initialPageSize: 10,
+        errorNotification: () => {
+            return {
+                message: 'Something went wrong when getting enzymes',
+                type: "error",
+            };
+        },
     });
 
     const columns = React.useMemo<GridColDef<IEnzyme>[]>(
@@ -39,6 +45,14 @@ export const EnzymeList: React.FC<IResourceComponentsProps> = () => {
                                 recordItemId={row._id}
                                 mutationMode="undoable"
                                 confirmTitle={`Are you sure to delete ${row.name} enzyme?`}
+                                successNotification={{
+                                    message: 'Successfully deleted enzyme',
+                                    type: "success",
+                                }}
+                                errorNotification={{
+                                    message: 'Error deleting an enzyme',
+                                    type: "error",
+                                }}
                             />
                         </>
                     );

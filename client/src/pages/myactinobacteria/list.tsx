@@ -8,6 +8,12 @@ import { Typography } from "@mui/material";
 export const MyActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
     const { dataGridProps } = useDataGrid<IMyActinobacteria>({
         initialPageSize: 10,
+        errorNotification: () => {
+            return {
+                message: 'Something went wrong when getting my actinobacteria',
+                type: "error",
+            };
+        },
     });
 
     const columns = React.useMemo<GridColDef<IMyActinobacteria>[]>(
@@ -68,6 +74,14 @@ export const MyActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
                                 recordItemId={row._id}
                                 mutationMode="undoable"
                                 confirmTitle={`Are you sure to delete ${row.identifierStrain} actinobacteria?`}
+                                successNotification={{
+                                    message: 'Successfully deleted actinobacteria',
+                                    type: "success",
+                                }}
+                                errorNotification={{
+                                    message: 'Error deleting an actinobacteria',
+                                    type: "error",
+                                }}
                             />
                         </>
                     );

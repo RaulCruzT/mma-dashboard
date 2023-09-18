@@ -14,7 +14,22 @@ export const UsersEdit: React.FC<IResourceComponentsProps> = () => {
         refineCore: { formLoading },
         formState: { errors },
         saveButtonProps,
-    } = useForm<IUser, HttpError, IUser>();
+    } = useForm<IUser, HttpError, IUser>({
+        refineCoreProps: {
+            successNotification: () => {
+                return {
+                    message: 'Successfully updated user',
+                    type: "success",
+                };
+            },
+            errorNotification: () => {
+                return {
+                    message: 'Error updating an user',
+                    type: "error",
+                }
+            }
+        }
+    });
 
     return (
         <Edit isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Edit User</Typography>}>

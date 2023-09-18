@@ -11,7 +11,22 @@ export const EnzymeCreate: React.FC<IResourceComponentsProps> = () => {
         register,
         formState: { errors },
         saveButtonProps,
-    } = useForm<IEnzyme, HttpError, IEnzyme>();
+    } = useForm<IEnzyme, HttpError, IEnzyme>({
+        refineCoreProps: {
+            successNotification: () => {
+                return {
+                    message: 'Successfully created enzyme',
+                    type: "success",
+                };
+            },
+            errorNotification: () => {
+                return {
+                    message: 'Error creating an enzyme',
+                    type: "error",
+                }
+            }
+        }
+    });
 
     return (
         <Create saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Enzyme</Typography>}>

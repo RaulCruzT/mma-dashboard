@@ -8,6 +8,12 @@ import { Typography } from "@mui/material";
 export const CultureMediumList: React.FC<IResourceComponentsProps> = () => {
     const { dataGridProps } = useDataGrid<ICultureMedium>({
         initialPageSize: 10,
+        errorNotification: () => {
+            return {
+                message: 'Something went wrong when getting culture mediums',
+                type: "error",
+            };
+        },
     });
 
     const columns = React.useMemo<GridColDef<ICultureMedium>[]>(
@@ -39,6 +45,14 @@ export const CultureMediumList: React.FC<IResourceComponentsProps> = () => {
                                 recordItemId={row._id}
                                 mutationMode="undoable"
                                 confirmTitle={`Are you sure to delete ${row.name} culture medium?`}
+                                successNotification={{
+                                    message: 'Successfully deleted culture medium',
+                                    type: "success",
+                                }}
+                                errorNotification={{
+                                    message: 'Error deleting a culture medium',
+                                    type: "error",
+                                }}
                             />
                         </>
                     );
@@ -55,7 +69,7 @@ export const CultureMediumList: React.FC<IResourceComponentsProps> = () => {
     );
 
     return (
-        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Culture Medium</Typography>}>
+        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Culture Mediums</Typography>}>
             <DataGrid
                 {...dataGridProps}
                 columns={columns}

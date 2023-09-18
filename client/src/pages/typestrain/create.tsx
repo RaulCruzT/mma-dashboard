@@ -11,7 +11,22 @@ export const TypeStrainCreate: React.FC<IResourceComponentsProps> = () => {
         register,
         formState: { errors },
         saveButtonProps,
-    } = useForm<ITypeStrain, HttpError, ITypeStrain>();
+    } = useForm<ITypeStrain, HttpError, ITypeStrain>({
+        refineCoreProps: {
+            successNotification: () => {
+                return {
+                    message: 'Successfully created type strain',
+                    type: "success",
+                };
+            },
+            errorNotification: () => {
+                return {
+                    message: 'Error creating a type strain',
+                    type: "error",
+                }
+            }
+        }
+    });
 
     return (
         <Create saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Type Strain</Typography>}>

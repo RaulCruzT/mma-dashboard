@@ -12,7 +12,22 @@ export const CultureMediumEdit: React.FC<IResourceComponentsProps> = () => {
         refineCore: { formLoading },
         formState: { errors },
         saveButtonProps,
-    } = useForm<ICultureMedium, HttpError, ICultureMedium>();
+    } = useForm<ICultureMedium, HttpError, ICultureMedium>({
+        refineCoreProps: {
+            successNotification: () => {
+                return {
+                    message: 'Successfully updated culture medium',
+                    type: "success",
+                };
+            },
+            errorNotification: () => {
+                return {
+                    message: 'Error updating a culture medium',
+                    type: "error",
+                }
+            }
+        }
+    });
 
     return (
         <Edit isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Edit Culture Medium</Typography>}>
