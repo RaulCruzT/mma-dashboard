@@ -1,25 +1,19 @@
 import { List, useDataGrid, EditButton, DeleteButton } from "@refinedev/mui";
 import { IAssembly } from "../../interfaces/assembly";
-import { IResourceComponentsProps, CrudFilters } from "@refinedev/core";
-import { DataGrid, GridColDef, GridToolbar, getGridStringOperators } from "@mui/x-data-grid";
+import {
+    IResourceComponentsProps,
+} from "@refinedev/core";
+import {
+    DataGrid,
+    GridColDef,
+    GridToolbar,
+    getGridStringOperators
+} from "@mui/x-data-grid";
 import React from "react";
 
 export const AssemblyList: React.FC<IResourceComponentsProps> = () => {
     const { dataGridProps } = useDataGrid<IAssembly>({
         initialPageSize: 10,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onSearch: (params: any) => {
-            const filters: CrudFilters = [];
-            const { myactinobacteria } = params;
-
-            filters.push({
-                field: "myactinobacteria._id",
-                operator: "eq",
-                value: (myactinobacteria ?? [].length) > 0 ? myactinobacteria : undefined,
-            });
-
-            return filters;
-        },
     });
 
     const columns = React.useMemo<GridColDef<IAssembly>[]>(
@@ -29,8 +23,23 @@ export const AssemblyList: React.FC<IResourceComponentsProps> = () => {
                 headerName: "Date",
                 minWidth: 150,
                 flex: 1,
-                sortable: false,
                 filterable: false,
+            },
+            {
+                field: "softwareTrimming",
+                headerName: "Software trimming",
+                flex: 1,
+                filterOperators: getGridStringOperators().filter(
+                    (operator) => operator.value === 'contains'
+                )
+            },
+            {
+                field: "softwareAssembly",
+                headerName: "Software assembly",
+                flex: 1,
+                filterOperators: getGridStringOperators().filter(
+                    (operator) => operator.value === 'contains'
+                )
             },
             {
                 field: "actions",
