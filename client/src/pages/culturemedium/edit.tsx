@@ -3,7 +3,7 @@ import { useForm } from "@refinedev/react-hook-form";
 import { ICultureMedium } from "../../interfaces/culturemedium";
 import { HttpError } from "@refinedev/core";
 import { Edit } from "@refinedev/mui";
-import { FormControl, FormHelperText, FormLabel, Grid, Stack, TextField } from "@mui/material";
+import { FormControl, FormHelperText, FormLabel, Grid, Stack, TextField, Typography } from "@mui/material";
 import { stringFormat } from "../../utils/stringFormat";
 
 export const CultureMediumEdit: React.FC<IResourceComponentsProps> = () => {
@@ -15,7 +15,7 @@ export const CultureMediumEdit: React.FC<IResourceComponentsProps> = () => {
     } = useForm<ICultureMedium, HttpError, ICultureMedium>();
 
     return (
-        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps}>
+        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Edit Culture Medium</Typography>}>
             <form>
                 <Grid
                     container

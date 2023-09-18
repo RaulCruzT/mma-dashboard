@@ -3,6 +3,7 @@ import { IGenera } from "../../interfaces/genera";
 import { IResourceComponentsProps } from "@refinedev/core";
 import { DataGrid, GridColDef, GridToolbar, getGridStringOperators } from "@mui/x-data-grid";
 import React from "react";
+import { Typography } from "@mui/material";
 
 export const GeneraList: React.FC<IResourceComponentsProps> = () => {
     const { dataGridProps } = useDataGrid<IGenera>({
@@ -57,7 +58,7 @@ export const GeneraList: React.FC<IResourceComponentsProps> = () => {
     );
 
     return (
-        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }}>
+        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Genera</Typography>}>
             <DataGrid
                 {...dataGridProps}
                 columns={columns}

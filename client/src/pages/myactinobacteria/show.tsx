@@ -12,7 +12,7 @@ export const MyActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
     const { queryResult } = useShow<IMyActinobacteria>();
 
     return (
-        <Show>
+        <Show title={<Typography variant="h5">Show My Actinobacteria</Typography>}>
             <Stack>
                 <Accordion>
                     <AccordionSummary

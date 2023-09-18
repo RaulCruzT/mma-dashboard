@@ -3,7 +3,7 @@ import { useForm } from "@refinedev/react-hook-form";
 import { ITypeStrain } from "../../interfaces/typestrain";
 import { HttpError } from "@refinedev/core";
 import { Edit } from "@refinedev/mui";
-import { FormControl, FormHelperText, FormLabel, Grid, Stack, TextField } from "@mui/material";
+import { FormControl, FormHelperText, FormLabel, Grid, Stack, TextField, Typography } from "@mui/material";
 import { stringFormat } from "../../utils/stringFormat";
 
 export const TypeStrainEdit: React.FC<IResourceComponentsProps> = () => {
@@ -15,7 +15,7 @@ export const TypeStrainEdit: React.FC<IResourceComponentsProps> = () => {
     } = useForm<ITypeStrain, HttpError, ITypeStrain>();
 
     return (
-        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps}>
+        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Edit Type Strain</Typography>}>
             <form>
                 <Grid
                     container

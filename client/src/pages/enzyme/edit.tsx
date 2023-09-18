@@ -3,7 +3,7 @@ import { useForm } from "@refinedev/react-hook-form";
 import { IEnzyme } from "../../interfaces/enzyme";
 import { HttpError } from "@refinedev/core";
 import { Edit } from "@refinedev/mui";
-import { FormControl, FormHelperText, FormLabel, Grid, Stack, TextField } from "@mui/material";
+import { FormControl, FormHelperText, FormLabel, Grid, Stack, TextField, Typography } from "@mui/material";
 import { stringFormat } from "../../utils/stringFormat";
 
 export const EnzymeEdit: React.FC<IResourceComponentsProps> = () => {
@@ -15,7 +15,7 @@ export const EnzymeEdit: React.FC<IResourceComponentsProps> = () => {
     } = useForm<IEnzyme, HttpError, IEnzyme>();
 
     return (
-        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps}>
+        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Edit Enzyme</Typography>}>
             <form>
                 <Grid
                     container

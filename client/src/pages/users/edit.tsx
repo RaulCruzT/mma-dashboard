@@ -3,7 +3,7 @@ import { useForm } from "@refinedev/react-hook-form";
 import { IUser } from "../../interfaces/user";
 import { HttpError } from "@refinedev/core";
 import { Edit } from "@refinedev/mui";
-import { Autocomplete, FormControl, FormHelperText, FormLabel, Grid, Stack, TextField } from "@mui/material";
+import { Autocomplete, FormControl, FormHelperText, FormLabel, Grid, Stack, TextField, Typography } from "@mui/material";
 import { Controller } from "react-hook-form";
 
 
@@ -17,7 +17,7 @@ export const UsersEdit: React.FC<IResourceComponentsProps> = () => {
     } = useForm<IUser, HttpError, IUser>();
 
     return (
-        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps}>
+        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Edit User</Typography>}>
             <form>
                 <Grid
                     container

@@ -135,7 +135,7 @@ export const MyActinobacteriaEdit: React.FC<IResourceComponentsProps> = () => {
     const step = 0.01;
 
     return (
-        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps}>
+        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Edit My Actinobacteria</Typography>}>
             <form>
                 <Accordion>
                     <AccordionSummary

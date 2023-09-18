@@ -3,6 +3,7 @@ import { ICultureMedium } from "../../interfaces/culturemedium";
 import { IResourceComponentsProps } from "@refinedev/core";
 import { DataGrid, GridColDef, GridToolbar, getGridStringOperators } from "@mui/x-data-grid";
 import React from "react";
+import { Typography } from "@mui/material";
 
 export const CultureMediumList: React.FC<IResourceComponentsProps> = () => {
     const { dataGridProps } = useDataGrid<ICultureMedium>({
@@ -54,7 +55,7 @@ export const CultureMediumList: React.FC<IResourceComponentsProps> = () => {
     );
 
     return (
-        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }}>
+        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Culture Medium</Typography>}>
             <DataGrid
                 {...dataGridProps}
                 columns={columns}

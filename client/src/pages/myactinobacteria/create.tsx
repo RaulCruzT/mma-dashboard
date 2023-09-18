@@ -134,7 +134,7 @@ export const MyActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => 
     const step = 0.01;
 
     return (
-        <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
+        <Create isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create My Actinobacteria</Typography>}>
             <form>
                 <Accordion>
                     <AccordionSummary

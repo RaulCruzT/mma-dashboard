@@ -3,7 +3,7 @@ import { useForm } from "@refinedev/react-hook-form";
 import { ICultureMedium } from "../../interfaces/culturemedium";
 import { HttpError } from "@refinedev/core";
 import { Create } from "@refinedev/mui";
-import { FormControl, FormHelperText, FormLabel, Grid, Stack, TextField } from "@mui/material";
+import { FormControl, FormHelperText, FormLabel, Grid, Stack, TextField, Typography } from "@mui/material";
 import { stringFormat } from "../../utils/stringFormat";
 
 export const CultureMediumCreate: React.FC<IResourceComponentsProps> = () => {
@@ -14,7 +14,7 @@ export const CultureMediumCreate: React.FC<IResourceComponentsProps> = () => {
     } = useForm<ICultureMedium, HttpError, ICultureMedium>();
 
     return (
-        <Create saveButtonProps={saveButtonProps}>
+        <Create saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Culture Medium</Typography>}>
             <form>
                 <Grid
                     container

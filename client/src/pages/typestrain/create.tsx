@@ -3,7 +3,7 @@ import { useForm } from "@refinedev/react-hook-form";
 import { ITypeStrain } from "../../interfaces/typestrain";
 import { HttpError } from "@refinedev/core";
 import { Create } from "@refinedev/mui";
-import { FormControl, FormHelperText, FormLabel, Grid, Stack, TextField } from "@mui/material";
+import { FormControl, FormHelperText, FormLabel, Grid, Stack, TextField, Typography } from "@mui/material";
 import { stringFormat } from "../../utils/stringFormat";
 
 export const TypeStrainCreate: React.FC<IResourceComponentsProps> = () => {
@@ -14,7 +14,7 @@ export const TypeStrainCreate: React.FC<IResourceComponentsProps> = () => {
     } = useForm<ITypeStrain, HttpError, ITypeStrain>();
 
     return (
-        <Create saveButtonProps={saveButtonProps}>
+        <Create saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Type Strain</Typography>}>
             <form>
                 <Grid
                     container

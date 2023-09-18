@@ -3,6 +3,7 @@ import { IActinobacteria } from "../../interfaces/actinobacteria";
 import { IResourceComponentsProps } from "@refinedev/core";
 import { DataGrid, GridColDef, GridToolbar, getGridStringOperators } from "@mui/x-data-grid";
 import React from "react";
+import { Typography } from "@mui/material";
 
 export const ActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
     const { dataGridProps } = useDataGrid<IActinobacteria>({
@@ -70,7 +71,7 @@ export const ActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
     );
 
     return (
-        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }}>
+        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Actinobacteria</Typography>}>
             <DataGrid
                 {...dataGridProps}
                 columns={columns}

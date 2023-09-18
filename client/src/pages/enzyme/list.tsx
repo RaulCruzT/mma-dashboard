@@ -3,6 +3,7 @@ import { IEnzyme } from "../../interfaces/enzyme";
 import { IResourceComponentsProps } from "@refinedev/core";
 import { DataGrid, GridColDef, GridToolbar, getGridStringOperators } from "@mui/x-data-grid";
 import React from "react";
+import { Typography } from "@mui/material";
 
 export const EnzymeList: React.FC<IResourceComponentsProps> = () => {
     const { dataGridProps } = useDataGrid<IEnzyme>({
@@ -54,7 +55,7 @@ export const EnzymeList: React.FC<IResourceComponentsProps> = () => {
     );
 
     return (
-        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }}>
+        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Enzymes</Typography>}>
             <DataGrid
                 {...dataGridProps}
                 columns={columns}

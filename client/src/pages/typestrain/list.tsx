@@ -3,6 +3,7 @@ import { ITypeStrain } from "../../interfaces/typestrain";
 import { IResourceComponentsProps } from "@refinedev/core";
 import { DataGrid, GridColDef, GridToolbar, getGridStringOperators } from "@mui/x-data-grid";
 import React from "react";
+import { Typography } from "@mui/material";
 
 export const TypeStrainList: React.FC<IResourceComponentsProps> = () => {
     const { dataGridProps } = useDataGrid<ITypeStrain>({
@@ -54,7 +55,7 @@ export const TypeStrainList: React.FC<IResourceComponentsProps> = () => {
     );
 
     return (
-        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }}>
+        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Type Strains</Typography>}>
             <DataGrid
                 {...dataGridProps}
                 columns={columns}

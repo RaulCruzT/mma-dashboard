@@ -3,7 +3,7 @@ import { useForm } from "@refinedev/react-hook-form";
 import { IGenera } from "../../interfaces/genera";
 import { HttpError } from "@refinedev/core";
 import { Edit } from "@refinedev/mui";
-import { FormControl, FormHelperText, FormLabel, Grid, Stack, TextField } from "@mui/material";
+import { FormControl, FormHelperText, FormLabel, Grid, Stack, TextField, Typography } from "@mui/material";
 import { stringFormat } from "../../utils/stringFormat";
 
 export const GeneraEdit: React.FC<IResourceComponentsProps> = () => {
@@ -15,7 +15,7 @@ export const GeneraEdit: React.FC<IResourceComponentsProps> = () => {
     } = useForm<IGenera, HttpError, IGenera>();
 
     return (
-        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps}>
+        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Edit Genera</Typography>}>
             <form>
                 <Grid
                     container

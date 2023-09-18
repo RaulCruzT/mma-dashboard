@@ -3,7 +3,7 @@ import { IUser } from "../../interfaces/user";
 import { IResourceComponentsProps } from "@refinedev/core";
 import { DataGrid, GridColDef, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton, getGridStringOperators } from "@mui/x-data-grid";
 import React from "react";
-import { Avatar } from "@mui/material";
+import { Avatar, Typography } from "@mui/material";
 
 const CustomToolbar: React.JSXElementConstructor<unknown> = () => {
     return (
@@ -81,7 +81,7 @@ export const UsersList: React.FC<IResourceComponentsProps> = () => {
     );
 
     return (
-        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }}>
+        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Users</Typography>}>
             <DataGrid
                 {...dataGridProps}
                 columns={columns}
