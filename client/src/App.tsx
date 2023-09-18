@@ -23,11 +23,11 @@ import {
   Biotech,
   Extension,
   ShowChart,
+  People,
   LooksOne,
   LooksTwo,
   Looks3,
-  Looks4,
-  Looks5
+  Looks4
 } from "@mui/icons-material";
 
 import CssBaseline from "@mui/material/CssBaseline";
@@ -326,7 +326,7 @@ function App() {
                   meta: {
                     canDelete: false,
                   },
-                  icon: <LooksOne />,
+                  icon: <People />,
                 },
                 {
                   name: "genera",
@@ -339,7 +339,7 @@ function App() {
                   meta: {
                     canDelete: true,
                   },
-                  icon: <LooksTwo />,
+                  icon: <LooksOne />,
                 },
                 {
                   name: "culturemedium",
@@ -352,7 +352,7 @@ function App() {
                   meta: {
                     canDelete: true,
                   },
-                  icon: <Looks3 />,
+                  icon: <LooksTwo />,
                 },
                 {
                   name: "typestrain",
@@ -365,7 +365,7 @@ function App() {
                   meta: {
                     canDelete: true,
                   },
-                  icon: <Looks4 />,
+                  icon: <Looks3 />,
                 },
                 {
                   name: "enzyme",
@@ -378,7 +378,7 @@ function App() {
                   meta: {
                     canDelete: true,
                   },
-                  icon: <Looks5 />,
+                  icon: <Looks4 />,
                 },
               ]}
               options={{
