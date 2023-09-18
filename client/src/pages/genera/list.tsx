@@ -8,6 +8,12 @@ import { Typography } from "@mui/material";
 export const GeneraList: React.FC<IResourceComponentsProps> = () => {
     const { dataGridProps } = useDataGrid<IGenera>({
         initialPageSize: 10,
+        errorNotification: () => {
+            return {
+                message: 'Something went wrong when getting generas',
+                type: "error",
+            };
+        },
     });
 
     const columns = React.useMemo<GridColDef<IGenera>[]>(
@@ -42,6 +48,14 @@ export const GeneraList: React.FC<IResourceComponentsProps> = () => {
                                 recordItemId={row._id}
                                 mutationMode="undoable"
                                 confirmTitle={`Are you sure to delete ${row.name} genera?`}
+                                successNotification={{
+                                    message: 'Successfully deleted genera',
+                                    type: "success",
+                                }}
+                                errorNotification={{
+                                    message: 'Error deleting a genera',
+                                    type: "error",
+                                }}
                             />
                         </>
                     );

@@ -11,7 +11,22 @@ export const GeneraCreate: React.FC<IResourceComponentsProps> = () => {
         register,
         formState: { errors },
         saveButtonProps,
-    } = useForm<IGenera, HttpError, IGenera>();
+    } = useForm<IGenera, HttpError, IGenera>({
+        refineCoreProps: {
+            successNotification: () => {
+                return {
+                    message: 'Successfully created genera',
+                    type: "success",
+                };
+            },
+            errorNotification: () => {
+                return {
+                    message: 'Error creating a genera',
+                    type: "error",
+                }
+            }
+        }
+    });
 
     return (
         <Create saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Genera</Typography>}>

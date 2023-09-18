@@ -12,7 +12,22 @@ export const GeneraEdit: React.FC<IResourceComponentsProps> = () => {
         refineCore: { formLoading },
         formState: { errors },
         saveButtonProps,
-    } = useForm<IGenera, HttpError, IGenera>();
+    } = useForm<IGenera, HttpError, IGenera>({
+        refineCoreProps: {
+            successNotification: () => {
+                return {
+                    message: 'Successfully updated genera',
+                    type: "success",
+                };
+            },
+            errorNotification: () => {
+                return {
+                    message: 'Error updating a genera',
+                    type: "error",
+                }
+            }
+        }
+    });
 
     return (
         <Edit isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Edit Genera</Typography>}>
