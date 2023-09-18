@@ -33,7 +33,9 @@ export const ActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
                 flex: 1,
                 sortable: false,
                 filterable: false,
-                valueGetter: (params) => params.row?.identifierGenera?.name 
+                renderCell: function render({ row }) {
+                    return <em>{row?.identifierGenera?.name}</em>
+                }
             },
             {
                 field: "identifierSpecies",
