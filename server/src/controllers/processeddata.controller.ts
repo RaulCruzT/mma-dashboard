@@ -1,10 +1,10 @@
 import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
-import { UserModel, AssemblyModel } from '../models';
-import { AssemblyPaginationQueryInterface, AssemblyParamsInterface } from '../data/interfaces/assembly';
+import { UserModel, ProcessedDataModel } from '../models';
+import { ProcessedDataPaginationQueryInterface, ProcessedDataParamsInterface } from '../data/interfaces/processeddata';
 import { parseJwt } from '../utils';
 
-export const GetAssemblyById: RequestHandler<AssemblyParamsInterface, unknown, unknown, unknown> = async (req, res, next) => {
+export const GetAssemblyById: RequestHandler<ProcessedDataParamsInterface, unknown, unknown, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
     const { id } = req.params;
     const authenticatedUserEmail = parseJwt(token as string).email;
@@ -16,7 +16,7 @@ export const GetAssemblyById: RequestHandler<AssemblyParamsInterface, unknown, u
             throw createHttpError(404, "User not found");
         }
 
-        const actinobacteria = await AssemblyModel.findOne({ _id: id })
+        const actinobacteria = await ProcessedDataModel.findOne({ _id: id })
             . populate({
                 path:'actinobacteria',
                 select:'identifierStrain'
@@ -27,7 +27,7 @@ export const GetAssemblyById: RequestHandler<AssemblyParamsInterface, unknown, u
             }).exec();
 
         if (!actinobacteria) {
-            throw createHttpError(404, "Assembly not found");
+            throw createHttpError(404, "Processed data not found");
         }
 
         res.status(200).json(actinobacteria);
@@ -36,16 +36,17 @@ export const GetAssemblyById: RequestHandler<AssemblyParamsInterface, unknown, u
     }
 };
 
-export const GetAssemblyPagination: RequestHandler<unknown, unknown, unknown, AssemblyPaginationQueryInterface> = async (req, res, next) => {
+export const GetAssemblyPagination: RequestHandler<unknown, unknown, unknown, ProcessedDataPaginationQueryInterface> = async (req, res, next) => {
     const token = req.headers.authorization;
     const {
         _end,
         _order,
         _start,
         _sort,
-        softwareTrimming_like = "",
-        softwareAssembly_like = "",
-        parametersAssembly_like = ""
+        massDetection_like = "",
+        chromatogramBuilder_like = "",
+        deconvolution_like = "",
+        isotope_like = ""
     } = req.query;
     const authenticatedUserEmail = parseJwt(token as string).email;
 
@@ -58,29 +59,33 @@ export const GetAssemblyPagination: RequestHandler<unknown, unknown, unknown, As
 
         let query = {};
 
-        if(softwareTrimming_like) {
-            query = {...query, softwareTrimming: { $regex: softwareTrimming_like, $options: "i" }}
+        if(massDetection_like) {
+            query = {...query, massDetection: { $regex: massDetection_like, $options: "i" }}
         }
 
-        if(softwareAssembly_like) {
-            query = {...query, softwareAssembly: { $regex: softwareAssembly_like, $options: "i" }}
+        if(chromatogramBuilder_like) {
+            query = {...query, chromatogramBuilder: { $regex: chromatogramBuilder_like, $options: "i" }}
         }
 
-        if(parametersAssembly_like) {
-            query = {...query, parametersAssembly: { $regex: parametersAssembly_like, $options: "i" }}
+        if(deconvolution_like) {
+            query = {...query, deconvolution: { $regex: deconvolution_like, $options: "i" }}
         }
 
-        const assembly = await AssemblyModel.find(query)
+        if(isotope_like) {
+            query = {...query, isotope: { $regex: isotope_like, $options: "i" }}
+        }
+
+        const processeddata = await ProcessedDataModel.find(query)
             .skip(_start)
             .limit(_end)
             .sort({[_sort]: _order});
 
-        const totalCount = await AssemblyModel.find(query).countDocuments();
+        const totalCount = await ProcessedDataModel.find(query).countDocuments();
 
         res.append('X-Total-Count', totalCount.toString());
         res.append('Access-Control-Expose-Headers', 'X-Total-Count');
 
-        res.status(200).json(assembly);
+        res.status(200).json(processeddata);
     } catch (error) {
         next(error);
     }

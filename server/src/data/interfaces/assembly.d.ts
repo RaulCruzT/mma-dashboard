@@ -17,5 +17,7 @@ export interface AssemblyBodyInterface {
 }
 
 export interface AssemblyPaginationQueryInterface extends PaginationQueryInterface {
-    name_like: string;
+    softwareTrimming_like: string;
+    softwareAssembly_like: string;
+    parametersAssembly_like: string;
 }
