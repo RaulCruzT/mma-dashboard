@@ -129,6 +129,28 @@ export const AssemblyCreate: React.FC<IResourceComponentsProps> = () => {
                         <Stack gap="24px">
                             <FormControl>
                                 <FormLabel
+                                    required
+                                    sx={{
+                                        marginBottom: "8px",
+                                        fontWeight: "700",
+                                        fontSize: "14px",
+                                        color: "text.primary",
+                                    }}
+                                >
+                                    Date
+                                </FormLabel>
+                                {errors.date && (
+                                    <FormHelperText error>
+                                        {errors.date.message}
+                                    </FormHelperText>
+                                )}
+                            </FormControl>
+                        </Stack>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Stack gap="24px">
+                            <FormControl>
+                                <FormLabel
                                     sx={{
                                         marginBottom: "8px",
                                         fontWeight: "700",
