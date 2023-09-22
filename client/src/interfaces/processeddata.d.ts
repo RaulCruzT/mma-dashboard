@@ -1,7 +1,7 @@
 import { IMyActinobacteria } from "./myactinobacteria";
 import { IUser } from "./user";
 
-export interface IAssembly {
+export interface IProcessedData {
     _id: string;
     creator: IUser
     actinobacteria: IMyActinobacteria;
