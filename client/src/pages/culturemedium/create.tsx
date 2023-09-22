@@ -9,6 +9,7 @@ import { stringFormat } from "../../utils/stringFormat";
 export const CultureMediumCreate: React.FC<IResourceComponentsProps> = () => {
     const {
         register,
+        refineCore: { formLoading },
         formState: { errors },
         saveButtonProps,
     } = useForm<ICultureMedium, HttpError, ICultureMedium>({
@@ -29,7 +30,7 @@ export const CultureMediumCreate: React.FC<IResourceComponentsProps> = () => {
     });
 
     return (
-        <Create saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Culture Medium</Typography>}>
+        <Create isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Culture Medium</Typography>}>
             <form>
                 <Grid
                     container

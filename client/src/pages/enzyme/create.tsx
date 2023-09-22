@@ -9,6 +9,7 @@ import { stringFormat } from "../../utils/stringFormat";
 export const EnzymeCreate: React.FC<IResourceComponentsProps> = () => {
     const {
         register,
+        refineCore: { formLoading },
         formState: { errors },
         saveButtonProps,
     } = useForm<IEnzyme, HttpError, IEnzyme>({
@@ -29,7 +30,7 @@ export const EnzymeCreate: React.FC<IResourceComponentsProps> = () => {
     });
 
     return (
-        <Create saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Enzyme</Typography>}>
+        <Create isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Enzyme</Typography>}>
             <form>
                 <Grid
                     container

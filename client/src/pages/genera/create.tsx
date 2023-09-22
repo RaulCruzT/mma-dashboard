@@ -9,6 +9,7 @@ import { stringFormat } from "../../utils/stringFormat";
 export const GeneraCreate: React.FC<IResourceComponentsProps> = () => {
     const {
         register,
+        refineCore: { formLoading },
         formState: { errors },
         saveButtonProps,
     } = useForm<IGenera, HttpError, IGenera>({
@@ -29,7 +30,7 @@ export const GeneraCreate: React.FC<IResourceComponentsProps> = () => {
     });
 
     return (
-        <Create saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Genera</Typography>}>
+        <Create isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Genera</Typography>}>
             <form>
                 <Grid
                     container

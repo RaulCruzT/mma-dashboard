@@ -9,6 +9,7 @@ import { stringFormat } from "../../utils/stringFormat";
 export const TypeStrainCreate: React.FC<IResourceComponentsProps> = () => {
     const {
         register,
+        refineCore: { formLoading },
         formState: { errors },
         saveButtonProps,
     } = useForm<ITypeStrain, HttpError, ITypeStrain>({
@@ -29,7 +30,7 @@ export const TypeStrainCreate: React.FC<IResourceComponentsProps> = () => {
     });
 
     return (
-        <Create saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Type Strain</Typography>}>
+        <Create isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Type Strain</Typography>}>
             <form>
                 <Grid
                     container
