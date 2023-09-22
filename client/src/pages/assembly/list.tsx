@@ -42,6 +42,14 @@ export const AssemblyList: React.FC<IResourceComponentsProps> = () => {
                 )
             },
             {
+                field: "parametersAssembly",
+                headerName: "Parameters assembly",
+                flex: 1,
+                filterOperators: getGridStringOperators().filter(
+                    (operator) => operator.value === 'contains'
+                )
+            },
+            {
                 field: "actions",
                 headerName: "Actions",
                 renderCell: function render({ row }) {
