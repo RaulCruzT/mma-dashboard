@@ -42,6 +42,7 @@ export const ProcessedDataCreate: React.FC<IResourceComponentsProps> = () => {
             }
         ]
     });
+    
     return (
         <Create isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Processed data</Typography>}>
             <form>
