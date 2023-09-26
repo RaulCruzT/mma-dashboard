@@ -2,6 +2,8 @@ import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
 import { UserModel, ProcessedDataModel } from '../models';
 import { ProcessedDataBodyInterface, ProcessedDataPaginationQueryInterface, ProcessedDataParamsInterface } from '../data/interfaces/processeddata';
+import { UserRoles } from '../data/enums/user.enum';
+import mongoose from 'mongoose';
 import { parseJwt } from '../utils';
 
 export const CreateProcessedData: RequestHandler<unknown, unknown, ProcessedDataBodyInterface, unknown> = async (req, res, next) => {
@@ -135,6 +137,112 @@ export const GetProcessedDataPagination: RequestHandler<unknown, unknown, unknow
         res.append('Access-Control-Expose-Headers', 'X-Total-Count');
 
         res.status(200).json(processeddata);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const EditProcessedData: RequestHandler<ProcessedDataParamsInterface, unknown, ProcessedDataBodyInterface, unknown> = async (req, res, next) => {
+    const token = req.headers.authorization;
+    const { id } = req.params;
+    const {
+        actinobacteria,
+        massDetection,
+        chromatogramBuilder,
+        deconvolution,
+        isotope,
+        filtered,
+        identification,
+        alignment,
+        gapFilling,
+        comments
+    } = req.body;
+    const authenticatedUserEmail = parseJwt(token as string).email;
+
+    try {
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
+
+        if (!authenticatedUser) {
+            throw createHttpError(404, "User not found");
+        }
+
+        const authenticatedUserRole = authenticatedUser.role as string;
+
+        if (![UserRoles.Manager as string, UserRoles.Admin as string].includes(authenticatedUserRole)) {
+            throw createHttpError(401, "You cannot edit this processed data");
+        }
+
+        if (!mongoose.isValidObjectId(id)) {
+            throw createHttpError(400, "Invalid processed data Id");
+        }
+
+        const processedData = await ProcessedDataModel.findById(id);
+
+        if (!processedData) {
+            throw createHttpError(404, "Processed data not found");
+        }
+
+        const processedDataExists = await ProcessedDataModel.findOne({name, _id : {$ne: processedData._id}});
+
+        if (processedDataExists) {
+            throw createHttpError(404, "A processed data with that name already exists");
+        }
+
+        await ProcessedDataModel.findByIdAndUpdate(
+            {
+                _id: id
+            },
+            {
+                actinobacteria: actinobacteria,
+                massDetection: massDetection,
+                chromatogramBuilder: chromatogramBuilder,
+                deconvolution: deconvolution,
+                isotope: isotope,
+                filtered: filtered,
+                identification: identification,
+                alignment: alignment,
+                gapFilling: gapFilling,
+                comments: comments,
+            }
+        );
+
+        res.status(200).json({ message: "Processed data updated successfully" });
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const DeleteProcessedData: RequestHandler<ProcessedDataParamsInterface, unknown, unknown, unknown>  = async (req, res, next) => {
+    const token = req.headers.authorization;
+    const { id } = req.params;
+    const authenticatedUserEmail = parseJwt(token as string).email;
+
+    try {
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
+
+        if (!authenticatedUser) {
+            throw createHttpError(404, "User not found");
+        }
+
+        const authenticatedUserRole = authenticatedUser.role as string;
+
+        if (![UserRoles.Manager as string, UserRoles.Admin as string].includes(authenticatedUserRole)) {
+            throw createHttpError(401, "You cannot delete this processed data");
+        }
+
+        if (!mongoose.isValidObjectId(id)) {
+            throw createHttpError(400, "Invalid processed data id");
+        }
+
+        const processedData = await ProcessedDataModel.findById(id);
+
+        if (!processedData) {
+            throw createHttpError(404, "Processed data not found");
+        }
+
+        await ProcessedDataModel.deleteOne({_id: id});
+
+        res.status(200).json({ message: "Processed data deleted successfully" });
     } catch (error) {
         next(error);
     }
