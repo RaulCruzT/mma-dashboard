@@ -3,10 +3,10 @@ import * as ProcessedDataController from "../controllers/processeddata.controlle
 
 const router = express.Router();
 
-// router.post("/", ProcessedDataController.CreateAssembly);
-router.get("/:id", ProcessedDataController.GetAssemblyById);
-router.get("/",  ProcessedDataController.GetAssemblyPagination);
-// router.patch("/:id", ProcessedDataController.EditAssembly);
-// router.delete("/:id", ProcessedDataController.DeleteAssembly);
+router.post("/", ProcessedDataController.CreateProcessedData);
+router.get("/:id", ProcessedDataController.GetProcessedDataById);
+router.get("/",  ProcessedDataController.GetProcessedDataPagination);
+// router.patch("/:id", ProcessedDataController.EditProcessedData);
+// router.delete("/:id", ProcessedDataController.DeleteProcessedData);
 
 export default router;

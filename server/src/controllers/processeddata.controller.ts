@@ -1,10 +1,59 @@
 import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
 import { UserModel, ProcessedDataModel } from '../models';
-import { ProcessedDataPaginationQueryInterface, ProcessedDataParamsInterface } from '../data/interfaces/processeddata';
+import { ProcessedDataBodyInterface, ProcessedDataPaginationQueryInterface, ProcessedDataParamsInterface } from '../data/interfaces/processeddata';
 import { parseJwt } from '../utils';
 
-export const GetAssemblyById: RequestHandler<ProcessedDataParamsInterface, unknown, unknown, unknown> = async (req, res, next) => {
+export const CreateProcessedData: RequestHandler<unknown, unknown, ProcessedDataBodyInterface, unknown> = async (req, res, next) => {
+    const token = req.headers.authorization;
+    const {
+        actinobacteria,
+        massDetection,
+        chromatogramBuilder,
+        deconvolution,
+        isotope,
+        filtered,
+        identification,
+        alignment,
+        gapFilling,
+        comments
+    } = req.body;
+    const authenticatedUserEmail = parseJwt(token as string).email;
+
+    try {
+        const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
+
+        if (!authenticatedUser) {
+            throw createHttpError(404, "User not found");
+        }
+
+        const processedDataExists = await ProcessedDataModel.findOne({ name });
+
+        if (processedDataExists) {
+            throw createHttpError(404, "A processed data with that name already exists");
+        }
+
+        await ProcessedDataModel.create({
+            actinobacteria,
+            massDetection,
+            chromatogramBuilder,
+            deconvolution,
+            isotope,
+            filtered,
+            identification,
+            alignment,
+            gapFilling,
+            comments,
+            creator: authenticatedUser._id
+        });
+
+        res.status(200).json({ message: "Processed data created successfully" });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const GetProcessedDataById: RequestHandler<ProcessedDataParamsInterface, unknown, unknown, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
     const { id } = req.params;
     const authenticatedUserEmail = parseJwt(token as string).email;
@@ -36,7 +85,7 @@ export const GetAssemblyById: RequestHandler<ProcessedDataParamsInterface, unkno
     }
 };
 
-export const GetAssemblyPagination: RequestHandler<unknown, unknown, unknown, ProcessedDataPaginationQueryInterface> = async (req, res, next) => {
+export const GetProcessedDataPagination: RequestHandler<unknown, unknown, unknown, ProcessedDataPaginationQueryInterface> = async (req, res, next) => {
     const token = req.headers.authorization;
     const {
         _end,
