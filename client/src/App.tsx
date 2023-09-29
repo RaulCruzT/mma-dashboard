@@ -95,6 +95,7 @@ import {
 import { Login } from "./pages/login";
 import { parseJwt } from "./utils/parse-jwt";
 import { useState } from "react";
+import { UserRoles } from "./enums/user.enum";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -185,7 +186,7 @@ function App() {
     },
     check: async () => {
       const token = localStorage.getItem("token");
-      const role = localStorage.getItem("role") ?? "user";
+      const role = localStorage.getItem("role") ?? UserRoles.User;
 
       if (token) {
         setRole(role);
