@@ -1,11 +1,16 @@
 import { List, useDataGrid, ShowButton, EditButton, DeleteButton } from "@refinedev/mui";
 import { IActinobacteria } from "../../interfaces/actinobacteria";
-import { IResourceComponentsProps } from "@refinedev/core";
+import { IResourceComponentsProps, useGetIdentity } from "@refinedev/core";
 import { DataGrid, GridColDef, GridToolbar, getGridStringOperators } from "@mui/x-data-grid";
 import React from "react";
 import { Typography } from "@mui/material";
+import { IUser } from "../../interfaces/user";
+import { UserRoles } from "../../enums/user.enum";
 
 export const ActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
+    const { data: user } = useGetIdentity<IUser>();
+    const role = localStorage.getItem("role") ?? UserRoles.User;
+
     const { dataGridProps } = useDataGrid<IActinobacteria>({
         initialPageSize: 10,
         errorNotification: () => {
@@ -64,27 +69,32 @@ export const ActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
                                 hideText
                                 recordItemId={row._id}
                             />
-                            <EditButton
-                                size="small"
-                                hideText
-                                recordItemId={row._id}
-                            />
-                            <DeleteButton
-                                size="small"
-                                hideText
-                                resource="actinobacteria"
-                                recordItemId={row._id}
-                                mutationMode="undoable"
-                                confirmTitle={`Are you sure to delete ${row.identifierStrain} actinobacteria?`}
-                                successNotification={{
-                                    message: 'Successfully deleted actinobacteria',
-                                    type: "success",
-                                }}
-                                errorNotification={{
-                                    message: 'Error deleting an actinobacteria',
-                                    type: "error",
-                                }}
-                            />
+                            {
+                                (user?.email === row.creator.email || [UserRoles.Admin, UserRoles.Manager].includes(role as UserRoles)) &&
+                                <>
+                                    <EditButton
+                                        size="small"
+                                        hideText
+                                        recordItemId={row._id}
+                                    />
+                                    <DeleteButton
+                                        size="small"
+                                        hideText
+                                        resource="actinobacteria"
+                                        recordItemId={row._id}
+                                        mutationMode="undoable"
+                                        confirmTitle={`Are you sure to delete ${row.identifierStrain} actinobacteria?`}
+                                        successNotification={{
+                                            message: 'Successfully deleted actinobacteria',
+                                            type: "success",
+                                        }}
+                                        errorNotification={{
+                                            message: 'Error deleting an actinobacteria',
+                                            type: "error",
+                                        }}
+                                    />
+                                </>
+                            }
                         </>
                     );
                 },
@@ -96,7 +106,7 @@ export const ActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
                 filterable: false,
             },
         ],
-        [],
+        [role, user?.email],
     );
 
     return (
