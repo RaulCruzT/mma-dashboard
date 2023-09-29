@@ -21,9 +21,6 @@ export const adapter = new StringAdapter(`
 p, user, actinobacteria, (list)|(create)
 p, user, actinobacteria/*, (edit)|(show)|(delete)
 
-p, user, myactinobacteria, (list)|(create)
-p, user, myactinobacteria/*, (edit)|(show)|(delete)
-
 p, user, assembly, (list)|(create)
 p, user, assembly/*, (edit)|(show)|(delete)
 
@@ -32,9 +29,6 @@ p, user, processeddata/*, (edit)|(show)|(delete)
 
 p, manager, actinobacteria, (list)|(create)
 p, manager, actinobacteria/*, (edit)|(show)|(delete)
-
-p, manager, myactinobacteria, (list)|(create)
-p, manager, myactinobacteria/*, (edit)|(show)|(delete)
 
 p, manager, assembly, (list)|(create)
 p, manager, assembly/*, (edit)|(show)|(delete)
@@ -56,9 +50,6 @@ p, manager, enzyme/*, (edit)|(delete)
 
 p, admin, actinobacteria, (list)|(create)
 p, admin, actinobacteria/*, (edit)|(show)|(delete)
-
-p, admin, myactinobacteria, (list)|(create)
-p, admin, myactinobacteria/*, (edit)|(show)|(delete)
 
 p, admin, assembly, (list)|(create)
 p, admin, assembly/*, (edit)|(show)|(delete)
