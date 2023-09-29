@@ -46,7 +46,9 @@ import { ColorModeContextProvider } from "./contexts/color-mode";
 import { CredentialResponse } from "./interfaces/google";
 import {
   ActinobacteriaList,
-  ActinobacteriaShow
+  ActinobacteriaShow,
+  ActinobacteriaCreate,
+  ActinobacteriaEdit
 } from "./pages/actinobacteria";
 import {
   MyActinobacteriaList,
@@ -268,6 +270,8 @@ function App() {
                     label: "Actinobacteria"
                   },
                   list: "/actinobacteria",
+                  create: "/actinobacteria/create",
+                  edit: "/actinobacteria/edit/:id",
                   show: "/actinobacteria/show/:id",
                   meta: {
                     canDelete: false,
@@ -414,6 +418,8 @@ function App() {
                   />
                   <Route path="/actinobacteria">
                     <Route index element={<ActinobacteriaList />} />
+                    <Route path="create" element={<ActinobacteriaCreate />} />
+                    <Route path="edit/:id" element={<ActinobacteriaEdit />} />
                     <Route path="show/:id" element={<ActinobacteriaShow />} />
                   </Route>
                   <Route path="/myactinobacteria">

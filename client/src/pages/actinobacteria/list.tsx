@@ -1,4 +1,4 @@
-import { List, useDataGrid, ShowButton } from "@refinedev/mui";
+import { List, useDataGrid, ShowButton, EditButton, DeleteButton } from "@refinedev/mui";
 import { IActinobacteria } from "../../interfaces/actinobacteria";
 import { IResourceComponentsProps } from "@refinedev/core";
 import { DataGrid, GridColDef, GridToolbar, getGridStringOperators } from "@mui/x-data-grid";
@@ -63,6 +63,27 @@ export const ActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
                                 size="small"
                                 hideText
                                 recordItemId={row._id}
+                            />
+                            <EditButton
+                                size="small"
+                                hideText
+                                recordItemId={row._id}
+                            />
+                            <DeleteButton
+                                size="small"
+                                hideText
+                                resource="actinobacteria"
+                                recordItemId={row._id}
+                                mutationMode="undoable"
+                                confirmTitle={`Are you sure to delete ${row.identifierStrain} actinobacteria?`}
+                                successNotification={{
+                                    message: 'Successfully deleted actinobacteria',
+                                    type: "success",
+                                }}
+                                errorNotification={{
+                                    message: 'Error deleting an actinobacteria',
+                                    type: "error",
+                                }}
                             />
                         </>
                     );

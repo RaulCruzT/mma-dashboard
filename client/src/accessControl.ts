@@ -18,8 +18,8 @@ m = g(r.sub, p.sub) && keyMatch(r.obj, p.obj) && regexMatch(r.act, p.act)
 `);
 
 export const adapter = new StringAdapter(`
-p, user, actinobacteria, (list)
-p, user, actinobacteria/*, (show)
+p, user, actinobacteria, (list)|(create)
+p, user, actinobacteria/*, (edit)|(show)|(delete)
 
 p, user, myactinobacteria, (list)|(create)
 p, user, myactinobacteria/*, (edit)|(show)|(delete)
@@ -30,8 +30,8 @@ p, user, assembly/*, (edit)|(show)|(delete)
 p, user, processeddata, (list)|(create)
 p, user, processeddata/*, (edit)|(show)|(delete)
 
-p, manager, actinobacteria, (list)
-p, manager, actinobacteria/*, (show)
+p, manager, actinobacteria, (list)|(create)
+p, manager, actinobacteria/*, (edit)|(show)|(delete)
 
 p, manager, myactinobacteria, (list)|(create)
 p, manager, myactinobacteria/*, (edit)|(show)|(delete)
@@ -54,8 +54,8 @@ p, manager, typestrain/*, (edit)|(delete)
 p, manager, enzyme, (list)|(create)
 p, manager, enzyme/*, (edit)|(delete)
 
-p, admin, actinobacteria, (list)
-p, admin, actinobacteria/*, (show)
+p, admin, actinobacteria, (list)|(create)
+p, admin, actinobacteria/*, (edit)|(show)|(delete)
 
 p, admin, myactinobacteria, (list)|(create)
 p, admin, myactinobacteria/*, (edit)|(show)|(delete)
