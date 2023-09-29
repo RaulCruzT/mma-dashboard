@@ -129,7 +129,11 @@ export const GetProcessedDataPagination: RequestHandler<unknown, unknown, unknow
         const processeddata = await ProcessedDataModel.find(query)
             .skip(_start)
             .limit(_end)
-            .sort({[_sort]: _order});
+            .sort({[_sort]: _order})
+            .populate({
+                path: 'creator',
+                select: 'name email'
+            }).exec();
 
         const totalCount = await ProcessedDataModel.find(query).countDocuments();
 

@@ -122,7 +122,11 @@ export const GetAssemblyPagination: RequestHandler<unknown, unknown, unknown, As
         const assembly = await AssemblyModel.find(query)
             .skip(_start)
             .limit(_end)
-            .sort({[_sort]: _order});
+            .sort({[_sort]: _order})
+            .populate({
+                path: 'creator',
+                select: 'name email'
+            }).exec();
 
         const totalCount = await AssemblyModel.find(query).countDocuments();
 

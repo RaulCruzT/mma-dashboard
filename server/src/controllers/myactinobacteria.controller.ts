@@ -255,7 +255,14 @@ export const GetMyActinobacteriaPagination: RequestHandler<unknown, unknown, unk
             .skip(_start)
             .limit(_end)
             .sort({[_sort]: _order})
-            .populate("identifierGenera");
+            . populate({
+                path:'identifierGenera',
+                select:'name'
+            })
+            .populate({
+                path: 'creator',
+                select: 'name email'
+            }).exec();
 
         const totalCount = await ActinobacteriaModel.find(query).countDocuments();
 
