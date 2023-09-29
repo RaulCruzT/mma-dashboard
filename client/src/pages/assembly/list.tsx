@@ -1,7 +1,8 @@
 import { List, useDataGrid, EditButton, DeleteButton } from "@refinedev/mui";
 import { IAssembly } from "../../interfaces/assembly";
 import {
-    IResourceComponentsProps, useGetIdentity,
+    IResourceComponentsProps,
+    useGetIdentity,
 } from "@refinedev/core";
 import {
     DataGrid,

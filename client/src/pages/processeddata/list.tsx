@@ -2,7 +2,8 @@ import { List, useDataGrid, EditButton, DeleteButton } from "@refinedev/mui";
 import { IProcessedData } from "../../interfaces/processeddata";
 import {
     IResourceComponentsProps,
-} from "@refinedev/core";
+    useGetIdentity
+} from '@refinedev/core';
 import {
     DataGrid,
     GridColDef,
@@ -10,8 +11,13 @@ import {
     getGridStringOperators
 } from "@mui/x-data-grid";
 import React from "react";
+import { IUser } from "../../interfaces/user";
+import { UserRoles } from "../../enums/user.enum";
 
 export const ProcessedDataList: React.FC<IResourceComponentsProps> = () => {
+    const { data: user } = useGetIdentity<IUser>();
+    const role = localStorage.getItem("role") ?? UserRoles.User;
+
     const { dataGridProps } = useDataGrid<IProcessedData>({
         initialPageSize: 10,
     });
@@ -55,19 +61,25 @@ export const ProcessedDataList: React.FC<IResourceComponentsProps> = () => {
                 renderCell: function render({ row }) {
                     return (
                         <>
-                            <EditButton
-                                size="small"
-                                hideText
-                                recordItemId={row._id}
-                            />
-                            <DeleteButton
-                                size="small"
-                                hideText
-                                resource="processeddata"
-                                recordItemId={row._id}
-                                mutationMode="undoable"
-                                confirmTitle={`Are you sure to delete the processed data?`}
-                            />
+                            {
+                                (user?.email === row.creator.email || [UserRoles.Admin, UserRoles.Manager].includes(role as UserRoles)) &&
+                                <>
+                                    <EditButton
+                                        size="small"
+                                        hideText
+                                        recordItemId={row._id}
+                                    />
+                                    <DeleteButton
+                                        size="small"
+                                        hideText
+                                        resource="processeddata"
+                                        recordItemId={row._id}
+                                        mutationMode="undoable"
+                                        confirmTitle={`Are you sure to delete the processed data?`}
+                                    />
+                                </>
+                            }
+
                         </>
                     );
                 },
@@ -79,7 +91,7 @@ export const ProcessedDataList: React.FC<IResourceComponentsProps> = () => {
                 filterable: false,
             },
         ],
-        [],
+        [role, user?.email],
     );
 
     return (
