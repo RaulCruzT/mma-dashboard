@@ -19,7 +19,6 @@ import {
 } from "@refinedev/mui";
 
 import {
-  BugReport,
   Biotech,
   Extension,
   ShowChart,
@@ -50,12 +49,6 @@ import {
   ActinobacteriaCreate,
   ActinobacteriaEdit
 } from "./pages/actinobacteria";
-import {
-  MyActinobacteriaList,
-  MyActinobacteriaShow,
-  MyActinobacteriaCreate,
-  MyActinobacteriaEdit
-} from "./pages/myactinobacteria";
 import {
   AssemblyList,
   AssemblyShow,
@@ -277,20 +270,6 @@ function App() {
                   meta: {
                     canDelete: false,
                   },
-                  icon: <BugReport />,
-                },
-                {
-                  name: "myactinobacteria",
-                  options: {
-                    label: "My Actinobacteria"
-                  },
-                  list: "/myactinobacteria",
-                  create: "/myactinobacteria/create",
-                  edit: "/myactinobacteria/edit/:id",
-                  show: "/myactinobacteria/show/:id",
-                  meta: {
-                    canDelete: true,
-                  },
                   icon: <Biotech />,
                 },
                 {
@@ -422,12 +401,6 @@ function App() {
                     <Route path="create" element={<ActinobacteriaCreate />} />
                     <Route path="edit/:id" element={<ActinobacteriaEdit />} />
                     <Route path="show/:id" element={<ActinobacteriaShow />} />
-                  </Route>
-                  <Route path="/myactinobacteria">
-                    <Route index element={<MyActinobacteriaList />} />
-                    <Route path="create" element={<MyActinobacteriaCreate />} />
-                    <Route path="edit/:id" element={<MyActinobacteriaEdit />} />
-                    <Route path="show/:id" element={<MyActinobacteriaShow />} />
                   </Route>
                   <Route path="/assembly">
                     <Route index element={<AssemblyList />} />
