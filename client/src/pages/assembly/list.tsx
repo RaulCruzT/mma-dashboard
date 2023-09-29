@@ -1,7 +1,7 @@
 import { List, useDataGrid, EditButton, DeleteButton } from "@refinedev/mui";
 import { IAssembly } from "../../interfaces/assembly";
 import {
-    IResourceComponentsProps,
+    IResourceComponentsProps, useGetIdentity,
 } from "@refinedev/core";
 import {
     DataGrid,
@@ -10,8 +10,13 @@ import {
     getGridStringOperators
 } from "@mui/x-data-grid";
 import React from "react";
+import { IUser } from "../../interfaces/user";
+import { UserRoles } from "../../enums/user.enum";
 
 export const AssemblyList: React.FC<IResourceComponentsProps> = () => {
+    const { data: user } = useGetIdentity<IUser>();
+    const role = localStorage.getItem("role") ?? UserRoles.User;
+
     const { dataGridProps } = useDataGrid<IAssembly>({
         initialPageSize: 10,
     });
@@ -55,19 +60,25 @@ export const AssemblyList: React.FC<IResourceComponentsProps> = () => {
                 renderCell: function render({ row }) {
                     return (
                         <>
-                            <EditButton
-                                size="small"
-                                hideText
-                                recordItemId={row._id}
-                            />
-                            <DeleteButton
-                                size="small"
-                                hideText
-                                resource="assembly"
-                                recordItemId={row._id}
-                                mutationMode="undoable"
-                                confirmTitle={`Are you sure to delete the assembly?`}
-                            />
+                            {
+                                (user?.email === row.creator.email || [UserRoles.Admin, UserRoles.Manager].includes(role as UserRoles)) &&
+                                <>
+                                    <EditButton
+                                        size="small"
+                                        hideText
+                                        recordItemId={row._id}
+                                    />
+                                    <DeleteButton
+                                        size="small"
+                                        hideText
+                                        resource="assembly"
+                                        recordItemId={row._id}
+                                        mutationMode="undoable"
+                                        confirmTitle={`Are you sure to delete the assembly?`}
+                                    />
+                                </>
+                            }
+
                         </>
                     );
                 },
@@ -79,7 +90,7 @@ export const AssemblyList: React.FC<IResourceComponentsProps> = () => {
                 filterable: false,
             },
         ],
-        [],
+        [role, user?.email],
     );
 
     return (
