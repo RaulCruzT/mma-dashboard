@@ -91,7 +91,8 @@ export const GetProcessedDataPagination: RequestHandler<unknown, unknown, unknow
         massDetection_like = "",
         chromatogramBuilder_like = "",
         deconvolution_like = "",
-        isotope_like = ""
+        isotope_like = "",
+        actinobacteria = "",
     } = req.query;
     const authenticatedUserEmail = parseJwt(token as string).email;
 
@@ -118,6 +119,10 @@ export const GetProcessedDataPagination: RequestHandler<unknown, unknown, unknow
 
         if(isotope_like) {
             query = {...query, isotope: { $regex: isotope_like, $options: "i" }}
+        }
+
+        if(actinobacteria) {
+            query = {...query, actinobacteria: new mongoose.Types.ObjectId(actinobacteria) }
         }
 
         const processeddata = await ProcessedDataModel.find(query)

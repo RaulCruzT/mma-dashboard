@@ -4,7 +4,7 @@ import getFloat from "../utils/getFloat";
 const actinobacteriaSchema = new Schema({
     creator: { type: Schema.Types.ObjectId, required: true, ref: "User", select: false },
     identifierStrain: { type: String, required: true, unique: true },
-    identifierGenera: { type: Schema.Types.ObjectId, ref: "Genera" },
+    identifierGenera: { type: Schema.Types.ObjectId, ref: "Genera", required: true},
     identifierSpecies: { type: String },
     identifierMainPhoto: { type: String, required: true, match: [/^(http|https):\/\/[^ "]+$/, 'Please enter a valid URL.'] },
     identifierPhotos: { type: String, match: [/^(http|https):\/\/[^ "]+$/, 'Please enter a valid URL.'] },
