@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
 import { UserModel, ProcessedDataModel } from '../models';
 import { ProcessedDataBodyInterface, ProcessedDataPaginationQueryInterface, ProcessedDataParamsInterface } from '../data/interfaces/processeddata';
-import { UserRoles } from '../data/enums/user.enum';
+import { CreatorOptions, UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
 import { parseJwt } from '../utils';
 
@@ -93,6 +93,7 @@ export const GetProcessedDataPagination: RequestHandler<unknown, unknown, unknow
         deconvolution_like = "",
         isotope_like = "",
         actinobacteria = "",
+        person,
     } = req.query;
     const authenticatedUserEmail = parseJwt(token as string).email;
 
@@ -123,6 +124,16 @@ export const GetProcessedDataPagination: RequestHandler<unknown, unknown, unknow
 
         if(actinobacteria) {
             query = {...query, actinobacteria: new mongoose.Types.ObjectId(actinobacteria) }
+        }
+
+        if (person) {
+            if (person === CreatorOptions.Me) {
+                query = {...query, creator: { $eq: authenticatedUser._id } }
+            }
+
+            if (person === CreatorOptions.Other) {
+                query = {...query, creator: { $ne: authenticatedUser._id } }
+            }
         }
 
         const processeddata = await ProcessedDataModel.find(query)

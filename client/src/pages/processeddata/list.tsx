@@ -18,9 +18,9 @@ import { useForm } from "@refinedev/react-hook-form";
 import { Controller } from "react-hook-form";
 import React from "react";
 import { IUser } from "../../interfaces/user";
-import { UserRoles } from "../../enums/user.enum";
+import { CreatorOptions, UserRoles } from "../../enums/user.enum";
 import { IProcessedDataFilterVariables } from "../../interfaces/utils";
-import { Autocomplete, Box, Button, Card, CardContent, CardHeader, Grid, TextField } from "@mui/material";
+import { Autocomplete, Box, Button, Card, CardContent, CardHeader, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 
 export const ProcessedDataList: React.FC<IResourceComponentsProps> = () => {
     const { data: user } = useGetIdentity<IUser>();
@@ -34,12 +34,18 @@ export const ProcessedDataList: React.FC<IResourceComponentsProps> = () => {
         initialPageSize: 10,
         onSearch: (params) => {
             const filters: CrudFilters = [];
-            const { actinobacteria } = params;
+            const { actinobacteria, person } = params;
 
             filters.push({
                 field: "actinobacteria",
                 operator: "eq",
                 value: actinobacteria,
+            });
+
+            filters.push({
+                field: "person",
+                operator: "eq",
+                value: person !== "" ? person : undefined,
             });
 
             return filters;
@@ -125,6 +131,7 @@ export const ProcessedDataList: React.FC<IResourceComponentsProps> = () => {
     >({
         defaultValues: {
             actinobacteria: getDefaultFilter("actinobacteria", filters, "eq"),
+            person: getDefaultFilter("person", filters, "eq") || "",
         },
     });
 
@@ -180,6 +187,33 @@ export const ProcessedDataList: React.FC<IResourceComponentsProps> = () => {
                                             />
                                         )}
                                     />
+                                )}
+                            />
+                            <Controller
+                                control={control}
+                                name="person"
+                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                render={({ field }: { field: any }) => (
+                                    <FormControl margin="normal" size="small">
+                                        <InputLabel id="person-select">
+                                            {"Creator"}
+                                        </InputLabel>
+                                        <Select
+                                            {...field}
+                                            labelId="person-select"
+                                            label={"Creator"}
+                                        >
+                                            <MenuItem value="">
+                                                <em>None</em>
+                                            </MenuItem>
+                                            <MenuItem value={CreatorOptions.Me}>
+                                                {CreatorOptions.Me}
+                                            </MenuItem>
+                                            <MenuItem value={CreatorOptions.Other}>
+                                                {CreatorOptions.Other}
+                                            </MenuItem>
+                                        </Select>
+                                    </FormControl>
                                 )}
                             />
                             <br />

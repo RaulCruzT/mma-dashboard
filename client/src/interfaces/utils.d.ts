@@ -8,4 +8,5 @@ export interface IAssemblyFilterVariables {
 
 export interface IProcessedDataFilterVariables {
     actinobacteria?: string;
+    person?: string;
 }

@@ -23,4 +23,5 @@ export interface ProcessedDataPaginationQueryInterface extends PaginationQueryIn
     deconvolution_like: string;
     isotope_like: string;
     actinobacteria: string;
+    person: string;
 }

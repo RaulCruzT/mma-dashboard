@@ -3,3 +3,8 @@ export const enum UserRoles {
     Manager = 'manager',
     Admin = 'admin',
 } 
+
+export const enum CreatorOptions {
+    Me = 'Me',
+    Other = 'Other' 
+}
