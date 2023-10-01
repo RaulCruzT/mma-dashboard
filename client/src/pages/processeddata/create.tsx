@@ -55,7 +55,7 @@ export const ProcessedDataCreate: React.FC<IResourceComponentsProps> = () => {
                     }}
                     spacing={2}
                 >
-                    <Grid item xs={12} md={12}>
+                    {/* <Grid item xs={12} md={12}>
                         <Stack gap="24px">
                             <FormControl>
                                 <FormLabel
@@ -124,7 +124,7 @@ export const ProcessedDataCreate: React.FC<IResourceComponentsProps> = () => {
                                 )}
                             </FormControl>
                         </Stack>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} md={6}>
                         <Stack gap="24px">
                             <FormControl>

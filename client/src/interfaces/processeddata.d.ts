@@ -1,10 +1,10 @@
-import { IMyActinobacteria } from "./myactinobacteria";
+// import { IMyActinobacteria } from "./myactinobacteria";
 import { IUser } from "./user";
 
 export interface IProcessedData {
     _id: string;
     creator: IUser
-    actinobacteria: IMyActinobacteria;
+    // actinobacteria: IMyActinobacteria;
     massDetection: string;
     chromatogramBuilder: string;
     deconvolution: string;

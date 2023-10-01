@@ -5,7 +5,7 @@ export interface ProcessedDataParamsInterface {
 }
 
 export interface ProcessedDataBodyInterface {
-    actinobacteria: string;
+    // actinobacteria: string;
     massDetection: string;
     chromatogramBuilder: string;
     deconvolution: string;

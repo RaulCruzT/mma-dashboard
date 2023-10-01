@@ -9,7 +9,7 @@ import { parseJwt } from '../utils';
 export const CreateProcessedData: RequestHandler<unknown, unknown, ProcessedDataBodyInterface, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
     const {
-        actinobacteria,
+        // actinobacteria,
         massDetection,
         chromatogramBuilder,
         deconvolution,
@@ -29,14 +29,7 @@ export const CreateProcessedData: RequestHandler<unknown, unknown, ProcessedData
             throw createHttpError(404, "User not found");
         }
 
-        const processedDataExists = await ProcessedDataModel.findOne({ name });
-
-        if (processedDataExists) {
-            throw createHttpError(404, "A processed data with that name already exists");
-        }
-
         await ProcessedDataModel.create({
-            actinobacteria,
             massDetection,
             chromatogramBuilder,
             deconvolution,
@@ -47,7 +40,7 @@ export const CreateProcessedData: RequestHandler<unknown, unknown, ProcessedData
             gapFilling,
             comments,
             creator: authenticatedUser._id
-        });
+        }).catch(err => console.log(err))
 
         res.status(200).json({ message: "Processed data created successfully" });
     } catch (error) {
@@ -150,7 +143,7 @@ export const EditProcessedData: RequestHandler<ProcessedDataParamsInterface, unk
     const token = req.headers.authorization;
     const { id } = req.params;
     const {
-        actinobacteria,
+        // actinobacteria,
         massDetection,
         chromatogramBuilder,
         deconvolution,
@@ -186,18 +179,11 @@ export const EditProcessedData: RequestHandler<ProcessedDataParamsInterface, unk
             throw createHttpError(404, "Processed data not found");
         }
 
-        const processedDataExists = await ProcessedDataModel.findOne({name, _id : {$ne: processedData._id}});
-
-        if (processedDataExists) {
-            throw createHttpError(404, "A processed data with that name already exists");
-        }
-
         await ProcessedDataModel.findByIdAndUpdate(
             {
                 _id: id
             },
             {
-                actinobacteria: actinobacteria,
                 massDetection: massDetection,
                 chromatogramBuilder: chromatogramBuilder,
                 deconvolution: deconvolution,
