@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
 import { UserModel, AssemblyModel } from '../models';
 import { AssemblyBodyInterface, AssemblyPaginationQueryInterface, AssemblyParamsInterface } from '../data/interfaces/assembly';
-import { UserRoles } from '../data/enums/user.enum';
+import { CreatorOptions, UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
 import { parseJwt } from '../utils';
 
@@ -94,7 +94,9 @@ export const GetAssemblyPagination: RequestHandler<unknown, unknown, unknown, As
         _sort,
         softwareTrimming_like = "",
         softwareAssembly_like = "",
-        parametersAssembly_like = ""
+        parametersAssembly_like = "",
+        actinobacteria = "",
+        person,
     } = req.query;
     const authenticatedUserEmail = parseJwt(token as string).email;
 
@@ -117,6 +119,20 @@ export const GetAssemblyPagination: RequestHandler<unknown, unknown, unknown, As
 
         if(parametersAssembly_like) {
             query = {...query, parametersAssembly: { $regex: parametersAssembly_like, $options: "i" }}
+        }
+
+        if(actinobacteria) {
+            query = {...query, actinobacteria: new mongoose.Types.ObjectId(actinobacteria) }
+        }
+
+        if (person) {
+            if (person === CreatorOptions.Me) {
+                query = {...query, creator: { $eq: authenticatedUser._id } }
+            }
+
+            if (person === CreatorOptions.Other) {
+                query = {...query, creator: { $ne: authenticatedUser._id } }
+            }
         }
 
         const assembly = await AssemblyModel.find(query)

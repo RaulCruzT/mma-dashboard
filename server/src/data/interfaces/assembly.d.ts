@@ -20,4 +20,6 @@ export interface AssemblyPaginationQueryInterface extends PaginationQueryInterfa
     softwareTrimming_like: string;
     softwareAssembly_like: string;
     parametersAssembly_like: string;
+    actinobacteria: string;
+    person: string;
 }

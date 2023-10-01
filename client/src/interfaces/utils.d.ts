@@ -4,6 +4,7 @@ export type Nullable<T> = {
 
 export interface IAssemblyFilterVariables {
     actinobacteria?: string;
+    person?: string;
 }
 
 export interface IProcessedDataFilterVariables {
