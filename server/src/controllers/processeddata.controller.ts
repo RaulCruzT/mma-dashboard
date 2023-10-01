@@ -9,7 +9,7 @@ import { parseJwt } from '../utils';
 export const CreateProcessedData: RequestHandler<unknown, unknown, ProcessedDataBodyInterface, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
     const {
-        // actinobacteria,
+        actinobacteria,
         massDetection,
         chromatogramBuilder,
         deconvolution,
@@ -30,6 +30,7 @@ export const CreateProcessedData: RequestHandler<unknown, unknown, ProcessedData
         }
 
         await ProcessedDataModel.create({
+            actinobacteria,
             massDetection,
             chromatogramBuilder,
             deconvolution,
@@ -143,7 +144,7 @@ export const EditProcessedData: RequestHandler<ProcessedDataParamsInterface, unk
     const token = req.headers.authorization;
     const { id } = req.params;
     const {
-        // actinobacteria,
+        actinobacteria,
         massDetection,
         chromatogramBuilder,
         deconvolution,
@@ -184,6 +185,7 @@ export const EditProcessedData: RequestHandler<ProcessedDataParamsInterface, unk
                 _id: id
             },
             {
+                actinobacteria: actinobacteria,
                 massDetection: massDetection,
                 chromatogramBuilder: chromatogramBuilder,
                 deconvolution: deconvolution,
