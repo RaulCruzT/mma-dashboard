@@ -55,7 +55,7 @@ export const ProcessedDataCreate: React.FC<IResourceComponentsProps> = () => {
                     }}
                     spacing={2}
                 >
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={12}>
                         <Stack gap="24px">
                             <FormControl>
                                 <FormLabel
@@ -231,6 +231,43 @@ export const ProcessedDataCreate: React.FC<IResourceComponentsProps> = () => {
                                 {errors.deconvolution && (
                                     <FormHelperText error>
                                         {errors.deconvolution.message}
+                                    </FormHelperText>
+                                )}
+                            </FormControl>
+                        </Stack>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Stack gap="24px">
+                            <FormControl>
+                                <FormLabel
+                                    required
+                                    sx={{
+                                        marginBottom: "8px",
+                                        fontWeight: "700",
+                                        fontSize: "14px",
+                                        color: "text.primary",
+                                    }}
+                                >
+                                    Isotope
+                                </FormLabel>
+                                <TextField
+                                    {...register("isotope", {
+                                        required: {
+                                            value: true,
+                                            message: "required"
+                                        },
+                                        maxLength: {
+                                            value: 100,
+                                            message: "You cannot enter more than 100 characters"
+                                        }
+                                    })}
+                                    size="small"
+                                    margin="none"
+                                    variant="outlined"
+                                />
+                                {errors.isotope && (
+                                    <FormHelperText error>
+                                        {errors.isotope.message}
                                     </FormHelperText>
                                 )}
                             </FormControl>

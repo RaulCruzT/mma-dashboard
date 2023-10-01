@@ -249,6 +249,43 @@ export const ProcessedDataEdit: React.FC<IResourceComponentsProps> = () => {
                                         color: "text.primary",
                                     }}
                                 >
+                                    Isotope
+                                </FormLabel>
+                                <TextField
+                                    {...register("isotope", {
+                                        required: {
+                                            value: true,
+                                            message: "required"
+                                        },
+                                        maxLength: {
+                                            value: 100,
+                                            message: "You cannot enter more than 100 characters"
+                                        }
+                                    })}
+                                    size="small"
+                                    margin="none"
+                                    variant="outlined"
+                                />
+                                {errors.isotope && (
+                                    <FormHelperText error>
+                                        {errors.isotope.message}
+                                    </FormHelperText>
+                                )}
+                            </FormControl>
+                        </Stack>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Stack gap="24px">
+                            <FormControl>
+                                <FormLabel
+                                    required
+                                    sx={{
+                                        marginBottom: "8px",
+                                        fontWeight: "700",
+                                        fontSize: "14px",
+                                        color: "text.primary",
+                                    }}
+                                >
                                     Filtered
                                 </FormLabel>
                                 <TextField
