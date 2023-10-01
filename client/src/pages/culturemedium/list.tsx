@@ -80,6 +80,12 @@ export const CultureMediumList: React.FC<IResourceComponentsProps> = () => {
                 slots={{
                     toolbar: GridToolbar,
                 }}
+                sx={{
+                    ...dataGridProps.sx,
+                    "& .MuiDataGrid-row": {
+                        cursor: "pointer",
+                    },
+                }}
             />
         </List>
     )

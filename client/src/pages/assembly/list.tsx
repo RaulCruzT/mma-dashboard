@@ -20,7 +20,7 @@ import React from "react";
 import { IUser } from "../../interfaces/user";
 import { CreatorOptions, UserRoles } from "../../enums/user.enum";
 import { IAssemblyFilterVariables } from "../../interfaces/utils";
-import { Autocomplete, Box, Button, Card, CardContent, CardHeader, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Autocomplete, Box, Button, Card, CardContent, CardHeader, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 
 export const AssemblyList: React.FC<IResourceComponentsProps> = () => {
     const { data: user } = useGetIdentity<IUser>();
@@ -225,7 +225,7 @@ export const AssemblyList: React.FC<IResourceComponentsProps> = () => {
                 </Card>
             </Grid>
             <Grid item xs={12} lg={9}>
-                <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }}>
+                <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Assemblies</Typography>}>
                     <DataGrid
                         {...dataGridProps}
                         columns={columns}

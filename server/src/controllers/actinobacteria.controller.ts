@@ -3,7 +3,7 @@ import createHttpError from 'http-errors';
 import { UserModel, ActinobacteriaModel } from '../models';
 import { ActinobacteriaParamsInterface, ActinobacteriaPaginationQueryInterface, ActinobacteriaBodyInterface } from '../data/interfaces/actinobacteria';
 import { parseJwt } from '../utils';
-import { UserRoles } from '../data/enums/user.enum';
+import { CreatorOptions, UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
 
 export const CreateActinobacteria: RequestHandler<unknown, unknown, ActinobacteriaBodyInterface, unknown> = async (req, res, next) => {
@@ -214,7 +214,8 @@ export const GetActinobacteriaPagination: RequestHandler<unknown, unknown, unkno
         _sort,
         identifierStrain_like = "",
         identifierSpecies_like = "",
-        arnr16sCompleteness_like = ""
+        arnr16sCompleteness_like = "",
+        person,
     } = req.query;
     const authenticatedUserEmail = parseJwt(token as string).email;
 
@@ -237,6 +238,16 @@ export const GetActinobacteriaPagination: RequestHandler<unknown, unknown, unkno
 
         if(arnr16sCompleteness_like) {
             query = {...query, arnr16sCompleteness: { $regex: arnr16sCompleteness_like, $options: "i" }}
+        }
+
+        if (person) {
+            if (person === CreatorOptions.Me) {
+                query = {...query, creator: { $eq: authenticatedUser._id } }
+            }
+
+            if (person === CreatorOptions.Other) {
+                query = {...query, creator: { $ne: authenticatedUser._id } }
+            }
         }
 
         const actinobacteria = await ActinobacteriaModel.find(query)

@@ -64,4 +64,5 @@ export interface ActinobacteriaPaginationQueryInterface extends PaginationQueryI
     identifierStrain_like: string;
     identifierSpecies_like: string;
     arnr16sCompleteness_like: string;
+    person: string;
 }

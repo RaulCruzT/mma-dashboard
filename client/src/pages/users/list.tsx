@@ -98,6 +98,12 @@ export const UsersList: React.FC<IResourceComponentsProps> = () => {
                 slots={{
                     toolbar: CustomToolbar,
                 }}
+                sx={{
+                    ...dataGridProps.sx,
+                    "& .MuiDataGrid-row": {
+                        cursor: "pointer",
+                    },
+                }}
             />
         </List>
     );

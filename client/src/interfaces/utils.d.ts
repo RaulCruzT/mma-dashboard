@@ -11,3 +11,7 @@ export interface IProcessedDataFilterVariables {
     actinobacteria?: string;
     person?: string;
 }
+
+export interface IActinobacteriaFilterVariables {
+    person?: string;
+}
