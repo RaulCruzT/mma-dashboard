@@ -3,7 +3,7 @@ import { IEnzyme } from "../../interfaces/enzyme";
 import { IResourceComponentsProps } from "@refinedev/core";
 import { DataGrid, GridColDef, GridToolbar, getGridStringOperators } from "@mui/x-data-grid";
 import React from "react";
-import { Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 export const EnzymeList: React.FC<IResourceComponentsProps> = () => {
     const { dataGridProps } = useDataGrid<IEnzyme>({
@@ -69,24 +69,28 @@ export const EnzymeList: React.FC<IResourceComponentsProps> = () => {
     );
 
     return (
-        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Enzymes</Typography>}>
-            <DataGrid
-                {...dataGridProps}
-                columns={columns}
-                getRowId={(row: IEnzyme) =>  row._id}
-                filterModel={undefined}
-                autoHeight
-                pageSizeOptions={[10, 20, 50, 100]}
-                slots={{
-                    toolbar: GridToolbar,
-                }}
-                sx={{
-                    ...dataGridProps.sx,
-                    "& .MuiDataGrid-row": {
-                        cursor: "pointer",
-                    },
-                }}
-            />
-        </List>
+        <Grid container>
+            <Grid item xs={12} lg={12}>
+                <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Enzymes</Typography>}>
+                    <DataGrid
+                        {...dataGridProps}
+                        columns={columns}
+                        getRowId={(row: IEnzyme) =>  row._id}
+                        filterModel={undefined}
+                        autoHeight
+                        pageSizeOptions={[10, 20, 50, 100]}
+                        slots={{
+                            toolbar: GridToolbar,
+                        }}
+                        sx={{
+                            ...dataGridProps.sx,
+                            "& .MuiDataGrid-row": {
+                                cursor: "pointer",
+                            },
+                        }}
+                    />
+                </List>
+            </Grid>
+        </Grid>
     )
 }

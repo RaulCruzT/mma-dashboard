@@ -3,7 +3,7 @@ import { IUser } from "../../interfaces/user";
 import { IResourceComponentsProps } from "@refinedev/core";
 import { DataGrid, GridColDef, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarFilterButton, getGridStringOperators } from "@mui/x-data-grid";
 import React from "react";
-import { Avatar, Typography } from "@mui/material";
+import { Avatar, Grid, Typography } from "@mui/material";
 
 const CustomToolbar: React.JSXElementConstructor<unknown> = () => {
     return (
@@ -87,25 +87,29 @@ export const UsersList: React.FC<IResourceComponentsProps> = () => {
     );
 
     return (
-        <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Users</Typography>}>
-            <DataGrid
-                {...dataGridProps}
-                columns={columns}
-                getRowId={(row: IUser) =>  row._id}
-                filterModel={undefined}
-                autoHeight
-                pageSizeOptions={[10, 20, 50, 100]}
-                slots={{
-                    toolbar: CustomToolbar,
-                }}
-                sx={{
-                    ...dataGridProps.sx,
-                    "& .MuiDataGrid-row": {
-                        cursor: "pointer",
-                    },
-                }}
-            />
-        </List>
+        <Grid container>
+            <Grid item xs={12} lg={12}>
+                <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Users</Typography>}>
+                    <DataGrid
+                        {...dataGridProps}
+                        columns={columns}
+                        getRowId={(row: IUser) =>  row._id}
+                        filterModel={undefined}
+                        autoHeight
+                        pageSizeOptions={[10, 20, 50, 100]}
+                        slots={{
+                            toolbar: CustomToolbar,
+                        }}
+                        sx={{
+                            ...dataGridProps.sx,
+                            "& .MuiDataGrid-row": {
+                                cursor: "pointer",
+                            },
+                        }}
+                    />
+                </List>
+            </Grid>
+        </Grid>
     );
 
 }
