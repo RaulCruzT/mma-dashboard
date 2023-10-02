@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
-import { UserModel, GeneraModel } from '../models';
+import { UserModel, GeneraModel, ActinobacteriaModel } from '../models';
 import { GeneraParamsInterface, GeneraBodyInterface, GeneraPaginationQueryInterface } from '../data/interfaces/genera';
 import { UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
@@ -197,6 +197,12 @@ export const DeleteGenera: RequestHandler<GeneraParamsInterface, unknown, unknow
 
         if (!genera) {
             throw createHttpError(404, "Genera not found");
+        }
+
+        const isReferenced = await ActinobacteriaModel.countDocuments({ identifierGenera: { $eq: genera._id }});
+
+        if (isReferenced > 0) {
+            throw createHttpError(400, "You cannot delete a referenced genera");
         }
 
         await GeneraModel.deleteOne({_id: id});
