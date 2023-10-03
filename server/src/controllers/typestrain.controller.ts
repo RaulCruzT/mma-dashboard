@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
-import { UserModel, TypeStrainModel } from '../models';
+import { UserModel, TypeStrainModel, ActinobacteriaModel } from '../models';
 import { TypeStrainParamsInterface, TypeStrainBodyInterface, TypeStrainPaginationQueryInterface } from '../data/interfaces/typestrain';
 import { UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
@@ -197,6 +197,16 @@ export const DeleteTypeStrain: RequestHandler<TypeStrainParamsInterface, unknown
 
         if (!typeStrain) {
             throw createHttpError(404, "Type strain not found");
+        }
+
+        const isReferenced1 = await ActinobacteriaModel.countDocuments({ bioactivityYes: typeStrain._id });
+        const isReferenced2 = await ActinobacteriaModel.countDocuments({ bioactivityNo: typeStrain._id });
+        const isReferenced3 = await ActinobacteriaModel.countDocuments({ bioactivityNa: typeStrain._id });
+
+        const isReferenced = isReferenced1 + isReferenced2 + isReferenced3;
+
+        if (isReferenced > 0) {
+            throw createHttpError(400, "You cannot delete a referenced type strain");
         }
 
         await TypeStrainModel.deleteOne({_id: id});

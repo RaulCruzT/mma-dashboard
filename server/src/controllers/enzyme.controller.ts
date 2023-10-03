@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
-import { UserModel, EnzymeModel } from '../models';
+import { UserModel, EnzymeModel, ActinobacteriaModel } from '../models';
 import { EnzymeParamsInterface, EnzymeBodyInterface, EnzymePaginationQueryInterface } from '../data/interfaces/enzyme';
 import { UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
@@ -197,6 +197,16 @@ export const DeleteEnzyme: RequestHandler<EnzymeParamsInterface, unknown, unknow
 
         if (!enzyme) {
             throw createHttpError(404, "Enzyme not found");
+        }
+
+        const isReferenced1 = await ActinobacteriaModel.countDocuments({ enzymesYes: enzyme._id });
+        const isReferenced2 = await ActinobacteriaModel.countDocuments({ enzymesNo: enzyme._id });
+        const isReferenced3 = await ActinobacteriaModel.countDocuments({ enzymesNa: enzyme._id });
+
+        const isReferenced = isReferenced1 + isReferenced2 + isReferenced3;
+
+        if (isReferenced > 0) {
+            throw createHttpError(400, "You cannot delete a referenced enzyme");
         }
 
         await EnzymeModel.deleteOne({_id: id});

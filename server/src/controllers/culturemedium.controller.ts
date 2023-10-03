@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
-import { UserModel, CultureMediumModel } from '../models';
+import { UserModel, CultureMediumModel, ActinobacteriaModel } from '../models';
 import { CultureMediumParamsInterface, CultureMediumBodyInterface, CultureMediumPaginationQueryInterface } from '../data/interfaces/culturemedium';
 import { UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
@@ -197,6 +197,15 @@ export const DeleteCultureMedium: RequestHandler<CultureMediumParamsInterface, u
 
         if (!cultureMedium) {
             throw createHttpError(404, "Culture medium not found");
+        }
+
+        const isReferenced1 = await ActinobacteriaModel.countDocuments({ characterizationGrowingMedia: cultureMedium._id });
+        const isReferenced2 = await ActinobacteriaModel.countDocuments({ characterizationNotGrowingMedia: cultureMedium._id });
+
+        const isReferenced = isReferenced1 + isReferenced2;
+
+        if (isReferenced > 0) {
+            throw createHttpError(400, "You cannot delete a referenced culture medium");
         }
 
         await CultureMediumModel.deleteOne({_id: id});

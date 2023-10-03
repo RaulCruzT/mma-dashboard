@@ -199,7 +199,7 @@ export const DeleteGenera: RequestHandler<GeneraParamsInterface, unknown, unknow
             throw createHttpError(404, "Genera not found");
         }
 
-        const isReferenced = await ActinobacteriaModel.countDocuments({ identifierGenera: { $eq: genera._id }});
+        const isReferenced = await ActinobacteriaModel.countDocuments({ identifierGenera: genera._id });
 
         if (isReferenced > 0) {
             throw createHttpError(400, "You cannot delete a referenced genera");
