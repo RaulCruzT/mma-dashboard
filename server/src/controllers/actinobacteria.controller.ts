@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
-import { UserModel, ActinobacteriaModel } from '../models';
+import { UserModel, ActinobacteriaModel, AssemblyModel, ProcessedDataModel } from '../models';
 import { ActinobacteriaParamsInterface, ActinobacteriaPaginationQueryInterface, ActinobacteriaBodyInterface } from '../data/interfaces/actinobacteria';
 import { parseJwt } from '../utils';
 import { CreatorOptions, UserRoles } from '../data/enums/user.enum';
@@ -429,6 +429,9 @@ export const DeleteActinobacteria: RequestHandler<ActinobacteriaParamsInterface,
     const { id } = req.params;
     const authenticatedUserEmail = parseJwt(token as string).email;
 
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
     try {
         const authenticatedUser = await UserModel.findOne({'email': authenticatedUserEmail});
 
@@ -452,10 +455,16 @@ export const DeleteActinobacteria: RequestHandler<ActinobacteriaParamsInterface,
             throw createHttpError(401, "You cannot delete this actinobacteria");
         }
 
-        await ActinobacteriaModel.deleteOne({_id: id});
+        await AssemblyModel.deleteMany({actinobacteria: actinobacteria._id}).session(session);
+        await ProcessedDataModel.deleteMany({actinobacteria: actinobacteria._id}).session(session);
+
+        await ActinobacteriaModel.deleteOne({_id: id}).session(session);
+
+        await session.commitTransaction();
 
         res.status(200).json({ message: "Actinobacteria deleted successfully" });
     } catch (error) {
+        await session.abortTransaction();
         next(error);
     }
 }

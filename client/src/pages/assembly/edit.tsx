@@ -113,6 +113,7 @@ export const AssemblyEdit: React.FC<IResourceComponentsProps> = () => {
                                                             ?.message
                                                     }
                                                     required
+                                                    disabled
                                                 />
                                             )}
                                         />

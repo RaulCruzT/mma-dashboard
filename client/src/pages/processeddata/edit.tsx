@@ -113,6 +113,7 @@ export const ProcessedDataEdit: React.FC<IResourceComponentsProps> = () => {
                                                             ?.message
                                                     }
                                                     required
+                                                    disabled
                                                 />
                                             )}
                                         />
