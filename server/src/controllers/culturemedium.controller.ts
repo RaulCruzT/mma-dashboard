@@ -199,12 +199,12 @@ export const DeleteCultureMedium: RequestHandler<CultureMediumParamsInterface, u
             throw createHttpError(404, "Culture medium not found");
         }
 
-        const isReferenced1 = await ActinobacteriaModel.countDocuments({ characterizationGrowingMedia: cultureMedium._id });
-        const isReferenced2 = await ActinobacteriaModel.countDocuments({ characterizationNotGrowingMedia: cultureMedium._id });
+        const isReferenced1 = await ActinobacteriaModel.exists({ characterizationGrowingMedia: cultureMedium._id });
+        const isReferenced2 = await ActinobacteriaModel.exists({ characterizationNotGrowingMedia: cultureMedium._id });
 
-        const isReferenced = isReferenced1 + isReferenced2;
+        const isReferenced = isReferenced1 || isReferenced2;
 
-        if (isReferenced > 0) {
+        if (isReferenced) {
             throw createHttpError(400, "You cannot delete a referenced culture medium");
         }
 

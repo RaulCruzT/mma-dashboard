@@ -199,13 +199,13 @@ export const DeleteTypeStrain: RequestHandler<TypeStrainParamsInterface, unknown
             throw createHttpError(404, "Type strain not found");
         }
 
-        const isReferenced1 = await ActinobacteriaModel.countDocuments({ bioactivityYes: typeStrain._id });
-        const isReferenced2 = await ActinobacteriaModel.countDocuments({ bioactivityNo: typeStrain._id });
-        const isReferenced3 = await ActinobacteriaModel.countDocuments({ bioactivityNa: typeStrain._id });
+        const isReferenced1 = await ActinobacteriaModel.exists({ bioactivityYes: typeStrain._id });
+        const isReferenced2 = await ActinobacteriaModel.exists({ bioactivityNo: typeStrain._id });
+        const isReferenced3 = await ActinobacteriaModel.exists({ bioactivityNa: typeStrain._id });
 
-        const isReferenced = isReferenced1 + isReferenced2 + isReferenced3;
+        const isReferenced = isReferenced1 || isReferenced2 || isReferenced3;
 
-        if (isReferenced > 0) {
+        if (isReferenced) {
             throw createHttpError(400, "You cannot delete a referenced type strain");
         }
 

@@ -199,13 +199,13 @@ export const DeleteEnzyme: RequestHandler<EnzymeParamsInterface, unknown, unknow
             throw createHttpError(404, "Enzyme not found");
         }
 
-        const isReferenced1 = await ActinobacteriaModel.countDocuments({ enzymesYes: enzyme._id });
-        const isReferenced2 = await ActinobacteriaModel.countDocuments({ enzymesNo: enzyme._id });
-        const isReferenced3 = await ActinobacteriaModel.countDocuments({ enzymesNa: enzyme._id });
+        const isReferenced1 = await ActinobacteriaModel.exists({ enzymesYes: enzyme._id });
+        const isReferenced2 = await ActinobacteriaModel.exists({ enzymesNo: enzyme._id });
+        const isReferenced3 = await ActinobacteriaModel.exists({ enzymesNa: enzyme._id });
 
-        const isReferenced = isReferenced1 + isReferenced2 + isReferenced3;
+        const isReferenced = isReferenced1 || isReferenced2 || isReferenced3;
 
-        if (isReferenced > 0) {
+        if (isReferenced) {
             throw createHttpError(400, "You cannot delete a referenced enzyme");
         }
 
