@@ -133,7 +133,7 @@ export const CreateActinobacteria: RequestHandler<unknown, unknown, Actinobacter
             characterizationBrightness,
             characterizationComments,
             creator: authenticatedUser._id
-        });
+        }).catch(err => console.log(err));
 
         res.status(200).json({ message: "Actinobacteria created successfully" });
     } catch (error) {
