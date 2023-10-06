@@ -4,7 +4,7 @@ import { UserModel, TypeStrainModel, ActinobacteriaModel } from '../models';
 import { TypeStrainParamsInterface, TypeStrainBodyInterface, TypeStrainPaginationQueryInterface } from '../data/interfaces/typestrain';
 import { UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
-import { parseJwt } from '../utils';
+import { isNullOrEmpty, parseJwt } from '../utils';
 
 export const CreateTypeStrain: RequestHandler<unknown, unknown, TypeStrainBodyInterface, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
@@ -33,7 +33,7 @@ export const CreateTypeStrain: RequestHandler<unknown, unknown, TypeStrainBodyIn
         }
 
         await TypeStrainModel.create({
-            name,
+            name: isNullOrEmpty(name) ? null: name,
             creator: authenticatedUser._id
         });
 
@@ -161,7 +161,7 @@ export const EditTypeStrain: RequestHandler<TypeStrainParamsInterface, unknown, 
                 _id: id
             },
             {
-                name: name
+                name: isNullOrEmpty(name) ? null: name
             }
         );
 

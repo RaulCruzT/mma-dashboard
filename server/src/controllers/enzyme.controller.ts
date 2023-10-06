@@ -4,7 +4,7 @@ import { UserModel, EnzymeModel, ActinobacteriaModel } from '../models';
 import { EnzymeParamsInterface, EnzymeBodyInterface, EnzymePaginationQueryInterface } from '../data/interfaces/enzyme';
 import { UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
-import { parseJwt } from '../utils';
+import { isNullOrEmpty, parseJwt } from '../utils';
 
 export const CreateEnzyme: RequestHandler<unknown, unknown, EnzymeBodyInterface, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
@@ -33,7 +33,7 @@ export const CreateEnzyme: RequestHandler<unknown, unknown, EnzymeBodyInterface,
         }
 
         await EnzymeModel.create({
-            name,
+            name: isNullOrEmpty(name) ? null: name,
             creator: authenticatedUser._id
         });
 
@@ -161,7 +161,7 @@ export const EditEnzyme: RequestHandler<EnzymeParamsInterface, unknown, EnzymeBo
                 _id: id
             },
             {
-                name: name
+                name: isNullOrEmpty(name) ? null: name
             }
         );
 

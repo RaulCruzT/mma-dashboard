@@ -4,7 +4,7 @@ import { UserModel, CultureMediumModel, ActinobacteriaModel } from '../models';
 import { CultureMediumParamsInterface, CultureMediumBodyInterface, CultureMediumPaginationQueryInterface } from '../data/interfaces/culturemedium';
 import { UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
-import { parseJwt } from '../utils';
+import { isNullOrEmpty, parseJwt } from '../utils';
 
 export const CreateCultureMedium: RequestHandler<unknown, unknown, CultureMediumBodyInterface, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
@@ -33,7 +33,7 @@ export const CreateCultureMedium: RequestHandler<unknown, unknown, CultureMedium
         }
 
         await CultureMediumModel.create({
-            name,
+            name: isNullOrEmpty(name) ? null: name,
             creator: authenticatedUser._id
         });
 
@@ -161,7 +161,7 @@ export const EditCultureMedium: RequestHandler<CultureMediumParamsInterface, unk
                 _id: id
             },
             {
-                name: name
+                name: isNullOrEmpty(name) ? null: name
             }
         );
 

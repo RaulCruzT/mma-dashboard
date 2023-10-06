@@ -4,7 +4,7 @@ import { UserModel, GeneraModel, ActinobacteriaModel } from '../models';
 import { GeneraParamsInterface, GeneraBodyInterface, GeneraPaginationQueryInterface } from '../data/interfaces/genera';
 import { UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
-import { parseJwt } from '../utils';
+import { isNullOrEmpty, parseJwt } from '../utils';
 
 export const CreateGenera: RequestHandler<unknown, unknown, GeneraBodyInterface, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
@@ -33,7 +33,7 @@ export const CreateGenera: RequestHandler<unknown, unknown, GeneraBodyInterface,
         }
 
         await GeneraModel.create({
-            name,
+            name: isNullOrEmpty(name) ? null: name,
             creator: authenticatedUser._id
         });
 
@@ -161,7 +161,7 @@ export const EditGenera: RequestHandler<GeneraParamsInterface, unknown, GeneraBo
                 _id: id
             },
             {
-                name: name
+                name: isNullOrEmpty(name) ? null: name
             }
         );
 
