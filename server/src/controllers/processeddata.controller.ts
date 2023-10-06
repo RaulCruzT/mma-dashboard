@@ -4,7 +4,7 @@ import { UserModel, ProcessedDataModel } from '../models';
 import { ProcessedDataBodyInterface, ProcessedDataPaginationQueryInterface, ProcessedDataParamsInterface } from '../data/interfaces/processeddata';
 import { CreatorOptions, UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
-import { parseJwt } from '../utils';
+import { isNullOrEmpty, parseJwt } from '../utils';
 
 export const CreateProcessedData: RequestHandler<unknown, unknown, ProcessedDataBodyInterface, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
@@ -30,16 +30,16 @@ export const CreateProcessedData: RequestHandler<unknown, unknown, ProcessedData
         }
 
         await ProcessedDataModel.create({
-            actinobacteria,
-            massDetection,
-            chromatogramBuilder,
-            deconvolution,
-            isotope,
-            filtered,
-            identification,
-            alignment,
-            gapFilling,
-            comments,
+            actinobacteria: isNullOrEmpty(actinobacteria) ? null : actinobacteria,
+            massDetection: isNullOrEmpty(massDetection) ? null : massDetection,
+            chromatogramBuilder: isNullOrEmpty(chromatogramBuilder) ? null : chromatogramBuilder,
+            deconvolution: isNullOrEmpty(deconvolution) ? null : deconvolution,
+            isotope: isNullOrEmpty(isotope) ? null : isotope,
+            filtered: isNullOrEmpty(filtered) ? null : filtered,
+            identification: isNullOrEmpty(identification) ? null : identification,
+            alignment: isNullOrEmpty(alignment) ? null : alignment,
+            gapFilling: isNullOrEmpty(gapFilling) ? null : gapFilling,
+            comments: isNullOrEmpty(comments) ? null: comments,
             creator: authenticatedUser._id
         }).catch(err => console.log(err))
 
@@ -201,16 +201,16 @@ export const EditProcessedData: RequestHandler<ProcessedDataParamsInterface, unk
                 _id: id
             },
             {
-                actinobacteria: actinobacteria,
-                massDetection: massDetection,
-                chromatogramBuilder: chromatogramBuilder,
-                deconvolution: deconvolution,
-                isotope: isotope,
-                filtered: filtered,
-                identification: identification,
-                alignment: alignment,
-                gapFilling: gapFilling,
-                comments: comments,
+                actinobacteria: isNullOrEmpty(actinobacteria) ? null : actinobacteria,
+                massDetection: isNullOrEmpty(massDetection) ? null : massDetection,
+                chromatogramBuilder: isNullOrEmpty(chromatogramBuilder) ? null : chromatogramBuilder,
+                deconvolution: isNullOrEmpty(deconvolution) ? null : deconvolution,
+                isotope: isNullOrEmpty(isotope) ? null : isotope,
+                filtered: isNullOrEmpty(filtered) ? null : filtered,
+                identification: isNullOrEmpty(identification) ? null : identification,
+                alignment: isNullOrEmpty(alignment) ? null : alignment,
+                gapFilling: isNullOrEmpty(gapFilling) ? null : gapFilling,
+                comments: isNullOrEmpty(comments) ? null: comments
             }
         );
 
