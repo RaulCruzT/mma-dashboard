@@ -55,7 +55,7 @@ export const ProcessedDataCreate: React.FC<IResourceComponentsProps> = () => {
                     }}
                     spacing={2}
                 >
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={6}>
                         <Stack gap="24px">
                             <FormControl>
                                 <FormLabel
@@ -137,14 +137,121 @@ export const ProcessedDataCreate: React.FC<IResourceComponentsProps> = () => {
                                         color: "text.primary",
                                     }}
                                 >
-                                    Mass detection
+                                    Data source
                                 </FormLabel>
                                 <TextField
-                                    {...register("massDetection", {
+                                    {...register("dataSource", {
                                         required: {
                                             value: true,
                                             message: "required"
                                         },
+                                        maxLength: {
+                                            value: 100,
+                                            message: "You cannot enter more than 100 characters"
+                                        }
+                                    })}
+                                    size="small"
+                                    margin="none"
+                                    variant="outlined"
+                                />
+                                {errors.dataSource && (
+                                    <FormHelperText error>
+                                        {errors.dataSource.message}
+                                    </FormHelperText>
+                                )}
+                            </FormControl>
+                        </Stack>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Stack gap="24px">
+                            <FormControl>
+                                <FormLabel
+                                    required
+                                    sx={{
+                                        marginBottom: "8px",
+                                        fontWeight: "700",
+                                        fontSize: "14px",
+                                        color: "text.primary",
+                                    }}
+                                >
+                                    Equipment
+                                </FormLabel>
+                                <TextField
+                                    {...register("equipment", {
+                                        required: {
+                                            value: true,
+                                            message: "required"
+                                        },
+                                        maxLength: {
+                                            value: 100,
+                                            message: "You cannot enter more than 100 characters"
+                                        }
+                                    })}
+                                    size="small"
+                                    margin="none"
+                                    variant="outlined"
+                                />
+                                {errors.equipment && (
+                                    <FormHelperText error>
+                                        {errors.equipment.message}
+                                    </FormHelperText>
+                                )}
+                            </FormControl>
+                        </Stack>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Stack gap="24px">
+                            <FormControl>
+                                <FormLabel
+                                    required
+                                    sx={{
+                                        marginBottom: "8px",
+                                        fontWeight: "700",
+                                        fontSize: "14px",
+                                        color: "text.primary",
+                                    }}
+                                >
+                                    File name
+                                </FormLabel>
+                                <TextField
+                                    {...register("fileName", {
+                                        required: {
+                                            value: true,
+                                            message: "required"
+                                        },
+                                        maxLength: {
+                                            value: 100,
+                                            message: "You cannot enter more than 100 characters"
+                                        }
+                                    })}
+                                    size="small"
+                                    margin="none"
+                                    variant="outlined"
+                                />
+                                {errors.fileName && (
+                                    <FormHelperText error>
+                                        {errors.fileName.message}
+                                    </FormHelperText>
+                                )}
+                            </FormControl>
+                        </Stack>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Stack gap="24px">
+                            <FormControl>
+                                <FormLabel
+                                    sx={{
+                                        marginBottom: "8px",
+                                        fontWeight: "700",
+                                        fontSize: "14px",
+                                        color: "text.primary",
+                                    }}
+                                >
+                                    Mass detection
+                                </FormLabel>
+                                <TextField
+                                    {...register("massDetection", {
+                                        required: false,
                                         maxLength: {
                                             value: 100,
                                             message: "You cannot enter more than 100 characters"
@@ -166,7 +273,6 @@ export const ProcessedDataCreate: React.FC<IResourceComponentsProps> = () => {
                         <Stack gap="24px">
                             <FormControl>
                                 <FormLabel
-                                    required
                                     sx={{
                                         marginBottom: "8px",
                                         fontWeight: "700",
@@ -178,10 +284,7 @@ export const ProcessedDataCreate: React.FC<IResourceComponentsProps> = () => {
                                 </FormLabel>
                                 <TextField
                                     {...register("chromatogramBuilder", {
-                                        required: {
-                                            value: true,
-                                            message: "required"
-                                        },
+                                        required: false,
                                         maxLength: {
                                             value: 100,
                                             message: "You cannot enter more than 100 characters"
@@ -203,7 +306,6 @@ export const ProcessedDataCreate: React.FC<IResourceComponentsProps> = () => {
                         <Stack gap="24px">
                             <FormControl>
                                 <FormLabel
-                                    required
                                     sx={{
                                         marginBottom: "8px",
                                         fontWeight: "700",
@@ -215,10 +317,7 @@ export const ProcessedDataCreate: React.FC<IResourceComponentsProps> = () => {
                                 </FormLabel>
                                 <TextField
                                     {...register("deconvolution", {
-                                        required: {
-                                            value: true,
-                                            message: "required"
-                                        },
+                                        required: false,
                                         maxLength: {
                                             value: 100,
                                             message: "You cannot enter more than 100 characters"
@@ -240,7 +339,6 @@ export const ProcessedDataCreate: React.FC<IResourceComponentsProps> = () => {
                         <Stack gap="24px">
                             <FormControl>
                                 <FormLabel
-                                    required
                                     sx={{
                                         marginBottom: "8px",
                                         fontWeight: "700",
@@ -252,10 +350,7 @@ export const ProcessedDataCreate: React.FC<IResourceComponentsProps> = () => {
                                 </FormLabel>
                                 <TextField
                                     {...register("isotope", {
-                                        required: {
-                                            value: true,
-                                            message: "required"
-                                        },
+                                        required: false,
                                         maxLength: {
                                             value: 100,
                                             message: "You cannot enter more than 100 characters"
@@ -277,7 +372,6 @@ export const ProcessedDataCreate: React.FC<IResourceComponentsProps> = () => {
                         <Stack gap="24px">
                             <FormControl>
                                 <FormLabel
-                                    required
                                     sx={{
                                         marginBottom: "8px",
                                         fontWeight: "700",
@@ -289,10 +383,7 @@ export const ProcessedDataCreate: React.FC<IResourceComponentsProps> = () => {
                                 </FormLabel>
                                 <TextField
                                     {...register("filtered", {
-                                        required: {
-                                            value: true,
-                                            message: "required"
-                                        },
+                                        required: false,
                                         maxLength: {
                                             value: 100,
                                             message: "You cannot enter more than 100 characters"
