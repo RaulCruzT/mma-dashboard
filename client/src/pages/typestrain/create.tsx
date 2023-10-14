@@ -4,7 +4,6 @@ import { ITypeStrain } from "../../interfaces/typestrain";
 import { HttpError } from "@refinedev/core";
 import { Create } from "@refinedev/mui";
 import { FormControl, FormHelperText, FormLabel, Grid, Stack, TextField, Typography } from "@mui/material";
-import { stringFormat } from "../../utils/stringFormat";
 
 export const TypeStrainCreate: React.FC<IResourceComponentsProps> = () => {
     const {
@@ -60,13 +59,11 @@ export const TypeStrainCreate: React.FC<IResourceComponentsProps> = () => {
                                         maxLength: {
                                             value: 100,
                                             message: "You cannot enter more than 100 characters"
-                                        },
-                                        setValueAs: v => stringFormat(v)
+                                        }
                                     })}
                                     size="small"
                                     margin="none"
                                     variant="outlined"
-                                    inputProps={{ style: { textTransform: "lowercase" } }}
                                 />
                                 {errors.name && (
                                     <FormHelperText error>

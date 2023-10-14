@@ -4,7 +4,6 @@ import { IGenera } from "../../interfaces/genera";
 import { HttpError } from "@refinedev/core";
 import { Edit } from "@refinedev/mui";
 import { FormControl, FormHelperText, FormLabel, Grid, Stack, TextField, Typography } from "@mui/material";
-import { stringFormat } from "../../utils/stringFormat";
 
 export const GeneraEdit: React.FC<IResourceComponentsProps> = () => {
     const {
@@ -60,13 +59,11 @@ export const GeneraEdit: React.FC<IResourceComponentsProps> = () => {
                                         maxLength: {
                                             value: 100,
                                             message: "You cannot enter more than 100 characters"
-                                        },
-                                        setValueAs: v => stringFormat(v)
+                                        }
                                     })}
                                     size="small"
                                     margin="none"
                                     variant="outlined"
-                                    inputProps={{ style: { textTransform: "lowercase" } }}
                                 />
                                 {errors.name && (
                                     <FormHelperText error>
