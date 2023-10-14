@@ -18,7 +18,10 @@ export const CreateProcessedData: RequestHandler<unknown, unknown, ProcessedData
         identification,
         alignment,
         gapFilling,
-        comments
+        comments,
+        dataSource,
+        equipment,
+        fileName
     } = req.body;
     const authenticatedUserEmail = parseJwt(token as string).email;
 
@@ -40,6 +43,9 @@ export const CreateProcessedData: RequestHandler<unknown, unknown, ProcessedData
             alignment: isNullOrEmpty(alignment) ? null : alignment,
             gapFilling: isNullOrEmpty(gapFilling) ? null : gapFilling,
             comments: isNullOrEmpty(comments) ? null: comments,
+            dataSource: isNullOrEmpty(dataSource) ? null : dataSource,
+            equipment: isNullOrEmpty(equipment) ? null : equipment,
+            fileName: isNullOrEmpty(fileName) ? null : fileName,
             creator: authenticatedUser._id
         }).catch(err => console.log(err))
 
@@ -169,7 +175,10 @@ export const EditProcessedData: RequestHandler<ProcessedDataParamsInterface, unk
         identification,
         alignment,
         gapFilling,
-        comments
+        comments,
+        dataSource,
+        equipment,
+        fileName
     } = req.body;
     const authenticatedUserEmail = parseJwt(token as string).email;
 
@@ -210,7 +219,10 @@ export const EditProcessedData: RequestHandler<ProcessedDataParamsInterface, unk
                 identification: isNullOrEmpty(identification) ? null : identification,
                 alignment: isNullOrEmpty(alignment) ? null : alignment,
                 gapFilling: isNullOrEmpty(gapFilling) ? null : gapFilling,
-                comments: isNullOrEmpty(comments) ? null: comments
+                comments: isNullOrEmpty(comments) ? null: comments,
+                dataSource: isNullOrEmpty(dataSource) ? null : dataSource,
+                equipment: isNullOrEmpty(equipment) ? null : equipment,
+                fileName: isNullOrEmpty(fileName) ? null : fileName
             }
         );
 

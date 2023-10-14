@@ -15,6 +15,9 @@ export interface ProcessedDataBodyInterface {
     alignment: string;
     gapFilling: string;
     comments: string;
+    dataSource: string;
+    equipment: string;
+    fileName: string;
 }
 
 export interface ProcessedDataPaginationQueryInterface extends PaginationQueryInterface {
