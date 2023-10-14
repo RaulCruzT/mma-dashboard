@@ -13,4 +13,5 @@ export interface IAssembly {
     qualityFinal: string;
     comments: string;
     link: string;
+    sequencingTechnology: string;
 }

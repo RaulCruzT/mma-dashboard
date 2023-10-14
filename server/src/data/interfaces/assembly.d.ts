@@ -14,6 +14,7 @@ export interface AssemblyBodyInterface {
     qualityFinal: string;
     comments: string;
     link: string;
+    sequencingTechnology: string;
 }
 
 export interface AssemblyPaginationQueryInterface extends PaginationQueryInterface {

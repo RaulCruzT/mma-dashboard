@@ -56,7 +56,7 @@ export const AssemblyEdit: React.FC<IResourceComponentsProps> = () => {
                     }}
                     spacing={2}
                 >
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={12}>
                         <Stack gap="24px">
                             <FormControl>
                                 <FormLabel
@@ -122,6 +122,43 @@ export const AssemblyEdit: React.FC<IResourceComponentsProps> = () => {
                                 {errors.actinobacteria && (
                                     <FormHelperText error>
                                         {errors.actinobacteria.message}
+                                    </FormHelperText>
+                                )}
+                            </FormControl>
+                        </Stack>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Stack gap="24px">
+                            <FormControl>
+                                <FormLabel
+                                    required
+                                    sx={{
+                                        marginBottom: "8px",
+                                        fontWeight: "700",
+                                        fontSize: "14px",
+                                        color: "text.primary",
+                                    }}
+                                >
+                                    Sequencing Technology
+                                </FormLabel>
+                                <TextField
+                                    {...register("sequencingTechnology", {
+                                        required: {
+                                            value: true,
+                                            message: "required"
+                                        },
+                                        maxLength: {
+                                            value: 100,
+                                            message: "You cannot enter more than 100 characters"
+                                        }
+                                    })}
+                                    size="small"
+                                    margin="none"
+                                    variant="outlined"
+                                />
+                                {errors.sequencingTechnology && (
+                                    <FormHelperText error>
+                                        {errors.sequencingTechnology.message}
                                     </FormHelperText>
                                 )}
                             </FormControl>

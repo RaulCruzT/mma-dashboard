@@ -17,7 +17,8 @@ export const CreateAssembly: RequestHandler<unknown, unknown, AssemblyBodyInterf
         parametersAssembly,
         qualityFinal,
         comments,
-        link
+        link,
+        sequencingTechnology
     } = req.body;
     const authenticatedUserEmail = parseJwt(token as string).email;
 
@@ -44,6 +45,7 @@ export const CreateAssembly: RequestHandler<unknown, unknown, AssemblyBodyInterf
             qualityFinal,
             comments,
             link,
+            sequencingTechnology,
             creator: authenticatedUser._id
         });
 
@@ -167,6 +169,7 @@ export const EditAssembly: RequestHandler<AssemblyParamsInterface, unknown, Asse
         parametersAssembly,
         qualityFinal,
         comments,
+        sequencingTechnology,
         link
     } = req.body;
     const authenticatedUserEmail = parseJwt(token as string).email;
@@ -213,6 +216,7 @@ export const EditAssembly: RequestHandler<AssemblyParamsInterface, unknown, Asse
                 parametersAssembly: parametersAssembly,
                 qualityFinal: qualityFinal,
                 comments: comments,
+                sequencingTechnology: sequencingTechnology,
                 link: link
             }
         );

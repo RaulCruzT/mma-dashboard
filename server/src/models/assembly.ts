@@ -10,7 +10,8 @@ const assemblySchema = new Schema({
     parametersAssembly: { type: String, required: true },
     qualityFinal: { type: String, required: true },
     comments: { type: String },
-    link: { type: String, match: [/^(http|https):\/\/[^ "]+$/, 'Please enter a valid URL.'] }
+    link: { type: String, match: [/^(http|https):\/\/[^ "]+$/, 'Please enter a valid URL.'] },
+    sequencingTechnology: { type: String, required: true },
 }, { timestamps: true });
 
 type Assembly = InferSchemaType<typeof assemblySchema>;
