@@ -4,7 +4,7 @@ import { UserModel, AssemblyModel } from '../models';
 import { AssemblyBodyInterface, AssemblyPaginationQueryInterface, AssemblyParamsInterface } from '../data/interfaces/assembly';
 import { CreatorOptions, UserRoles } from '../data/enums/user.enum';
 import mongoose from 'mongoose';
-import { parseJwt } from '../utils';
+import { isNullOrEmpty, parseJwt } from '../utils';
 
 export const CreateAssembly: RequestHandler<unknown, unknown, AssemblyBodyInterface, unknown> = async (req, res, next) => {
     const token = req.headers.authorization;
@@ -36,16 +36,16 @@ export const CreateAssembly: RequestHandler<unknown, unknown, AssemblyBodyInterf
         }
 
         await AssemblyModel.create({
-            actinobacteria,
-            date,
-            bgcs,
-            softwareTrimming,
-            softwareAssembly,
-            parametersAssembly,
-            qualityFinal,
-            comments,
-            link,
-            sequencingTechnology,
+            actinobacteria: isNullOrEmpty(actinobacteria) ? null : actinobacteria,
+            date: isNullOrEmpty(date) ? null: date,
+            bgcs: isNullOrEmpty(bgcs) ? null : bgcs,
+            softwareTrimming: isNullOrEmpty(softwareTrimming) ? null : softwareTrimming,
+            softwareAssembly: isNullOrEmpty(softwareAssembly) ? null : softwareAssembly,
+            parametersAssembly: isNullOrEmpty(parametersAssembly) ? null : parametersAssembly,
+            qualityFinal: isNullOrEmpty(qualityFinal) ? null : qualityFinal,
+            comments: isNullOrEmpty(comments) ? null : comments,
+            link: isNullOrEmpty(link) ? null : link,
+            sequencingTechnology: isNullOrEmpty(sequencingTechnology) ? null : sequencingTechnology,
             creator: authenticatedUser._id
         });
 
@@ -208,16 +208,16 @@ export const EditAssembly: RequestHandler<AssemblyParamsInterface, unknown, Asse
                 _id: id
             },
             {
-                actinobacteria: actinobacteria,
-                date: date,
-                bgcs: bgcs,
-                softwareTrimming: softwareTrimming,
-                softwareAssembly: softwareAssembly,
-                parametersAssembly: parametersAssembly,
-                qualityFinal: qualityFinal,
-                comments: comments,
-                sequencingTechnology: sequencingTechnology,
-                link: link
+                actinobacteria: isNullOrEmpty(actinobacteria) ? null : actinobacteria,
+                date: isNullOrEmpty(date) ? null: date,
+                bgcs: isNullOrEmpty(bgcs) ? null : bgcs,
+                softwareTrimming: isNullOrEmpty(softwareTrimming) ? null : softwareTrimming,
+                softwareAssembly: isNullOrEmpty(softwareAssembly) ? null : softwareAssembly,
+                parametersAssembly: isNullOrEmpty(parametersAssembly) ? null : parametersAssembly,
+                qualityFinal: isNullOrEmpty(qualityFinal) ? null : qualityFinal,
+                comments: isNullOrEmpty(comments) ? null : comments,
+                link: isNullOrEmpty(link) ? null : link,
+                sequencingTechnology: isNullOrEmpty(sequencingTechnology) ? null : sequencingTechnology,
             }
         );
 
