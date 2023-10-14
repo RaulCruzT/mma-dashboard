@@ -13,5 +13,8 @@ export interface IProcessedData {
     identification: string;
     alignment: string;
     gapFilling: string;
-    comments: string
+    comments: string;
+    dataSource: string;
+    equipment: string;
+    fileName: string;
 }

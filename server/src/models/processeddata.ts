@@ -3,15 +3,18 @@ import { Schema, InferSchemaType, model } from 'mongoose';
 const processedDataSchema = new Schema({
     creator: { type: Schema.Types.ObjectId, required: true, ref: "User", select: false },
     actinobacteria: { type: Schema.Types.ObjectId, required: true, ref: "Actinobacteria", select: false },
-    massDetection: {type: String, required: true },
-    chromatogramBuilder: {type: String, required: true },
-    deconvolution: {type: String, required: true },
-    isotope: {type: String, required: true },
-    filtered: {type: String, required: true },
+    massDetection: {type: String },
+    chromatogramBuilder: {type: String },
+    deconvolution: {type: String },
+    isotope: {type: String },
+    filtered: {type: String },
     identification: {type: String },
     alignment: {type: String },
     gapFilling: {type: String },
-    comments: {type: String }
+    comments: {type: String },
+    dataSource: {type: String, required: true },
+    equipment: {type: String, required: true },
+    fileName: {type: String, required: true },
 
 }, { timestamps: true });
 
