@@ -1,4 +1,4 @@
-import { List, useDataGrid, EditButton, DeleteButton, useAutocomplete } from "@refinedev/mui";
+import { List, useDataGrid, EditButton, DeleteButton, useAutocomplete, ShowButton } from "@refinedev/mui";
 import { IProcessedData } from "../../interfaces/processeddata";
 import {
     IResourceComponentsProps,
@@ -91,6 +91,11 @@ export const ProcessedDataList: React.FC<IResourceComponentsProps> = () => {
                 renderCell: function render({ row }) {
                     return (
                         <>
+                            <ShowButton
+                                size="small"
+                                hideText
+                                recordItemId={row._id}
+                            />
                             {
                                 (user?.email === row.creator.email || [UserRoles.Admin, UserRoles.Manager].includes(role as UserRoles)) &&
                                 <>
