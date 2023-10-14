@@ -38,7 +38,7 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                                         <TableCell align="right">{queryResult.data?.data.identifierStrain}</TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell variant="head" sx={{fontWeight: 700}}>Genera</TableCell>
+                                        <TableCell variant="head" sx={{fontWeight: 700}}>Genus</TableCell>
                                         <TableCell align="right">{queryResult.data?.data.identifierGenera.name}</TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -132,7 +132,7 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                                         <TableCell align="right">{queryResult.data?.data.isolationMethod}</TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell variant="head" sx={{fontWeight: 700}}>Person in charge</TableCell>
+                                        <TableCell variant="head" sx={{fontWeight: 700}}>Person who isolated it</TableCell>
                                         <TableCell align="right">{queryResult.data?.data.isolationResponsible}</TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -158,7 +158,7 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                     >
-                        <Typography>rRNA 16S</Typography>
+                        <Typography>16S rRNA</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <TableContainer component={Paper}>
@@ -169,7 +169,7 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                                         <TableCell align="right">{queryResult.data?.data.arnr16sCompleteness}</TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell variant="head" sx={{fontWeight: 700}}>Size (?)</TableCell>
+                                        <TableCell variant="head" sx={{fontWeight: 700}}>Size (bp)</TableCell>
                                         <TableCell align="right">{queryResult.data?.data.arnr16sSize}</TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -347,7 +347,7 @@ export const ActinobacteriaShow: React.FC<IResourceComponentsProps> = () => {
                             <Table sx={{ minWidth: 350 }} aria-label="simple table">
                                 <TableBody>
                                     <TableRow>
-                                        <TableCell variant="head" sx={{fontWeight: 700}}>Medina Foundation reports link</TableCell>
+                                        <TableCell variant="head" sx={{fontWeight: 700}}>Fundación Medina reports link</TableCell>
                                         <TableCell align="right"><LinkButton href={queryResult?.data?.data.metabolomicsMedinaFoundationReports} /></TableCell>
                                     </TableRow>
                                     <TableRow>

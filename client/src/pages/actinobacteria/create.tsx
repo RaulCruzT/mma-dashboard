@@ -213,7 +213,7 @@ export const ActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => {
                                                 color: "text.primary",
                                             }}
                                         >
-                                            Genera
+                                            Genus
                                         </FormLabel>
                                         <Controller
                                             control={control}
@@ -807,7 +807,7 @@ export const ActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => {
                                                 color: "text.primary",
                                             }}
                                         >
-                                            Person in charge
+                                            Person who isolated it
                                         </FormLabel>
                                         <TextField
                                             {...register("isolationResponsible", {
@@ -943,7 +943,7 @@ export const ActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                     >
-                        <Typography>rRNA 16S</Typography>
+                        <Typography>16S rRNA</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Grid
@@ -1021,7 +1021,7 @@ export const ActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => {
                                                 color: "text.primary",
                                             }}
                                         >
-                                            Size (?)
+                                            Size (bp)
                                         </FormLabel>
                                         <TextField
                                             {...register("arnr16sSize", {
@@ -2318,7 +2318,7 @@ export const ActinobacteriaCreate: React.FC<IResourceComponentsProps> = () => {
                                                 color: "text.primary",
                                             }}
                                         >
-                                            Medina Foundation reports link
+                                            Fundación Medina reports link
                                         </FormLabel>
                                         <TextField
                                             {...register("metabolomicsMedinaFoundationReports", {

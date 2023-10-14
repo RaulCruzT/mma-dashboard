@@ -65,7 +65,7 @@ export const ActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
             },
             {
                 field: "identifierGenera",
-                headerName: "Genera",
+                headerName: "Genus",
                 flex: 1,
                 sortable: false,
                 filterable: false,
@@ -83,7 +83,7 @@ export const ActinobacteriaList: React.FC<IResourceComponentsProps> = () => {
             },
             {
                 field: "arnr16sCompleteness",
-                headerName: "rRNA 16S",
+                headerName: "16S rRNA",
                 flex: 1,
                 filterOperators: getGridStringOperators().filter(
                     (operator) => operator.value === 'contains'
