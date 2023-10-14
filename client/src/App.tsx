@@ -341,7 +341,7 @@ function App() {
                 {
                   name: "typestrain",
                   options: {
-                    label: "Type Strain"
+                    label: "Antimicrobial"
                   },
                   list: "/typestrain",
                   create: "/typestrain/create",

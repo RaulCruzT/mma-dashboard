@@ -10,7 +10,7 @@ export const TypeStrainList: React.FC<IResourceComponentsProps> = () => {
         initialPageSize: 10,
         errorNotification: () => {
             return {
-                message: 'Something went wrong when getting type strains',
+                message: 'Something went wrong when getting antimicrobial',
                 type: "error",
             };
         },
@@ -44,13 +44,13 @@ export const TypeStrainList: React.FC<IResourceComponentsProps> = () => {
                                 resource="typestrain"
                                 recordItemId={row._id}
                                 mutationMode="undoable"
-                                confirmTitle={`Are you sure to delete ${row.name} type strain?`}
+                                confirmTitle={`Are you sure to delete ${row.name} antimicrobial?`}
                                 successNotification={{
-                                    message: 'Successfully deleted type strain',
+                                    message: 'Successfully deleted antimicrobial',
                                     type: "success",
                                 }}
                                 errorNotification={{
-                                    message: 'Error deleting a type strain',
+                                    message: 'Error deleting an antimicrobial',
                                     type: "error",
                                 }}
                             />
@@ -71,7 +71,7 @@ export const TypeStrainList: React.FC<IResourceComponentsProps> = () => {
     return (
         <Grid container>
             <Grid item xs={12} lg={12}>
-                <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Type Strains</Typography>}>
+                <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Antimicrobial</Typography>}>
                     <DataGrid
                         {...dataGridProps}
                         columns={columns}

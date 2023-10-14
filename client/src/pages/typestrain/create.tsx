@@ -16,13 +16,13 @@ export const TypeStrainCreate: React.FC<IResourceComponentsProps> = () => {
         refineCoreProps: {
             successNotification: () => {
                 return {
-                    message: 'Successfully created type strain',
+                    message: 'Successfully created antimicrobial',
                     type: "success",
                 };
             },
             errorNotification: () => {
                 return {
-                    message: 'Error creating a type strain',
+                    message: 'Error creating a antimicrobial',
                     type: "error",
                 }
             }
@@ -30,7 +30,7 @@ export const TypeStrainCreate: React.FC<IResourceComponentsProps> = () => {
     });
 
     return (
-        <Create isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Type Strain</Typography>}>
+        <Create isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Antimicrobial</Typography>}>
             <form>
                 <Grid
                     container
