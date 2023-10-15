@@ -29,15 +29,9 @@ export const CreateAssembly: RequestHandler<unknown, unknown, AssemblyBodyInterf
             throw createHttpError(404, "User not found");
         }
 
-        const assemblyExists = await AssemblyModel.findOne({ name });
-
-        if (assemblyExists) {
-            throw createHttpError(404, "An assembly with that name already exists");
-        }
-
         await AssemblyModel.create({
             actinobacteria: isNullOrEmpty(actinobacteria) ? null : actinobacteria,
-            date: isNullOrEmpty(date) ? null: new Date(date),
+            date: isNullOrEmpty(date) ? null: (new Date(date)).toISOString().split('T')[0],
             bgcs: isNullOrEmpty(bgcs) ? null : bgcs,
             softwareTrimming: isNullOrEmpty(softwareTrimming) ? null : softwareTrimming,
             softwareAssembly: isNullOrEmpty(softwareAssembly) ? null : softwareAssembly,
@@ -197,19 +191,13 @@ export const EditAssembly: RequestHandler<AssemblyParamsInterface, unknown, Asse
             throw createHttpError(404, "Assembly not found");
         }
 
-        const assemblyExists = await AssemblyModel.findOne({name, _id : {$ne: assembly._id}});
-
-        if (assemblyExists) {
-            throw createHttpError(404, "An assembly with that name already exists");
-        }
-
         await AssemblyModel.findByIdAndUpdate(
             {
                 _id: id
             },
             {
                 actinobacteria: isNullOrEmpty(actinobacteria) ? null : actinobacteria,
-                date: isNullOrEmpty(date) ? null: new Date(date),
+                date: isNullOrEmpty(date) ? null: (new Date(date)).toISOString().split('T')[0],
                 bgcs: isNullOrEmpty(bgcs) ? null : bgcs,
                 softwareTrimming: isNullOrEmpty(softwareTrimming) ? null : softwareTrimming,
                 softwareAssembly: isNullOrEmpty(softwareAssembly) ? null : softwareAssembly,

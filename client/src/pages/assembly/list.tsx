@@ -60,6 +60,9 @@ export const AssemblyList: React.FC<IResourceComponentsProps> = () => {
                 minWidth: 150,
                 flex: 1,
                 filterable: false,
+                renderCell: function render({ row }) {
+                    return row?.date ? (new Date(row.date)).toLocaleDateString("es-CL") : null;
+                }
             },
             {
                 field: "softwareTrimming",
