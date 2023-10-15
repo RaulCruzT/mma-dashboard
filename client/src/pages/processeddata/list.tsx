@@ -55,31 +55,25 @@ export const ProcessedDataList: React.FC<IResourceComponentsProps> = () => {
     const columns = React.useMemo<GridColDef<IProcessedData>[]>(
         () => [
             {
-                field: "massDetection",
-                headerName: "Mass detection",
+                field: "dataSource",
+                headerName: "Data source",
                 minWidth: 150,
                 flex: 1,
-                filterable: false,
+                filterOperators: getGridStringOperators().filter(
+                    (operator) => operator.value === 'contains'
+                )
             },
             {
-                field: "chromatogramBuilder",
-                headerName: "Chromatogram builder",
+                field: "equipment",
+                headerName: "Equipment",
                 flex: 1,
                 filterOperators: getGridStringOperators().filter(
                     (operator) => operator.value === 'contains'
                 )
             },
             {
-                field: "deconvolution",
-                headerName: "Deconvolution",
-                flex: 1,
-                filterOperators: getGridStringOperators().filter(
-                    (operator) => operator.value === 'contains'
-                )
-            },
-            {
-                field: "isotope",
-                headerName: "Isotope",
+                field: "fileName",
+                headerName: "File name",
                 flex: 1,
                 filterOperators: getGridStringOperators().filter(
                     (operator) => operator.value === 'contains'

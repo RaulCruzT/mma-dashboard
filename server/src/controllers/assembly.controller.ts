@@ -47,7 +47,7 @@ export const CreateAssembly: RequestHandler<unknown, unknown, AssemblyBodyInterf
             link: isNullOrEmpty(link) ? null : link,
             sequencingTechnology: isNullOrEmpty(sequencingTechnology) ? null : sequencingTechnology,
             creator: authenticatedUser._id
-        });
+        }).catch(err => console.error(err));
 
         res.status(200).json({ message: "Assembly created successfully" });
     } catch (error) {

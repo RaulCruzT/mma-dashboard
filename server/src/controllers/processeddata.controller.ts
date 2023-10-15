@@ -94,10 +94,9 @@ export const GetProcessedDataPagination: RequestHandler<unknown, unknown, unknow
         _order,
         _start,
         _sort,
-        massDetection_like = "",
-        chromatogramBuilder_like = "",
-        deconvolution_like = "",
-        isotope_like = "",
+        dataSource_like = "",
+        equipment_like = "",
+        fileName_like = "",
         actinobacteria = "",
         person,
     } = req.query;
@@ -112,21 +111,18 @@ export const GetProcessedDataPagination: RequestHandler<unknown, unknown, unknow
 
         let query = {};
 
-        if(massDetection_like) {
-            query = {...query, massDetection: { $regex: massDetection_like, $options: "i" }}
+        if(dataSource_like) {
+            query = {...query, dataSource: { $regex: dataSource_like, $options: "i" }}
         }
 
-        if(chromatogramBuilder_like) {
-            query = {...query, chromatogramBuilder: { $regex: chromatogramBuilder_like, $options: "i" }}
+        if(equipment_like) {
+            query = {...query, equipment: { $regex: equipment_like, $options: "i" }}
         }
 
-        if(deconvolution_like) {
-            query = {...query, deconvolution: { $regex: deconvolution_like, $options: "i" }}
+        if(fileName_like) {
+            query = {...query, fileName: { $regex: fileName_like, $options: "i" }}
         }
 
-        if(isotope_like) {
-            query = {...query, isotope: { $regex: isotope_like, $options: "i" }}
-        }
 
         if(actinobacteria) {
             query = {...query, actinobacteria: new mongoose.Types.ObjectId(actinobacteria) }

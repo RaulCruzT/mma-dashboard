@@ -21,10 +21,9 @@ export interface ProcessedDataBodyInterface {
 }
 
 export interface ProcessedDataPaginationQueryInterface extends PaginationQueryInterface {
-    massDetection_like: string;
-    chromatogramBuilder_like: string;
-    deconvolution_like: string;
-    isotope_like: string;
+    dataSource_like: string;
+    equipment_like: string;
+    fileName_like: string;
     actinobacteria: string;
     person: string;
 }
