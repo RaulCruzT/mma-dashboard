@@ -7,6 +7,8 @@ import { Autocomplete, FormControl, FormHelperText, FormLabel, Grid, Stack, Text
 import { IMyActinobacteria } from "../../interfaces/myactinobacteria";
 import { Nullable } from "../../interfaces/utils";
 import { Controller } from "react-hook-form";
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 export const AssemblyCreate: React.FC<IResourceComponentsProps> = () => {
     const {
@@ -176,6 +178,20 @@ export const AssemblyCreate: React.FC<IResourceComponentsProps> = () => {
                                 >
                                     Date
                                 </FormLabel>
+                                <Controller
+                                    control={control}
+                                    name="date"
+                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                    defaultValue={null as any}
+                                    render={({ field }) => (
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DatePicker
+                                                {...field}
+                                                slotProps={{ textField: { size: 'small' } }}
+                                            />
+                                        </LocalizationProvider>
+                                    )}
+                                />
                                 {errors.date && (
                                     <FormHelperText error>
                                         {errors.date.message}
