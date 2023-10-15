@@ -183,6 +183,7 @@ export const AssemblyCreate: React.FC<IResourceComponentsProps> = () => {
                                     name="date"
                                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                     defaultValue={null as any}
+                                    rules={{ required: true }}
                                     render={({ field }) => (
                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                                             <DatePicker
@@ -195,74 +196,6 @@ export const AssemblyCreate: React.FC<IResourceComponentsProps> = () => {
                                 {errors.date && (
                                     <FormHelperText error>
                                         {errors.date.message}
-                                    </FormHelperText>
-                                )}
-                            </FormControl>
-                        </Stack>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Stack gap="24px">
-                            <FormControl>
-                                <FormLabel
-                                    sx={{
-                                        marginBottom: "8px",
-                                        fontWeight: "700",
-                                        fontSize: "14px",
-                                        color: "text.primary",
-                                    }}
-                                >
-                                    BGCs link
-                                </FormLabel>
-                                <TextField
-                                    {...register("bgcs", {
-                                        required: false,
-                                        maxLength: {
-                                            value: 400,
-                                            message: "You cannot enter more than 400 characters"
-                                        }
-                                    })}
-                                    size="small"
-                                    margin="none"
-                                    variant="outlined"
-                                    type="url"
-                                />
-                                {errors.bgcs && (
-                                    <FormHelperText error>
-                                        {errors.bgcs.message}
-                                    </FormHelperText>
-                                )}
-                            </FormControl>
-                        </Stack>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Stack gap="24px">
-                            <FormControl>
-                                <FormLabel
-                                    sx={{
-                                        marginBottom: "8px",
-                                        fontWeight: "700",
-                                        fontSize: "14px",
-                                        color: "text.primary",
-                                    }}
-                                >
-                                    Assembly link
-                                </FormLabel>
-                                <TextField
-                                    {...register("link", {
-                                        required: false,
-                                        maxLength: {
-                                            value: 400,
-                                            message: "You cannot enter more than 400 characters"
-                                        }
-                                    })}
-                                    size="small"
-                                    margin="none"
-                                    variant="outlined"
-                                    type="url"
-                                />
-                                {errors.link && (
-                                    <FormHelperText error>
-                                        {errors.link.message}
                                     </FormHelperText>
                                 )}
                             </FormControl>
@@ -411,6 +344,74 @@ export const AssemblyCreate: React.FC<IResourceComponentsProps> = () => {
                                 {errors.qualityFinal && (
                                     <FormHelperText error>
                                         {errors.qualityFinal.message}
+                                    </FormHelperText>
+                                )}
+                            </FormControl>
+                        </Stack>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Stack gap="24px">
+                            <FormControl>
+                                <FormLabel
+                                    sx={{
+                                        marginBottom: "8px",
+                                        fontWeight: "700",
+                                        fontSize: "14px",
+                                        color: "text.primary",
+                                    }}
+                                >
+                                    BGCs link
+                                </FormLabel>
+                                <TextField
+                                    {...register("bgcs", {
+                                        required: false,
+                                        maxLength: {
+                                            value: 400,
+                                            message: "You cannot enter more than 400 characters"
+                                        }
+                                    })}
+                                    size="small"
+                                    margin="none"
+                                    variant="outlined"
+                                    type="url"
+                                />
+                                {errors.bgcs && (
+                                    <FormHelperText error>
+                                        {errors.bgcs.message}
+                                    </FormHelperText>
+                                )}
+                            </FormControl>
+                        </Stack>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Stack gap="24px">
+                            <FormControl>
+                                <FormLabel
+                                    sx={{
+                                        marginBottom: "8px",
+                                        fontWeight: "700",
+                                        fontSize: "14px",
+                                        color: "text.primary",
+                                    }}
+                                >
+                                    Assembly link
+                                </FormLabel>
+                                <TextField
+                                    {...register("link", {
+                                        required: false,
+                                        maxLength: {
+                                            value: 400,
+                                            message: "You cannot enter more than 400 characters"
+                                        }
+                                    })}
+                                    size="small"
+                                    margin="none"
+                                    variant="outlined"
+                                    type="url"
+                                />
+                                {errors.link && (
+                                    <FormHelperText error>
+                                        {errors.link.message}
                                     </FormHelperText>
                                 )}
                             </FormControl>
