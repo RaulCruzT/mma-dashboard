@@ -189,6 +189,7 @@ export const AssemblyCreate: React.FC<IResourceComponentsProps> = () => {
                                             <DatePicker
                                                 {...field}
                                                 slotProps={{ textField: { size: 'small' } }}
+                                                format="DD/MM/YYYY"
                                             />
                                         </LocalizationProvider>
                                     )}

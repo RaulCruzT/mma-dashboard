@@ -37,7 +37,7 @@ export const CreateAssembly: RequestHandler<unknown, unknown, AssemblyBodyInterf
 
         await AssemblyModel.create({
             actinobacteria: isNullOrEmpty(actinobacteria) ? null : actinobacteria,
-            date: isNullOrEmpty(date) ? null: date,
+            date: isNullOrEmpty(date) ? null: new Date(date),
             bgcs: isNullOrEmpty(bgcs) ? null : bgcs,
             softwareTrimming: isNullOrEmpty(softwareTrimming) ? null : softwareTrimming,
             softwareAssembly: isNullOrEmpty(softwareAssembly) ? null : softwareAssembly,
@@ -47,7 +47,7 @@ export const CreateAssembly: RequestHandler<unknown, unknown, AssemblyBodyInterf
             link: isNullOrEmpty(link) ? null : link,
             sequencingTechnology: isNullOrEmpty(sequencingTechnology) ? null : sequencingTechnology,
             creator: authenticatedUser._id
-        }).catch(err => console.error(err));
+        }).catch(err => console.log(err));
 
         res.status(200).json({ message: "Assembly created successfully" });
     } catch (error) {
@@ -209,7 +209,7 @@ export const EditAssembly: RequestHandler<AssemblyParamsInterface, unknown, Asse
             },
             {
                 actinobacteria: isNullOrEmpty(actinobacteria) ? null : actinobacteria,
-                date: isNullOrEmpty(date) ? null: date,
+                date: isNullOrEmpty(date) ? null: new Date(date),
                 bgcs: isNullOrEmpty(bgcs) ? null : bgcs,
                 softwareTrimming: isNullOrEmpty(softwareTrimming) ? null : softwareTrimming,
                 softwareAssembly: isNullOrEmpty(softwareAssembly) ? null : softwareAssembly,
@@ -217,7 +217,7 @@ export const EditAssembly: RequestHandler<AssemblyParamsInterface, unknown, Asse
                 qualityFinal: isNullOrEmpty(qualityFinal) ? null : qualityFinal,
                 comments: isNullOrEmpty(comments) ? null : comments,
                 link: isNullOrEmpty(link) ? null : link,
-                sequencingTechnology: isNullOrEmpty(sequencingTechnology) ? null : sequencingTechnology,
+                sequencingTechnology: isNullOrEmpty(sequencingTechnology) ? null : sequencingTechnology
             }
         );
 
