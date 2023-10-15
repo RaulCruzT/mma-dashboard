@@ -17,7 +17,7 @@ export const ProcessedDataShow: React.FC<IResourceComponentsProps> = () => {
     });
 
     return (
-        <Show title={<Typography variant="h5">Show Actinobacteria</Typography>}>
+        <Show title={<Typography variant="h5">Show Processed data</Typography>}>
             <Stack>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 350 }} aria-label="simple table">

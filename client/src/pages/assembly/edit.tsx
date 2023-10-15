@@ -180,29 +180,7 @@ export const AssemblyEdit: React.FC<IResourceComponentsProps> = () => {
                                 >
                                     Date
                                 </FormLabel>
-                                {errors.date && (
-                                    <FormHelperText error>
-                                        {errors.date.message}
-                                    </FormHelperText>
-                                )}
-                            </FormControl>
-                        </Stack>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Stack gap="24px">
-                            <FormControl>
-                                <FormLabel
-                                    required
-                                    sx={{
-                                        marginBottom: "8px",
-                                        fontWeight: "700",
-                                        fontSize: "14px",
-                                        color: "text.primary",
-                                    }}
-                                >
-                                    Date
-                                </FormLabel>
-                                <Controller
+                                {/* <Controller
                                     control={control}
                                     name="date"
                                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -217,7 +195,7 @@ export const AssemblyEdit: React.FC<IResourceComponentsProps> = () => {
                                             />
                                         </LocalizationProvider>
                                     )}
-                                />
+                                /> */}
                                 {errors.date && (
                                     <FormHelperText error>
                                         {errors.date.message}
