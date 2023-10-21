@@ -5,6 +5,7 @@ import {
 import { Paper, Stack, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
 import { Show } from "@refinedev/mui";
 import { IAssembly } from "../../interfaces/assembly";
+import { LinkButton } from "../../components";
 
 export const AssemblyShow: React.FC<IResourceComponentsProps> = () => {
     const { queryResult } = useShow<IAssembly>({
@@ -51,11 +52,19 @@ export const AssemblyShow: React.FC<IResourceComponentsProps> = () => {
                             </TableRow>
                             <TableRow>
                                 <TableCell variant="head" sx={{fontWeight: 700}}>BGCs link</TableCell>
-                                <TableCell align="right">{queryResult.data?.data.bgcs}</TableCell>
+                                <TableCell align="right"><LinkButton href={queryResult?.data?.data.bgcs} /></TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell variant="head" sx={{fontWeight: 700}}>Assembly link</TableCell>
-                                <TableCell align="right">{queryResult.data?.data.link}</TableCell>
+                                <TableCell align="right"><LinkButton href={queryResult?.data?.data.link} /></TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell variant="head" sx={{fontWeight: 700}}>Accession number</TableCell>
+                                <TableCell align="right">{queryResult.data?.data.accessionNumber}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell variant="head" sx={{fontWeight: 700}}>Paper</TableCell>
+                                <TableCell align="right">{queryResult.data?.data.paper}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell variant="head" sx={{fontWeight: 700}}>Comments</TableCell>

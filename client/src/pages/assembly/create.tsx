@@ -418,6 +418,74 @@ export const AssemblyCreate: React.FC<IResourceComponentsProps> = () => {
                             </FormControl>
                         </Stack>
                     </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Stack gap="24px">
+                            <FormControl>
+                                <FormLabel
+                                    sx={{
+                                        marginBottom: "8px",
+                                        fontWeight: "700",
+                                        fontSize: "14px",
+                                        color: "text.primary",
+                                    }}
+                                >
+                                    Accession number
+                                </FormLabel>
+                                <TextField
+                                    {...register("accessionNumber", {
+                                        required: false,
+                                        maxLength: {
+                                            value: 400,
+                                            message: "You cannot enter more than 400 characters"
+                                        }
+                                    })}
+                                    size="small"
+                                    margin="none"
+                                    variant="outlined"
+                                    type="url"
+                                />
+                                {errors.accessionNumber && (
+                                    <FormHelperText error>
+                                        {errors.accessionNumber.message}
+                                    </FormHelperText>
+                                )}
+                            </FormControl>
+                        </Stack>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Stack gap="24px">
+                            <FormControl>
+                                <FormLabel
+                                    sx={{
+                                        marginBottom: "8px",
+                                        fontWeight: "700",
+                                        fontSize: "14px",
+                                        color: "text.primary",
+                                    }}
+                                >
+                                    Paper
+                                </FormLabel>
+                                <TextField
+                                    {...register("paper", {
+                                        required: false,
+                                        maxLength: {
+                                            value: 400,
+                                            message: "You cannot enter more than 400 characters"
+                                        }
+                                    })}
+                                    size="small"
+                                    margin="none"
+                                    variant="outlined"
+                                    type="url"
+                                />
+                                {errors.paper && (
+                                    <FormHelperText error>
+                                        {errors.paper.message}
+                                    </FormHelperText>
+                                )}
+                            </FormControl>
+                        </Stack>
+                    </Grid>
                     <Grid item xs={12} md={12}>
                         <Stack gap="24px">
                             <FormControl>

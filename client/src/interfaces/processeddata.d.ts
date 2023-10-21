@@ -17,4 +17,6 @@ export interface IProcessedData {
     dataSource: string;
     equipment: string;
     fileName: string;
+    massIVEID: string;
+    link: string;
 }

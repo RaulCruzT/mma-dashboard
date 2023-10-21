@@ -14,4 +14,6 @@ export interface IAssembly {
     comments: string;
     link: string;
     sequencingTechnology: string;
+    accessionNumber: string;
+    paper: string;
 }
