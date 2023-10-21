@@ -71,6 +71,14 @@ export const ProcessedDataShow: React.FC<IResourceComponentsProps> = () => {
                                 <TableCell align="right">{queryResult.data?.data.gapFilling}</TableCell>
                             </TableRow>
                             <TableRow>
+                                <TableCell variant="head" sx={{fontWeight: 700}}>MassIVE ID</TableCell>
+                                <TableCell align="right">{queryResult.data?.data.massIVEID}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell variant="head" sx={{fontWeight: 700}}>Processed data link</TableCell>
+                                <TableCell align="right">{queryResult.data?.data.link}</TableCell>
+                            </TableRow>
+                            <TableRow>
                                 <TableCell variant="head" sx={{fontWeight: 700}}>Comments</TableCell>
                                 <TableCell align="right">{queryResult.data?.data.comments}</TableCell>
                             </TableRow>

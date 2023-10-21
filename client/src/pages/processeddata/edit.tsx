@@ -502,6 +502,72 @@ export const ProcessedDataEdit: React.FC<IResourceComponentsProps> = () => {
                             </FormControl>
                         </Stack>
                     </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Stack gap="24px">
+                            <FormControl>
+                                <FormLabel
+                                    sx={{
+                                        marginBottom: "8px",
+                                        fontWeight: "700",
+                                        fontSize: "14px",
+                                        color: "text.primary",
+                                    }}
+                                >
+                                    MassIVE ID
+                                </FormLabel>
+                                <TextField
+                                    {...register("massIVEID", {
+                                        required: false,
+                                        maxLength: {
+                                            value: 100,
+                                            message: "You cannot enter more than 100 characters"
+                                        }
+                                    })}
+                                    size="small"
+                                    margin="none"
+                                    variant="outlined"
+                                />
+                                {errors.massIVEID && (
+                                    <FormHelperText error>
+                                        {errors.massIVEID.message}
+                                    </FormHelperText>
+                                )}
+                            </FormControl>
+                        </Stack>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Stack gap="24px">
+                            <FormControl>
+                                <FormLabel
+                                    sx={{
+                                        marginBottom: "8px",
+                                        fontWeight: "700",
+                                        fontSize: "14px",
+                                        color: "text.primary",
+                                    }}
+                                >
+                                    Processed data link
+                                </FormLabel>
+                                <TextField
+                                    {...register("link", {
+                                        required: false,
+                                        maxLength: {
+                                            value: 100,
+                                            message: "You cannot enter more than 100 characters"
+                                        }
+                                    })}
+                                    size="small"
+                                    margin="none"
+                                    variant="outlined"
+                                />
+                                {errors.link && (
+                                    <FormHelperText error>
+                                        {errors.link.message}
+                                    </FormHelperText>
+                                )}
+                            </FormControl>
+                        </Stack>
+                    </Grid>
                     <Grid item xs={12} md={12}>
                         <Stack gap="24px">
                             <FormControl>
