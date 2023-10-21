@@ -18,7 +18,9 @@ export const CreateAssembly: RequestHandler<unknown, unknown, AssemblyBodyInterf
         qualityFinal,
         comments,
         link,
-        sequencingTechnology
+        sequencingTechnology,
+        accessionNumber,
+        paper
     } = req.body;
     const authenticatedUserEmail = parseJwt(token as string).email;
 
@@ -40,6 +42,8 @@ export const CreateAssembly: RequestHandler<unknown, unknown, AssemblyBodyInterf
             comments: isNullOrEmpty(comments) ? null : comments,
             link: isNullOrEmpty(link) ? null : link,
             sequencingTechnology: isNullOrEmpty(sequencingTechnology) ? null : sequencingTechnology,
+            accessionNumber: isNullOrEmpty(accessionNumber) ? null : accessionNumber,
+            paper: isNullOrEmpty(paper) ? null : paper,
             creator: authenticatedUser._id
         }).catch(err => console.log(err));
 
@@ -164,7 +168,9 @@ export const EditAssembly: RequestHandler<AssemblyParamsInterface, unknown, Asse
         qualityFinal,
         comments,
         sequencingTechnology,
-        link
+        link,
+        accessionNumber,
+        paper
     } = req.body;
     const authenticatedUserEmail = parseJwt(token as string).email;
 
@@ -205,7 +211,9 @@ export const EditAssembly: RequestHandler<AssemblyParamsInterface, unknown, Asse
                 qualityFinal: isNullOrEmpty(qualityFinal) ? null : qualityFinal,
                 comments: isNullOrEmpty(comments) ? null : comments,
                 link: isNullOrEmpty(link) ? null : link,
-                sequencingTechnology: isNullOrEmpty(sequencingTechnology) ? null : sequencingTechnology
+                sequencingTechnology: isNullOrEmpty(sequencingTechnology) ? null : sequencingTechnology,
+                accessionNumber: isNullOrEmpty(accessionNumber) ? null : accessionNumber,
+                paper: isNullOrEmpty(paper) ? null : paper,
             }
         );
 

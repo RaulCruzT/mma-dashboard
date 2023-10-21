@@ -18,6 +18,8 @@ export interface ProcessedDataBodyInterface {
     dataSource: string;
     equipment: string;
     fileName: string;
+    massIVEID: string;
+    link: string;
 }
 
 export interface ProcessedDataPaginationQueryInterface extends PaginationQueryInterface {

@@ -21,7 +21,9 @@ export const CreateProcessedData: RequestHandler<unknown, unknown, ProcessedData
         comments,
         dataSource,
         equipment,
-        fileName
+        fileName,
+        massIVEID,
+        link
     } = req.body;
     const authenticatedUserEmail = parseJwt(token as string).email;
 
@@ -46,6 +48,8 @@ export const CreateProcessedData: RequestHandler<unknown, unknown, ProcessedData
             dataSource: isNullOrEmpty(dataSource) ? null : dataSource,
             equipment: isNullOrEmpty(equipment) ? null : equipment,
             fileName: isNullOrEmpty(fileName) ? null : fileName,
+            massIVEID: isNullOrEmpty(massIVEID) ? null : massIVEID,
+            link: isNullOrEmpty(link) ? null : link,
             creator: authenticatedUser._id
         }).catch(err => console.log(err))
 
@@ -174,7 +178,9 @@ export const EditProcessedData: RequestHandler<ProcessedDataParamsInterface, unk
         comments,
         dataSource,
         equipment,
-        fileName
+        fileName,
+        massIVEID,
+        link
     } = req.body;
     const authenticatedUserEmail = parseJwt(token as string).email;
 
@@ -218,7 +224,9 @@ export const EditProcessedData: RequestHandler<ProcessedDataParamsInterface, unk
                 comments: isNullOrEmpty(comments) ? null: comments,
                 dataSource: isNullOrEmpty(dataSource) ? null : dataSource,
                 equipment: isNullOrEmpty(equipment) ? null : equipment,
-                fileName: isNullOrEmpty(fileName) ? null : fileName
+                fileName: isNullOrEmpty(fileName) ? null : fileName,
+                massIVEID: isNullOrEmpty(massIVEID) ? null : massIVEID,
+                link: isNullOrEmpty(link) ? null : link,
             }
         );
 

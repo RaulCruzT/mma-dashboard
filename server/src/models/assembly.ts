@@ -12,6 +12,8 @@ const assemblySchema = new Schema({
     comments: { type: String },
     link: { type: String, match: [/^(http|https):\/\/[^ "]+$/, 'Please enter a valid URL.'] },
     sequencingTechnology: { type: String, required: true },
+    accessionNumber: { type: String },
+    paper: { type: String },
 }, { timestamps: true });
 
 type Assembly = InferSchemaType<typeof assemblySchema>;

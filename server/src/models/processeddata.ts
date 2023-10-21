@@ -15,7 +15,8 @@ const processedDataSchema = new Schema({
     dataSource: {type: String, required: true },
     equipment: {type: String, required: true },
     fileName: {type: String, required: true },
-
+    massIVEID: {type: String },
+    link: { type: String, match: [/^(http|https):\/\/[^ "]+$/, 'Please enter a valid URL.'] },
 }, { timestamps: true });
 
 type ProcessedData = InferSchemaType<typeof processedDataSchema>;
