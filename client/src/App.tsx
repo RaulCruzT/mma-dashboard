@@ -328,7 +328,7 @@ function App() {
                 {
                   name: "culturemedium",
                   options: {
-                    label: "Culture Medium"
+                    label: "Culture Media"
                   },
                   list: "/culturemedium",
                   create: "/culturemedium/create",

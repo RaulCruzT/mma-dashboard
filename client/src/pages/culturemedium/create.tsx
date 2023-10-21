@@ -15,13 +15,13 @@ export const CultureMediumCreate: React.FC<IResourceComponentsProps> = () => {
         refineCoreProps: {
             successNotification: () => {
                 return {
-                    message: 'Successfully created culture medium',
+                    message: 'Successfully created culture media',
                     type: "success",
                 };
             },
             errorNotification: () => {
                 return {
-                    message: 'Error creating a culture medium',
+                    message: 'Error creating a culture media',
                     type: "error",
                 }
             }
@@ -29,7 +29,7 @@ export const CultureMediumCreate: React.FC<IResourceComponentsProps> = () => {
     });
 
     return (
-        <Create isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Culture Medium</Typography>}>
+        <Create isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Culture Media</Typography>}>
             <form>
                 <Grid
                     container

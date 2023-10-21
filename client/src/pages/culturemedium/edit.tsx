@@ -15,13 +15,13 @@ export const CultureMediumEdit: React.FC<IResourceComponentsProps> = () => {
         refineCoreProps: {
             successNotification: () => {
                 return {
-                    message: 'Successfully updated culture medium',
+                    message: 'Successfully updated culture media',
                     type: "success",
                 };
             },
             errorNotification: () => {
                 return {
-                    message: 'Error updating a culture medium',
+                    message: 'Error updating a culture media',
                     type: "error",
                 }
             }
@@ -29,7 +29,7 @@ export const CultureMediumEdit: React.FC<IResourceComponentsProps> = () => {
     });
 
     return (
-        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Edit Culture Medium</Typography>}>
+        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Edit Culture Media</Typography>}>
             <form>
                 <Grid
                     container

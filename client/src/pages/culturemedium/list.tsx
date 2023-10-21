@@ -10,7 +10,7 @@ export const CultureMediumList: React.FC<IResourceComponentsProps> = () => {
         initialPageSize: 10,
         errorNotification: () => {
             return {
-                message: 'Something went wrong when getting culture mediums',
+                message: 'Something went wrong when getting culture media',
                 type: "error",
             };
         },
@@ -44,13 +44,13 @@ export const CultureMediumList: React.FC<IResourceComponentsProps> = () => {
                                 resource="culturemedium"
                                 recordItemId={row._id}
                                 mutationMode="undoable"
-                                confirmTitle={`Are you sure to delete ${row.name} culture medium?`}
+                                confirmTitle={`Are you sure to delete ${row.name} culture media?`}
                                 successNotification={{
-                                    message: 'Successfully deleted culture medium',
+                                    message: 'Successfully deleted culture media',
                                     type: "success",
                                 }}
                                 errorNotification={{
-                                    message: 'Error deleting a culture medium',
+                                    message: 'Error deleting a culture media',
                                     type: "error",
                                 }}
                             />
@@ -71,7 +71,7 @@ export const CultureMediumList: React.FC<IResourceComponentsProps> = () => {
     return (
         <Grid container>
             <Grid item xs={12} lg={12}>
-                <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Culture Mediums</Typography>}>
+                <List wrapperProps={{ sx: { paddingX: { xs: 2, md: 0 } } }} title={<Typography variant="h5">Culture Media</Typography>}>
                     <DataGrid
                         {...dataGridProps}
                         columns={columns}
