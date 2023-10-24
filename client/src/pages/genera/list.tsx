@@ -47,13 +47,13 @@ export const GeneraList: React.FC<IResourceComponentsProps> = () => {
                                 resource="genera"
                                 recordItemId={row._id}
                                 mutationMode="undoable"
-                                confirmTitle={`Are you sure to delete ${row.name} genera?`}
+                                confirmTitle={`Are you sure to delete ${row.name} genus?`}
                                 successNotification={{
-                                    message: 'Successfully deleted genera',
+                                    message: 'Successfully deleted genus',
                                     type: "success",
                                 }}
                                 errorNotification={{
-                                    message: 'Error deleting a genera',
+                                    message: 'Error deleting a genus',
                                     type: "error",
                                 }}
                             />

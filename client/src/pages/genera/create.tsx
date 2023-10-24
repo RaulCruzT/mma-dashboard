@@ -15,13 +15,13 @@ export const GeneraCreate: React.FC<IResourceComponentsProps> = () => {
         refineCoreProps: {
             successNotification: () => {
                 return {
-                    message: 'Successfully created genera',
+                    message: 'Successfully created genus',
                     type: "success",
                 };
             },
             errorNotification: () => {
                 return {
-                    message: 'Error creating a genera',
+                    message: 'Error creating a genus',
                     type: "error",
                 }
             }
@@ -29,7 +29,7 @@ export const GeneraCreate: React.FC<IResourceComponentsProps> = () => {
     });
 
     return (
-        <Create isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Genera</Typography>}>
+        <Create isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Create Genus</Typography>}>
             <form>
                 <Grid
                     container

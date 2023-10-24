@@ -15,13 +15,13 @@ export const GeneraEdit: React.FC<IResourceComponentsProps> = () => {
         refineCoreProps: {
             successNotification: () => {
                 return {
-                    message: 'Successfully updated genera',
+                    message: 'Successfully updated genus',
                     type: "success",
                 };
             },
             errorNotification: () => {
                 return {
-                    message: 'Error updating a genera',
+                    message: 'Error updating a genus',
                     type: "error",
                 }
             }
@@ -29,7 +29,7 @@ export const GeneraEdit: React.FC<IResourceComponentsProps> = () => {
     });
 
     return (
-        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Edit Genera</Typography>}>
+        <Edit isLoading={formLoading} saveButtonProps={saveButtonProps} title={<Typography variant="h5">Edit Genus</Typography>}>
             <form>
                 <Grid
                     container
