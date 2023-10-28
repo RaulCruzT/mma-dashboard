@@ -76,8 +76,7 @@ export const AssemblyCreate: React.FC<IResourceComponentsProps> = () => {
                                     control={control}
                                     name="actinobacteria"
                                     rules={{ required: "required" }}
-                                    // eslint-disable-next-line
-                                    defaultValue={null as any}
+                                    defaultValue={null}
                                     render={({ field }) => (
                                         <Autocomplete
                                             size="small"

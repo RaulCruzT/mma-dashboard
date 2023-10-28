@@ -183,7 +183,7 @@ export const AssemblyEdit: React.FC<IResourceComponentsProps> = () => {
                                 </FormLabel>
                                 <Controller
                                     control={control}
-                                    defaultValue={dayjs('2022-04-17T15:30')}
+                                    defaultValue={null}
                                     name="date"
                                     rules={{ required: true }}
                                     render={({ field: { onChange, value, ref } }) => (
