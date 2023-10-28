@@ -96,8 +96,7 @@ export const GetUserPagination: RequestHandler<unknown, unknown, unknown, UserPa
             .limit(_end)
             .skip(_start)
             .collation({ locale: 'en', strength: 2 })
-            .sort({[_sort]: _order})
-            .sort({name : 1});
+            .sort({[_sort]: _order});
 
         const totalCount = await UserModel.find(query).countDocuments().exec();
 

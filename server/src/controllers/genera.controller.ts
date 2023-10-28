@@ -107,8 +107,7 @@ export const GetGeneraPagination: RequestHandler<unknown, unknown, unknown, Gene
             .skip(_start)
             .limit(_end)
             .collation({ locale: 'en', strength: 2 })
-            .sort({[_sort]: _order})
-            .sort({name : 1});
+            .sort({[_sort]: _order});
 
         const totalCount = await GeneraModel.find(query).countDocuments();
 

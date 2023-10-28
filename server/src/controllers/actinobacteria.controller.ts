@@ -253,6 +253,7 @@ export const GetActinobacteriaPagination: RequestHandler<unknown, unknown, unkno
         const actinobacteria = await ActinobacteriaModel.find(query)
             .skip(_start)
             .limit(_end)
+            .collation({ locale: 'en', strength: 2 })
             .sort({[_sort]: _order})
             . populate({
                 path:'identifierGenera',
