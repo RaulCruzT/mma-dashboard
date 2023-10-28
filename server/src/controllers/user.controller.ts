@@ -81,8 +81,6 @@ export const GetUserPagination: RequestHandler<unknown, unknown, unknown, UserPa
             throw createHttpError(401, "You cannot access the user list");
         }
 
-        let users;
-
         let query = {};
 
         if(name_like) {
@@ -93,20 +91,13 @@ export const GetUserPagination: RequestHandler<unknown, unknown, unknown, UserPa
             query = {...query, email: { $regex: email_like}}
         }
 
-        if (_order && _sort) {
-            users = await UserModel.find(query)
+        const users = await UserModel.find(query)
             .select("+email")
             .limit(_end)
             .skip(_start)
+            .collation({ locale: 'en', strength: 2 })
             .sort({[_sort]: _order})
-            .exec();
-        } else{
-            users = await UserModel.find(query)
-            .select("+email")
-            .limit(_end)
-            .skip(_start)
-            .exec();
-        }
+            .sort({name : 1});
 
         const totalCount = await UserModel.find(query).countDocuments().exec();
 

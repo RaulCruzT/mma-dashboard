@@ -106,7 +106,9 @@ export const GetEnzymePagination: RequestHandler<unknown, unknown, unknown, Enzy
         const enzyme = await EnzymeModel.find(query)
             .limit(_end)
             .skip(_start)
-            .sort({[_sort]: _order});
+            .collation({ locale: 'en', strength: 2 })
+            .sort({[_sort]: _order})
+            .sort({name : 1});
 
         const totalCount = await EnzymeModel.find(query).countDocuments();
 
