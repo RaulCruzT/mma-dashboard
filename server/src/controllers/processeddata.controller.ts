@@ -145,7 +145,8 @@ export const GetProcessedDataPagination: RequestHandler<unknown, unknown, unknow
         const processeddata = await ProcessedDataModel.find(query)
             .skip(_start)
             .limit(_end)
-            .sort({[_sort]: _order})
+            .collation({ locale: 'en', strength: 2 })
+            .sort(_sort ? {[_sort]: _order} : {dataSource: 1})
             .populate({
                 path: 'creator',
                 select: 'name email'

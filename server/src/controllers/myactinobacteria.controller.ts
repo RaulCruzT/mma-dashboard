@@ -48,7 +48,7 @@ export const GetMyActinobacteriaPagination: RequestHandler<unknown, unknown, unk
         const actinobacteria = await ActinobacteriaModel.find(query)
             .skip(_start)
             .limit(_end)
-            .sort({[_sort]: _order})
+            .sort(_sort ? {[_sort]: _order} : {identifierStrain: 1})
             . populate({
                 path:'identifierGenera',
                 select:'name'

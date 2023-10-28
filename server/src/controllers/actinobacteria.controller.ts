@@ -254,7 +254,7 @@ export const GetActinobacteriaPagination: RequestHandler<unknown, unknown, unkno
             .skip(_start)
             .limit(_end)
             .collation({ locale: 'en', strength: 2 })
-            .sort({[_sort]: _order})
+            .sort(_sort ? {[_sort]: _order} : {identifierStrain: 1})
             . populate({
                 path:'identifierGenera',
                 select:'name'

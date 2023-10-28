@@ -138,7 +138,8 @@ export const GetAssemblyPagination: RequestHandler<unknown, unknown, unknown, As
         const assembly = await AssemblyModel.find(query)
             .skip(_start)
             .limit(_end)
-            .sort({[_sort]: _order})
+            .collation({ locale: 'en', strength: 2 })
+            .sort(_sort ? {[_sort]: _order} : {date: 1})
             .populate({
                 path: 'creator',
                 select: 'name email'
