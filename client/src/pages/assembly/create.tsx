@@ -8,7 +8,8 @@ import { IMyActinobacteria } from "../../interfaces/myactinobacteria";
 import { Nullable } from "../../interfaces/utils";
 import { Controller } from "react-hook-form";
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs, { Dayjs } from "dayjs";
 
 export const AssemblyCreate: React.FC<IResourceComponentsProps> = () => {
     const {
@@ -180,14 +181,16 @@ export const AssemblyCreate: React.FC<IResourceComponentsProps> = () => {
                                 </FormLabel>
                                 <Controller
                                     control={control}
+                                    defaultValue={dayjs('2022-04-17T15:30')}
                                     name="date"
-                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                    defaultValue={null as any}
                                     rules={{ required: true }}
-                                    render={({ field }) => (
+                                    render={({ field: { onChange, value, ref } }) => (
                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                                             <DatePicker
-                                                {...field}
+                                                onChange={onChange}
+                                                onAccept={onChange}
+                                                value={dayjs(value)}
+                                                inputRef={ref}
                                                 slotProps={{ textField: { size: 'small' } }}
                                                 format="DD/MM/YYYY"
                                             />

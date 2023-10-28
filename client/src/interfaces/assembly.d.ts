@@ -1,11 +1,12 @@
 import { IMyActinobacteria } from "./myactinobacteria";
 import { IUser } from "./user";
+import { Dayjs } from "dayjs";
 
 export interface IAssembly {
     _id: string;
     creator: IUser
     actinobacteria: IMyActinobacteria;
-    date: string;
+    date: Dayjs;
     bgcs: string;
     softwareTrimming: string;
     softwareAssembly: string;

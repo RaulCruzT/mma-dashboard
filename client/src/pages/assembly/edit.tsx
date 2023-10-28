@@ -8,7 +8,8 @@ import { Controller } from "react-hook-form";
 import { Nullable } from "../../interfaces/utils";
 import { IMyActinobacteria } from "../../interfaces/myactinobacteria";
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs, { Dayjs } from "dayjs";
 
 export const AssemblyEdit: React.FC<IResourceComponentsProps> = () => {
     const {
@@ -180,22 +181,24 @@ export const AssemblyEdit: React.FC<IResourceComponentsProps> = () => {
                                 >
                                     Date
                                 </FormLabel>
-                                {/* <Controller
+                                <Controller
                                     control={control}
+                                    defaultValue={dayjs('2022-04-17T15:30')}
                                     name="date"
-                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                    defaultValue={null as any}
                                     rules={{ required: true }}
-                                    render={({ field }) => (
+                                    render={({ field: { onChange, value, ref } }) => (
                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                                             <DatePicker
-                                                {...field}
+                                                onChange={onChange}
+                                                onAccept={onChange}
+                                                value={dayjs(value)}
+                                                inputRef={ref}
                                                 slotProps={{ textField: { size: 'small' } }}
                                                 format="DD/MM/YYYY"
                                             />
                                         </LocalizationProvider>
                                     )}
-                                /> */}
+                                />
                                 {errors.date && (
                                     <FormHelperText error>
                                         {errors.date.message}
