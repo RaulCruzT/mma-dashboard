@@ -21,6 +21,7 @@ import { IUser } from "../../interfaces/user";
 import { CreatorOptions, UserRoles } from "../../enums/user.enum";
 import { IAssemblyFilterVariables } from "../../interfaces/utils";
 import { Autocomplete, Box, Button, Card, CardContent, CardHeader, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import dayjs from 'dayjs';
 
 export const AssemblyList: React.FC<IResourceComponentsProps> = () => {
     const { data: user } = useGetIdentity<IUser>();
@@ -60,9 +61,9 @@ export const AssemblyList: React.FC<IResourceComponentsProps> = () => {
                 minWidth: 150,
                 flex: 1,
                 filterable: false,
-                // renderCell: function render({ row }) {
-                //     return row?.date ? (new Date(row.date)).toLocaleDateString("es-CL") : null;
-                // }
+                renderCell: function render({ row }) {
+                    return row?.date ? dayjs(row.date).format('DD/MM/YYYY') : null;
+                }
             },
             {
                 field: "softwareTrimming",
