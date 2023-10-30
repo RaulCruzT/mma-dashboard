@@ -22,6 +22,8 @@ import { CreatorOptions, UserRoles } from "../../enums/user.enum";
 import { IAssemblyFilterVariables } from "../../interfaces/utils";
 import { Autocomplete, Box, Button, Card, CardContent, CardHeader, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 export const AssemblyList: React.FC<IResourceComponentsProps> = () => {
     const { data: user } = useGetIdentity<IUser>();

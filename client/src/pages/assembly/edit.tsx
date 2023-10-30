@@ -10,6 +10,8 @@ import { IMyActinobacteria } from "../../interfaces/myactinobacteria";
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from "dayjs";
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 export const AssemblyEdit: React.FC<IResourceComponentsProps> = () => {
     const {

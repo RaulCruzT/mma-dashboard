@@ -10,6 +10,8 @@ import { Controller } from "react-hook-form";
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from "dayjs";
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 export const AssemblyCreate: React.FC<IResourceComponentsProps> = () => {
     const {
@@ -180,7 +182,7 @@ export const AssemblyCreate: React.FC<IResourceComponentsProps> = () => {
                                 </FormLabel>
                                 <Controller
                                     control={control}
-                                    defaultValue={dayjs('2022-04-17T15:30')}
+                                    defaultValue={dayjs.utc()}
                                     name="date"
                                     rules={{ required: true }}
                                     render={({ field: { onChange, value, ref } }) => (

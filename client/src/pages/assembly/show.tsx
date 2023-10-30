@@ -8,6 +8,7 @@ import { IAssembly } from "../../interfaces/assembly";
 import { LinkButton } from "../../components";
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 export const AssemblyShow: React.FC<IResourceComponentsProps> = () => {
     const { queryResult } = useShow<IAssembly>({
