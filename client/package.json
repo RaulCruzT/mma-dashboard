@@ -24,6 +24,7 @@
     "@refinedev/simple-rest": "^4.5.4",
     "axios": "^0.26.1",
     "casbin": "^5.26.1",
+    "dayjs": "^1.11.10",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.30.0",

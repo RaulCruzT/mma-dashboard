@@ -9,7 +9,7 @@ import { Nullable } from "../../interfaces/utils";
 import { IMyActinobacteria } from "../../interfaces/myactinobacteria";
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 
 export const AssemblyEdit: React.FC<IResourceComponentsProps> = () => {
     const {
@@ -191,7 +191,7 @@ export const AssemblyEdit: React.FC<IResourceComponentsProps> = () => {
                                             <DatePicker
                                                 onChange={onChange}
                                                 onAccept={onChange}
-                                                value={dayjs(value)}
+                                                value={dayjs.utc(value)}
                                                 inputRef={ref}
                                                 slotProps={{ textField: { size: 'small' } }}
                                                 format="DD/MM/YYYY"

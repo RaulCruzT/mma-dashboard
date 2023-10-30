@@ -6,6 +6,8 @@ import { Paper, Stack, Table, TableBody, TableCell, TableContainer, TableRow, Ty
 import { Show } from "@refinedev/mui";
 import { IAssembly } from "../../interfaces/assembly";
 import { LinkButton } from "../../components";
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 
 export const AssemblyShow: React.FC<IResourceComponentsProps> = () => {
     const { queryResult } = useShow<IAssembly>({
@@ -32,7 +34,7 @@ export const AssemblyShow: React.FC<IResourceComponentsProps> = () => {
                             </TableRow>
                             <TableRow>
                                 <TableCell variant="head" sx={{fontWeight: 700}}>Date</TableCell>
-                                <TableCell align="right">{queryResult.data?.data.date ? (new Date(queryResult.data?.data.date)).toLocaleDateString("es-CL") : null}</TableCell>
+                                <TableCell align="right">{queryResult.data?.data.date ? dayjs.utc(queryResult.data?.data.date).format('DD/MM/YYYY') : null}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell variant="head" sx={{fontWeight: 700}}>Software trimming</TableCell>

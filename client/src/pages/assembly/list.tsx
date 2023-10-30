@@ -62,7 +62,7 @@ export const AssemblyList: React.FC<IResourceComponentsProps> = () => {
                 flex: 1,
                 filterable: false,
                 renderCell: function render({ row }) {
-                    return row?.date ? dayjs(row.date).format('DD/MM/YYYY') : null;
+                    return row?.date ? dayjs.utc(row.date).format('DD/MM/YYYY') : null;
                 }
             },
             {
