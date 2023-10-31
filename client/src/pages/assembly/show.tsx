@@ -26,51 +26,51 @@ export const AssemblyShow: React.FC<IResourceComponentsProps> = () => {
                     <Table sx={{ minWidth: 350 }} aria-label="simple table">
                         <TableBody>
                             <TableRow>
-                                <TableCell variant="head" sx={{fontWeight: 700}}>Actinobacteria</TableCell>
+                                <TableCell variant="head" sx={{fontWeight: 700, verticalAlign: 'top'}}>Actinobacteria</TableCell>
                                 <TableCell align="right">{queryResult.data?.data.actinobacteria.identifierStrain}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell variant="head" sx={{fontWeight: 700}}>Sequencing technology</TableCell>
+                                <TableCell variant="head" sx={{fontWeight: 700, verticalAlign: 'top'}}>Sequencing technology</TableCell>
                                 <TableCell align="right">{queryResult.data?.data.sequencingTechnology}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell variant="head" sx={{fontWeight: 700}}>Date</TableCell>
+                                <TableCell variant="head" sx={{fontWeight: 700, verticalAlign: 'top'}}>Date</TableCell>
                                 <TableCell align="right">{queryResult.data?.data.date ? dayjs.utc(queryResult.data?.data.date).format('DD/MM/YYYY') : null}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell variant="head" sx={{fontWeight: 700}}>Software trimming</TableCell>
+                                <TableCell variant="head" sx={{fontWeight: 700, verticalAlign: 'top'}}>Software trimming</TableCell>
                                 <TableCell align="right">{queryResult.data?.data.softwareTrimming}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell variant="head" sx={{fontWeight: 700}}>Software assemby</TableCell>
+                                <TableCell variant="head" sx={{fontWeight: 700, verticalAlign: 'top'}}>Software assemby</TableCell>
                                 <TableCell align="right">{queryResult.data?.data.softwareAssembly}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell variant="head" sx={{fontWeight: 700}}>Parameters assembly</TableCell>
+                                <TableCell variant="head" sx={{fontWeight: 700, verticalAlign: 'top'}}>Parameters assembly</TableCell>
                                 <TableCell align="right">{queryResult.data?.data.parametersAssembly}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell variant="head" sx={{fontWeight: 700}}>Quality final</TableCell>
+                                <TableCell variant="head" sx={{fontWeight: 700, verticalAlign: 'top'}}>Quality final</TableCell>
                                 <TableCell align="right">{queryResult.data?.data.qualityFinal}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell variant="head" sx={{fontWeight: 700}}>BGCs link</TableCell>
-                                <TableCell align="right"><LinkButton href={queryResult?.data?.data.bgcs} /></TableCell>
+                                <TableCell variant="head" sx={{fontWeight: 700, verticalAlign: 'top'}}>BGCs link</TableCell>
+                                <TableCell align="right" sx={{display: "flex", justifyContent: "flex-start"}}><LinkButton href={queryResult?.data?.data.bgcs} /></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell variant="head" sx={{fontWeight: 700}}>Assembly link</TableCell>
-                                <TableCell align="right"><LinkButton href={queryResult?.data?.data.link} /></TableCell>
+                                <TableCell variant="head" sx={{fontWeight: 700, verticalAlign: 'top'}}>Assembly link</TableCell>
+                                <TableCell align="right" sx={{display: "flex", justifyContent: "flex-start"}}><LinkButton href={queryResult?.data?.data.link} /></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell variant="head" sx={{fontWeight: 700}}>Accession number</TableCell>
+                                <TableCell variant="head" sx={{fontWeight: 700, verticalAlign: 'top'}}>Accession number</TableCell>
                                 <TableCell align="right">{queryResult.data?.data.accessionNumber}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell variant="head" sx={{fontWeight: 700}}>Paper</TableCell>
+                                <TableCell variant="head" sx={{fontWeight: 700, verticalAlign: 'top'}}>Paper</TableCell>
                                 <TableCell align="right">{queryResult.data?.data.paper}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell variant="head" sx={{fontWeight: 700}}>Comments</TableCell>
+                                <TableCell variant="head" sx={{fontWeight: 700, verticalAlign: 'top'}}>Comments</TableCell>
                                 <TableCell align="right">{queryResult.data?.data.comments}</TableCell>
                             </TableRow>
                         </TableBody>
