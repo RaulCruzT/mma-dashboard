@@ -89,7 +89,6 @@ import {
 } from "./pages/enzyme";
 import { Login } from "./pages/login";
 import { parseJwt } from "./utils/parse-jwt";
-import { useState } from "react";
 import { UserRoles } from "./enums/user.enum";
 
 const axiosInstance = axios.create();
