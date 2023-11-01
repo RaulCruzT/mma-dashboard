@@ -58,6 +58,16 @@ export const AssemblyList: React.FC<IResourceComponentsProps> = () => {
     const columns = React.useMemo<GridColDef<IAssembly>[]>(
         () => [
             {
+                field: "actinobacteria",
+                headerName: "Actinobacteria",
+                flex: 1,
+                sortable: false,
+                filterable: false,
+                renderCell: function render({ row }) {
+                    return row?.actinobacteria?.identifierStrain;
+                }
+            },
+            {
                 field: "date",
                 headerName: "Date",
                 minWidth: 150,

@@ -148,6 +148,10 @@ export const GetProcessedDataPagination: RequestHandler<unknown, unknown, unknow
             .collation({ locale: 'en', strength: 2 })
             .sort(_sort ? {[_sort]: _order} : {dataSource: 1})
             .populate({
+                path: 'actinobacteria',
+                select: 'identifierStrain'
+            })
+            .populate({
                 path: 'creator',
                 select: 'name email'
             }).exec();

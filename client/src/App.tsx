@@ -255,14 +255,14 @@ function App() {
               routerProvider={routerBindings}
               accessControlProvider={accessControlProvider}
               resources={[
-                // {
-                //   name: "dashboard",
-                //   options: {
-                //     label: "Dashboard"
-                //   },
-                //   list: "/",
-                //   icon: <Dashboard />,
-                // },
+                {
+                  name: "dashboard",
+                  options: {
+                    label: "Dashboard"
+                  },
+                  list: "/",
+                  icon: <Dashboard />,
+                },
                 {
                   name: "actinobacteria",
                   options: {
@@ -399,9 +399,7 @@ function App() {
                 >
                   <Route
                       index
-                      element={
-                          <NavigateToResource resource="actinobacteria" />
-                      }
+                      element={<DashboardPage />}
                   />
                   <Route path="/actinobacteria">
                     <Route index element={<ActinobacteriaList />} />

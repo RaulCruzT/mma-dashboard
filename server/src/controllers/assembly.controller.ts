@@ -141,6 +141,10 @@ export const GetAssemblyPagination: RequestHandler<unknown, unknown, unknown, As
             .collation({ locale: 'en', strength: 2 })
             .sort(_sort ? {[_sort]: _order} : {date: 1})
             .populate({
+                path: 'actinobacteria',
+                select: 'identifierStrain'
+            })
+            .populate({
                 path: 'creator',
                 select: 'name email'
             }).exec();
