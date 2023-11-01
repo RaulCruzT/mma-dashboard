@@ -18,6 +18,8 @@ m = g(r.sub, p.sub) && keyMatch(r.obj, p.obj) && regexMatch(r.act, p.act)
 `);
 
 export const adapter = new StringAdapter(`
+p, user, dashboard, (list)
+
 p, user, actinobacteria, (list)|(create)
 p, user, actinobacteria/*, (edit)|(show)|(delete)
 
@@ -26,6 +28,8 @@ p, user, assembly/*, (edit)|(show)|(delete)
 
 p, user, processeddata, (list)|(create)
 p, user, processeddata/*, (edit)|(show)|(delete)
+
+p, manager, dashboard, (list)
 
 p, manager, actinobacteria, (list)|(create)
 p, manager, actinobacteria/*, (edit)|(show)|(delete)
@@ -47,6 +51,8 @@ p, manager, typestrain/*, (edit)|(delete)
 
 p, manager, enzyme, (list)|(create)
 p, manager, enzyme/*, (edit)|(delete)
+
+p, admin, dashboard, (list)
 
 p, admin, actinobacteria, (list)|(create)
 p, admin, actinobacteria/*, (edit)|(show)|(delete)

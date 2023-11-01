@@ -26,7 +26,8 @@ import {
   LooksOne,
   LooksTwo,
   Looks3,
-  Looks4
+  Looks4,
+  Dashboard
 } from "@mui/icons-material";
 
 import CssBaseline from "@mui/material/CssBaseline";
@@ -43,6 +44,7 @@ import { AppIcon } from "./components/app-icon";
 import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 import { CredentialResponse } from "./interfaces/google";
+import { DashboardPage } from "./pages/dashboard";
 import {
   ActinobacteriaList,
   ActinobacteriaShow,
@@ -105,7 +107,7 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
 });
 
 function App() {
-  const [role, setRole] = useState<string>();
+  // const [role, setRole] = useState<string>();
 
   const authProvider: AuthBindings = {
     login: async ({ credential }: CredentialResponse) => {
@@ -138,7 +140,7 @@ function App() {
                 }),
             );
             localStorage.setItem("role", data.role);
-            setRole(data.role);
+            // setRole(data.role);
         } else {
             return Promise.reject();
         }
@@ -178,11 +180,12 @@ function App() {
       return { error };
     },
     check: async () => {
+      // console.log("Hola");
       const token = localStorage.getItem("token");
-      const role = localStorage.getItem("role") ?? UserRoles.User;
+      // const role = localStorage.getItem("role") ?? UserRoles.User;
 
       if (token) {
-        setRole(role);
+        // setRole(role);
         return {
           authenticated: true,
         };
@@ -212,6 +215,7 @@ function App() {
   const accessControlProvider: AccessControlProvider = {
     can: async ({ action, params, resource }) => {
         const enforcer = await newEnforcer(model, adapter);
+        const role = localStorage.getItem("role") ?? UserRoles.User;
         if (
             action === "delete" ||
             action === "edit" ||
@@ -258,6 +262,14 @@ function App() {
               routerProvider={routerBindings}
               accessControlProvider={accessControlProvider}
               resources={[
+                // {
+                //   name: "dashboard",
+                //   options: {
+                //     label: "Dashboard"
+                //   },
+                //   list: "/",
+                //   icon: <Dashboard />,
+                // },
                 {
                   name: "actinobacteria",
                   options: {
@@ -393,8 +405,10 @@ function App() {
                   }
                 >
                   <Route
-                    index
-                    element={<NavigateToResource resource="actinobacteria" />}
+                      index
+                      element={
+                          <NavigateToResource resource="actinobacteria" />
+                      }
                   />
                   <Route path="/actinobacteria">
                     <Route index element={<ActinobacteriaList />} />
@@ -442,15 +456,25 @@ function App() {
                 </Route>
                 <Route
                   element={
-                    <Authenticated fallback={<Outlet />}>
-                      <NavigateToResource />
-                    </Authenticated>
+                      <Authenticated fallback={<Outlet />}>
+                          <NavigateToResource resource="actinobacteria" />
+                      </Authenticated>
                   }
                 >
                   <Route path="/login" element={<Login />} />
                 </Route>
+                <Route
+                  element={
+                      <Authenticated>
+                          <ThemedLayoutV2>
+                              <Outlet />
+                          </ThemedLayoutV2>
+                      </Authenticated>
+                  }
+                >
+                  <Route path="*" element={<ErrorComponent />} />
+                </Route>
               </Routes>
-
               <RefineKbar />
               <UnsavedChangesNotifier />
             </Refine>
