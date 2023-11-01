@@ -107,8 +107,6 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
 });
 
 function App() {
-  // const [role, setRole] = useState<string>();
-
   const authProvider: AuthBindings = {
     login: async ({ credential }: CredentialResponse) => {
       const profileObj = credential ? parseJwt(credential) : null;
@@ -140,7 +138,6 @@ function App() {
                 }),
             );
             localStorage.setItem("role", data.role);
-            // setRole(data.role);
         } else {
             return Promise.reject();
         }
@@ -180,12 +177,9 @@ function App() {
       return { error };
     },
     check: async () => {
-      // console.log("Hola");
       const token = localStorage.getItem("token");
-      // const role = localStorage.getItem("role") ?? UserRoles.User;
 
       if (token) {
-        // setRole(role);
         return {
           authenticated: true,
         };
