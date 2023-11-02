@@ -26,8 +26,7 @@ import {
   LooksOne,
   LooksTwo,
   Looks3,
-  Looks4,
-  Dashboard
+  Looks4
 } from "@mui/icons-material";
 
 import CssBaseline from "@mui/material/CssBaseline";
@@ -44,7 +43,6 @@ import { AppIcon } from "./components/app-icon";
 import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 import { CredentialResponse } from "./interfaces/google";
-import { DashboardPage } from "./pages/dashboard";
 import {
   ActinobacteriaList,
   ActinobacteriaShow,
@@ -258,10 +256,10 @@ function App() {
                 {
                   name: "dashboard",
                   options: {
-                    label: "Dashboard"
+                    label: "Dashboard",
+                    hide: true
                   },
                   list: "/",
-                  icon: <Dashboard />,
                 },
                 {
                   name: "actinobacteria",
@@ -399,7 +397,7 @@ function App() {
                 >
                   <Route
                       index
-                      element={<DashboardPage />}
+                      element={<NavigateToResource resource="actinobacteria" />}
                   />
                   <Route path="/actinobacteria">
                     <Route index element={<ActinobacteriaList />} />
