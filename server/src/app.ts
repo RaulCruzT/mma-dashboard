@@ -5,11 +5,12 @@ import cors from "cors";
 import createHttpError, { isHttpError } from "http-errors";
 import { actinobacteriaRoutes, assemblyRoutes, authRoutes, cultureMediumRoutes, enzymeRoutes, generaRoutes, myActinobacteriaRoutes, processedDataRoutes, typeStrainRoutes, usersRoutes } from "./routes";
 import { requiresAuth } from "./middleware/auth";
+import env from "./utils/validateEnv";
 
 const app = express();
 
 app.use(cors({
-    "origin": "http://localhost:5173",
+    "origin": env.URL_FRONTEND,
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
     "credentials": true,
 }));
